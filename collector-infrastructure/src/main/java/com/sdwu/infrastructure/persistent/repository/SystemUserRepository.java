@@ -16,6 +16,8 @@ public class SystemUserRepository implements ISystemUserRepository {
     @Resource
     private ISystemUserDao systemUserDao;
 
+
+
     @Override
     public SystemUser findByUserName(String username) {
         SystemUserPO systemUserPO = null;

@@ -40,4 +40,9 @@ public class SystemUser {
     private Date loginDate;
 
 
+    public static boolean isAdmin(Long userId)
+    {
+        return userId != null && 1L == userId;
+    }
+
 }

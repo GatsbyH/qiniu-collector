@@ -1,0 +1,14 @@
+package com.sdwu.infrastructure.persistent.dao;
+
+import com.sdwu.infrastructure.persistent.po.SysRoleMenuPO;
+import com.sdwu.infrastructure.persistent.utils.BaseMapperX;
+import com.sdwu.infrastructure.persistent.utils.LambdaQueryWrapperX;
+
+import java.util.List;
+import java.util.Set;
+
+public interface ISysRoleMenuDao extends BaseMapperX<SysRoleMenuPO> {
+    default List<SysRoleMenuPO> selectRoleMenuByRoleIds(Set<Long> roleIds){
+        return selectList(new LambdaQueryWrapperX<SysRoleMenuPO>().inIfPresent(SysRoleMenuPO::getRoleId, roleIds));
+    };
+}

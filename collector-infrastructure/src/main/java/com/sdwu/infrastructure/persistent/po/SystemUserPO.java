@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("system_user")
+@TableName("sys_user")
 public class SystemUserPO extends BaseDO implements Serializable {
 
     @TableId(value = "user_id", type = IdType.AUTO)

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 @Data
 @Builder
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Response<T> implements Serializable {
 
-    private String code;
+    private Integer code;
     private String info;
     private T data;
 
@@ -35,4 +36,19 @@ public class Response<T> implements Serializable {
                 .build();
     }
 
+
+    /**
+     * 方便链式调用
+     *
+     * @param key   键
+     * @param value 值
+     * @return 数据对象
+     */
+    public Response<T> put(String key, Object value) {
+        if (data == null) {
+            data = (T) new HashMap<String, Object>();
+        }
+        ((HashMap<String, Object>) data).put(key, value);
+        return this;
+    }
 }
