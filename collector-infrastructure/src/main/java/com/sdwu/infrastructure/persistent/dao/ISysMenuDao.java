@@ -12,4 +12,8 @@ public interface ISysMenuDao extends BaseMapperX<SysMenuPO> {
 
 
     List<SysMenuPO> selectMenuByMenuIds(Set<Long> menuIds);
+
+    List<SysMenuPO> selectMenuTreeAll();
+
+    List<SysMenuPO> selectMenuTreeByUserId(Long userId);
 }

@@ -1,4 +1,4 @@
-package com.sdwu.domain.sysuser.repository;
+package com.sdwu.domain.sysuser.service;
 
 import com.sdwu.domain.sysuser.model.entity.SysMenu;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
@@ -6,8 +6,7 @@ import com.sdwu.domain.sysuser.model.valobj.RouterVo;
 
 import java.util.List;
 
-public interface ISysMenuPermRepository {
-    List<String> findMenuPermListByUserId(Long userId);
+public interface IMenuService {
 
     List<SysMenu> selectMenuTreeByUserId(SystemUser user);
 

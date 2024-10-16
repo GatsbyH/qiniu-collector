@@ -1,101 +1,72 @@
-package com.sdwu.infrastructure.persistent.po;
+package com.sdwu.domain.sysuser.model.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.sdwu.domain.sysuser.model.entity.SysMenu;
-import com.sdwu.infrastructure.persistent.utils.BaseDO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 菜单权限表 sys_menu
  *
- * @author
+ * @author ruoyi
  */
-@TableName("sys_menu")
-public class SysMenuPO extends BaseDO implements Serializable
+public class SysMenu
 {
     private static final long serialVersionUID = 1L;
 
     /** 菜单ID */
-    @TableId(value = "menu_id", type = IdType.AUTO) // 主键策略
     private Long menuId;
 
     /** 菜单名称 */
-    @TableField(value = "menu_name") // 映射到数据库字段
     private String menuName;
 
     /** 父菜单名称 */
-    @TableField(exist = false)
     private String parentName;
 
     /** 父菜单ID */
-    @TableField(value = "parent_id") // 映射到数据库字段
     private Long parentId;
 
     /** 显示顺序 */
-    @TableField(value = "order_num") // 映射到数据库字段
     private Integer orderNum;
 
     /** 路由地址 */
-    @TableField(value = "path") // 映射到数据库字段
     private String path;
 
     /** 组件路径 */
-    @TableField(value = "component") // 映射到数据库字段
     private String component;
 
     /** 路由参数 */
-    @TableField(value = "query") // 映射到数据库字段
     private String query;
 
     /** 路由名称，默认和路由地址相同的驼峰格式（注意：因为vue3版本的router会删除名称相同路由，为避免名字的冲突，特殊情况可以自定义） */
-    @TableField(exist = false)
     private String routeName;
 
     /** 是否为外链（0是 1否） */
-    @TableField(value = "is_frame") // 映射到数据库字段
     private String isFrame;
 
     /** 是否缓存（0缓存 1不缓存） */
-    @TableField(value = "is_cache") // 映射到数据库字段
     private String isCache;
 
     /** 类型（M目录 C菜单 F按钮） */
-    @TableField(value = "menu_type") // 映射到数据库字段
     private String menuType;
 
     /** 显示状态（0显示 1隐藏） */
-    @TableField(value = "visible") // 映射到数据库字段
     private String visible;
 
     /** 菜单状态（0正常 1停用） */
-    @TableField(value = "status") // 映射到数据库字段
     private String status;
 
     /** 权限字符串 */
-    @Size(min = 0, max = 100, message = "权限标识长度不能超过100个字符")
-    @TableField(value = "perms") // 映射到数据库字段
     private String perms;
 
     /** 菜单图标 */
-    @TableField(value = "icon") // 映射到数据库字段
     private String icon;
 
-
     /** 子菜单 */
-    @TableField(exist = false)
-    private List<SysMenuPO> children = new ArrayList<SysMenuPO>();
+    private List<SysMenu> children = new ArrayList<SysMenu>();
 
     public Long getMenuId()
     {
@@ -264,12 +235,12 @@ public class SysMenuPO extends BaseDO implements Serializable
         this.icon = icon;
     }
 
-    public List<SysMenuPO> getChildren()
+    public List<SysMenu> getChildren()
     {
         return children;
     }
 
-    public void setChildren(List<SysMenuPO> children)
+    public void setChildren(List<SysMenu> children)
     {
         this.children = children;
     }
@@ -292,35 +263,6 @@ public class SysMenuPO extends BaseDO implements Serializable
             .append("status ", getStatus())
             .append("perms", getPerms())
             .append("icon", getIcon())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
             .toString();
-    }
-
-    public static List<SysMenu> menuPoToMenus(List<SysMenuPO> menus) {
-        return menus.stream().map(SysMenuPO::menuPoToMenu).collect(Collectors.toList());
-    }
-
-    private static SysMenu menuPoToMenu(SysMenuPO menuPO) {
-        SysMenu sysMenu = new SysMenu();
-        sysMenu.setMenuId(menuPO.getMenuId());
-        sysMenu.setMenuName(menuPO.getMenuName());
-        sysMenu.setParentId(menuPO.getParentId());
-        sysMenu.setOrderNum(menuPO.getOrderNum());
-        sysMenu.setPath(menuPO.getPath());
-        sysMenu.setComponent(menuPO.getComponent());
-        sysMenu.setQuery(menuPO.getQuery());
-        sysMenu.setRouteName(menuPO.getRouteName());
-        sysMenu.setIsFrame(menuPO.getIsFrame());
-        sysMenu.setIsCache(menuPO.getIsCache());
-        sysMenu.setMenuType(menuPO.getMenuType());
-        sysMenu.setVisible(menuPO.getVisible());
-        sysMenu.setStatus(menuPO.getStatus());
-        sysMenu.setPerms(menuPO.getPerms());
-        sysMenu.setIcon(menuPO.getIcon());
-        return sysMenu;
     }
 }

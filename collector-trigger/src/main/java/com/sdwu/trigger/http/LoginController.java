@@ -2,9 +2,11 @@ package com.sdwu.trigger.http;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import com.sdwu.domain.sysuser.model.entity.SysMenu;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
 import com.sdwu.domain.sysuser.model.valobj.LoginRequest;
 import com.sdwu.domain.sysuser.repository.ISystemUserRepository;
+import com.sdwu.domain.sysuser.service.IMenuService;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
 import com.sdwu.types.model.Response;
@@ -23,6 +25,9 @@ public class LoginController {
 
     @Resource
     private ISystemUserRepository systemUserRepository;
+
+    @Resource
+    private IMenuService menuService;
 
     @PostMapping("login")
     public Response login(@RequestBody LoginRequest loginRequest){
@@ -72,5 +77,18 @@ public class LoginController {
         return Response.success("注销");
     }
 
+
+    /**
+     * 获取路由信息
+     *
+     * @return 路由信息
+     */
+    @GetMapping("getRouters")
+    public Response getRouters()
+    {
+        SystemUser user = (SystemUser) StpUtil.getSession().get("user");
+        List<SysMenu> menus = menuService.selectMenuTreeByUserId(user);
+        return Response.success(menuService.buildMenus(menus));
+    }
 
 }
