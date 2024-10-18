@@ -35,11 +35,16 @@ public class LoginController {
         try {
             systemUser = systemUserRepository.findByUserName(loginRequest.getUsername());
         } catch (Exception e) {
-            return Response.fail(ResponseCode.USER_NOT_EXIST.getInfo());
+            return Response.builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.USER_NOT_EXIST.getInfo())
+                    .build();
         }
         if (systemUser == null){
-            return Response.success(ResponseCode.USER_NOT_EXIST.getInfo());
-        }
+            return Response.builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.USER_NOT_EXIST.getInfo())
+                    .build();        }
 
         if (!systemUser.getPassword().equals(loginRequest.getPassword())){
             return Response.fail(ResponseCode.Password_ERROR.getInfo());

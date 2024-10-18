@@ -71,6 +71,7 @@ public class SystemUserPO extends BaseDO implements Serializable {
         user.setStatus(userPO.getStatus());
         user.setLoginIp(userPO.getLoginIp());
         user.setLoginDate(userPO.getLoginDate());
+        user.setRoleIds(null);
         return user;
     }
 

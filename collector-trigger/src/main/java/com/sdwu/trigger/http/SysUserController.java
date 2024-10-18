@@ -30,11 +30,22 @@ public class SysUserController {
     }
 
 
-    @GetMapping("/")
-    public Response getInfo() {
+    @GetMapping(value = { "/", "/{userId}" })
+    public Response getInfo(@PathVariable(value = "userId", required = false) Long userId) {
+
         List<SysRole> sysRoles = sysRoleService.selectRoleAll();
         List<SysRole> sysRoleList = sysRoles.stream().filter(sysRole -> !sysRole.isAdmin())
                 .collect(Collectors.toList());
+        if (userId != null){
+            SystemUser systemUser = sysUserService.selectUserById(userId);
+            return Response.builder()
+                    .code(ResponseCode.SUCCESS.getCode())
+                    .info(ResponseCode.SUCCESS.getInfo())
+                    .build()
+                    .put("roles",sysRoleList)
+                    .put("user",systemUser)
+                    .put("roleIds",systemUser.getRoleIds());
+        }
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
@@ -43,8 +54,38 @@ public class SysUserController {
     }
 
 
-    @PostMapping()
+    @PostMapping
     public Response add(@RequestBody SystemUser user) {
+        if (!sysUserService.checkUserNameUnique(user.getUserName())){
+            return Response.builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.USER_NAME_EXIST.getInfo())
+                    .build();
+        }
         return Response.success(sysUserService.insertUser(user));
+    }
+
+
+    @PutMapping
+    public Response edit(@RequestBody SystemUser user) {
+        return Response.success(sysUserService.updateUser(user));
+    }
+
+
+    @DeleteMapping("/{userIds}")
+    public Response remove(@PathVariable Long[] userIds) {
+        return Response.success(sysUserService.deleteUserByIds(userIds));
+    }
+
+
+    @PutMapping("/resetPwd")
+    public Response resetPwd(@RequestBody SystemUser user) {
+        return Response.success(sysUserService.resetUserPwd(user));
+    }
+
+
+    @PutMapping("/changeStatus")
+    public Response changeStatus(@RequestBody SystemUser user) {
+        return Response.success(sysUserService.changeStatus(user));
     }
 }

@@ -1,6 +1,7 @@
 package com.sdwu.domain.sysuser.repository;
 
 import com.sdwu.domain.sysuser.model.entity.SysRole;
+import com.sdwu.types.model.PageResult;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ public interface ISysRoleRepository {
 
 
     List<SysRole> selectRoleAll();
+
+    PageResult<SysRole> selectRolePage(SysRole role);
 }

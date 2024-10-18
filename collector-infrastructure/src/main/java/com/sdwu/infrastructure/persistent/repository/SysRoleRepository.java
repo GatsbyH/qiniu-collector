@@ -6,6 +6,7 @@ import com.sdwu.infrastructure.persistent.dao.ISysRoleDao;
 import com.sdwu.infrastructure.persistent.dao.ISysUserRoleDao;
 import com.sdwu.infrastructure.persistent.po.SysRolePO;
 import com.sdwu.infrastructure.persistent.po.SysUserRolePO;
+import com.sdwu.types.model.PageResult;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -54,4 +55,18 @@ public class SysRoleRepository implements ISysRoleRepository {
                 .collect(Collectors.toList());
         return sysRoles;
     }
+
+    @Override
+    public PageResult<SysRole> selectRolePage(SysRole role) {
+        PageResult<SysRolePO> sysRolePageResult = sysRoleDao.selectRolePage(role);
+        if (sysRolePageResult==null){
+            return PageResult.empty();
+        }
+        List<SysRole> sysRoles = sysRolePageResult.getList().stream()
+                    .map(SysRolePO::convertToDomain)
+                    .collect(Collectors.toList());
+        return new PageResult<>(sysRoles, sysRolePageResult.getTotal());
+    }
+
+
 }

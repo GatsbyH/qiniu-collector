@@ -14,6 +14,7 @@ public enum ResponseCode {
     Password_ERROR(0001, "密码错误"),
     ILLEGAL_PARAMETER(0002, "非法参数"),
     USER_NOT_EXIST(0003, "用户不存在"),
+    USER_NAME_EXIST(0004, "用户已存在"),
     ;
 
     private Integer code;

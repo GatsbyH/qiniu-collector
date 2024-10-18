@@ -9,4 +9,17 @@ public interface ISystemUserRepository {
     PageResult<SystemUser> selcetUserPage(SystemUser user);
 
     Integer insertUser(SystemUser user);
+
+    SystemUser selectUserById(Long userId);
+
+    Integer updateUser(SystemUser user);
+    Integer resetUserPwd(SystemUser user);
+
+    Integer deleteUserByIds(Long[] userIds);
+
+    Integer changeStatus(SystemUser user);
+
+    String selectUserRoleGroup(Long userId);
+
+    boolean checkUserNameUnique(String userName);
 }

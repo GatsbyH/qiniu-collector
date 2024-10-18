@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+import com.sdwu.types.model.PageParam;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author
  */
-public class SysRole
+public class SysRole extends PageParam
 {
     private static final long serialVersionUID = 1L;
 

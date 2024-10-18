@@ -78,6 +78,12 @@ public class SysRolePO extends BaseDO implements Serializable
         this.roleId = roleId;
     }
 
+    public static SysRolePO convertToPO(SysRole role) {
+        SysRolePO sysRolePO = new SysRolePO();
+        BeanUtils.copyProperties(role, sysRolePO);
+        return sysRolePO;
+    }
+
     public Long getRoleId()
     {
         return roleId;

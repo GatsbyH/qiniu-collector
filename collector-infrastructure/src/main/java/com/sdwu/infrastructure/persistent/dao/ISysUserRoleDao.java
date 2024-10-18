@@ -14,4 +14,8 @@ public interface ISysUserRoleDao extends BaseMapperX<SysUserRolePO> {
     }
 
     int insertUserRoleBatch(List<SysUserRolePO> list);
+
+    int deleteUserRole(Long[] userIds);
+
+
 }

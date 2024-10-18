@@ -1,11 +1,13 @@
 package com.sdwu.types.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Map;
 
 @Data
 public class PageParam implements Serializable {
@@ -30,4 +32,7 @@ public class PageParam implements Serializable {
     @Max(value = 100, message = "每页条数最大值为 100")
     private Integer pageSize = PAGE_SIZE;
 
+
+    @JsonInclude(JsonInclude.Include.ALWAYS)
+    private Map<String, Object> params;
 }
