@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.sdwu.domain.sysuser.model.entity.SysMenu;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
+import com.sdwu.domain.sysuser.model.entity.TreeSelect;
 import com.sdwu.domain.sysuser.model.valobj.MetaVo;
 import com.sdwu.domain.sysuser.model.valobj.RouterVo;
 import com.sdwu.domain.sysuser.repository.ISysMenuPermRepository;
@@ -127,6 +128,43 @@ public class SysMenuPermRepository implements ISysMenuPermRepository {
         }
         return routers;
     }
+
+    @Override
+    public List<SysMenu> selectMenuListByUserId(Long userId) {
+        List<SysMenuPO> menus = null;
+        if (SystemUser.isAdmin(userId)){
+            menus=sysMenuDao.selectMenuTreeAll();
+        }
+        else{
+            menus=sysMenuDao.selectMenuTreeByUserId(userId);
+        }
+        List<SysMenu> sysMenus = SysMenuPO.menuPoToMenus(menus);
+        return sysMenus;
+    }
+
+    @Override
+    public List<SysMenu> buildMenuTree(List<SysMenu> menus)
+    {
+        List<SysMenu> returnList = new ArrayList<SysMenu>();
+        List<Long> tempList = menus.stream().map(SysMenu::getMenuId).collect(Collectors.toList());
+        for (Iterator<SysMenu> iterator = menus.iterator(); iterator.hasNext();)
+        {
+            SysMenu menu = (SysMenu) iterator.next();
+            // 如果是顶级节点, 遍历该父节点的所有子节点
+            if (!tempList.contains(menu.getParentId()))
+            {
+                recursionFn(menus, menu);
+                returnList.add(menu);
+            }
+        }
+        if (returnList.isEmpty())
+        {
+            returnList = menus;
+        }
+        return returnList;
+    }
+
+
     /**
      * 内链域名特殊字符替换
      *

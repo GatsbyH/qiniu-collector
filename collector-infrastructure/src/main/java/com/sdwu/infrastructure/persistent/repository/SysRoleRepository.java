@@ -3,7 +3,9 @@ package com.sdwu.infrastructure.persistent.repository;
 import com.sdwu.domain.sysuser.model.entity.SysRole;
 import com.sdwu.domain.sysuser.repository.ISysRoleRepository;
 import com.sdwu.infrastructure.persistent.dao.ISysRoleDao;
+import com.sdwu.infrastructure.persistent.dao.ISysRoleMenuDao;
 import com.sdwu.infrastructure.persistent.dao.ISysUserRoleDao;
+import com.sdwu.infrastructure.persistent.po.SysRoleMenuPO;
 import com.sdwu.infrastructure.persistent.po.SysRolePO;
 import com.sdwu.infrastructure.persistent.po.SysUserRolePO;
 import com.sdwu.types.model.PageResult;
@@ -20,6 +22,10 @@ public class SysRoleRepository implements ISysRoleRepository {
     private ISysRoleDao sysRoleDao;
     @Resource
     private ISysUserRoleDao userRoleDao;
+
+
+    @Resource
+    private ISysRoleMenuDao roleMenuDao;
 
     @Override
     public List<String> findRoleListByUserId(Long userId) {
@@ -66,6 +72,42 @@ public class SysRoleRepository implements ISysRoleRepository {
                     .map(SysRolePO::convertToDomain)
                     .collect(Collectors.toList());
         return new PageResult<>(sysRoles, sysRolePageResult.getTotal());
+    }
+
+    @Override
+    public Integer insertRole(SysRole role) {
+        int rows=1;
+        SysRolePO sysRolePO = SysRolePO.convertToPO(role);
+        sysRoleDao.insert(sysRolePO);
+        List<SysRoleMenuPO> list = new ArrayList<>();
+        for (Long menuId : role.getMenuIds()) {
+            SysRoleMenuPO sysRoleMenuPO = new SysRoleMenuPO();
+            sysRoleMenuPO.setRoleId(sysRolePO.getRoleId());
+            sysRoleMenuPO.setMenuId(menuId);
+            list.add(sysRoleMenuPO);
+        }
+        if (list.size() > 0){
+           rows= roleMenuDao.batchRoleMenu(list);
+        }
+        return rows;
+    }
+
+    @Override
+    public List<SysRole> findRoleListByRoleName(SysRole role) {
+        List<SysRolePO> sysRolePOList = sysRoleDao.findRoleListByRoleName(role.getRoleName());
+        List<SysRole> sysRoles = sysRolePOList.stream()
+                .map(SysRolePO::convertToDomain)
+                .collect(Collectors.toList());
+        return sysRoles;
+    }
+
+    @Override
+    public List<SysRole> findRoleListByRoleKey(SysRole role) {
+        List<SysRolePO> sysRolePOList = sysRoleDao.findRoleListByRoleKey(role.getRoleKey());
+        List<SysRole> sysRoles = sysRolePOList.stream()
+                .map(SysRolePO::convertToDomain)
+                .collect(Collectors.toList());
+        return sysRoles ;
     }
 
 

@@ -32,5 +32,11 @@ public interface ISysRoleDao extends BaseMapperX<SysRolePO> {
     }
 
 
+    default List<SysRolePO> findRoleListByRoleName(String roleName){
+        return selectList(new LambdaQueryWrapperX<SysRolePO>().eq(SysRolePO::getRoleName,roleName));
+    };
 
+    default List<SysRolePO> findRoleListByRoleKey(String roleKey){
+        return selectList(new LambdaQueryWrapperX<SysRolePO>().eq(SysRolePO::getRoleKey,roleKey));
+    };
 }

@@ -11,4 +11,8 @@ public interface ISysRoleMenuDao extends BaseMapperX<SysRoleMenuPO> {
     default List<SysRoleMenuPO> selectRoleMenuByRoleIds(Set<Long> roleIds){
         return selectList(new LambdaQueryWrapperX<SysRoleMenuPO>().inIfPresent(SysRoleMenuPO::getRoleId, roleIds));
     };
+
+    int batchRoleMenu(List<SysRoleMenuPO> list);
+
+
 }

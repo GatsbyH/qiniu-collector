@@ -11,4 +11,10 @@ public interface ISysRoleService {
     List<SysRole> selectRoleAll();
 
     PageResult<SysRole> selectRolePage(SysRole role);
+
+    Integer insertRole(SysRole role);
+
+    boolean checkRoleNameUnique(SysRole role);
+
+    boolean checkRoleKeyUnique(SysRole role);
 }

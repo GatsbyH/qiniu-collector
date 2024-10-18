@@ -7,6 +7,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -34,5 +36,9 @@ public class PageParam implements Serializable {
 
 
     @JsonInclude(JsonInclude.Include.ALWAYS)
-    private Map<String, Object> params;
+    private Map<String, Object> params = new HashMap<>();
+
+
+    private LocalDateTime createTime;
+
 }
