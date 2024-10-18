@@ -3,6 +3,7 @@ package com.sdwu.config;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -30,6 +31,8 @@ public class MybatisPlusConfig
         interceptor.addInnerInterceptor(optimisticLockerInnerInterceptor());
         // 阻断插件
         interceptor.addInnerInterceptor(blockAttackInnerInterceptor());
+        // 数据权限插件
+
         return interceptor;
     }
 

@@ -1,5 +1,6 @@
 package com.sdwu.infrastructure.persistent.repository;
 
+import com.sdwu.domain.sysuser.model.entity.SysRole;
 import com.sdwu.domain.sysuser.repository.ISysRoleRepository;
 import com.sdwu.infrastructure.persistent.dao.ISysRoleDao;
 import com.sdwu.infrastructure.persistent.dao.ISysUserRoleDao;
@@ -43,5 +44,14 @@ public class SysRoleRepository implements ISysRoleRepository {
 
         // 转换为List返回
         return new ArrayList<>(roleSet);
+    }
+
+    @Override
+    public List<SysRole> selectRoleAll() {
+        List<SysRolePO> sysRoleList = sysRoleDao.selectList();
+        List<SysRole> sysRoles = sysRoleList.stream()
+                .map(SysRolePO::convertToDomain)
+                .collect(Collectors.toList());
+        return sysRoles;
     }
 }

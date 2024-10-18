@@ -12,4 +12,6 @@ public interface ISysUserRoleDao extends BaseMapperX<SysUserRolePO> {
     {
         return selectList(new LambdaQueryWrapperX<SysUserRolePO>().eq(SysUserRolePO::getUserId,userId));
     }
+
+    int insertUserRoleBatch(List<SysUserRolePO> list);
 }

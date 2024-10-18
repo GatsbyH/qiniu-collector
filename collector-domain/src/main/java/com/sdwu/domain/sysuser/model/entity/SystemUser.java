@@ -1,5 +1,6 @@
 package com.sdwu.domain.sysuser.model.entity;
 
+import com.sdwu.types.model.PageParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SystemUser {
+public class SystemUser extends PageParam {
 
     private Long userId;
 
@@ -39,6 +40,7 @@ public class SystemUser {
 
     private Date loginDate;
 
+    private Long[] roleIds;
 
     public static boolean isAdmin(Long userId)
     {

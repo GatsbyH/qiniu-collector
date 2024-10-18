@@ -37,10 +37,15 @@ public class LoginController {
         } catch (Exception e) {
             return Response.fail(ResponseCode.USER_NOT_EXIST.getInfo());
         }
-        if (systemUser == null)
+        if (systemUser == null){
             return Response.success(ResponseCode.USER_NOT_EXIST.getInfo());
-        if (!systemUser.getPassword().equals(loginRequest.getPassword()))
-            return Response.fail(ResponseCode.Password_ERROR.getCode());
+        }
+
+        if (!systemUser.getPassword().equals(loginRequest.getPassword())){
+            return Response.fail(ResponseCode.Password_ERROR.getInfo());
+        }
+
+
         StpUtil.login(systemUser.getUserId());
 
         StpUtil.getSession().set("user", systemUser);

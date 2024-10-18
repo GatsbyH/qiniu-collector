@@ -1,4 +1,4 @@
-package com.sdwu.infrastructure.persistent.po;
+package com.sdwu.domain.sysuser.model.entity;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -6,28 +6,20 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.sdwu.domain.sysuser.model.entity.SysRole;
-import com.sdwu.infrastructure.persistent.utils.BaseDO;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.beans.BeanUtils;
 
 /**
  * 角色表 sys_role
  *
  * @author
  */
-@TableName("sys_role")
-public class SysRolePO extends BaseDO implements Serializable
+public class SysRole
 {
     private static final long serialVersionUID = 1L;
 
     /** 角色ID */
-    @TableId(value = "role_id", type = IdType.AUTO)
     private Long roleId;
 
     /** 角色名称 */
@@ -53,27 +45,23 @@ public class SysRolePO extends BaseDO implements Serializable
 
 
     /** 用户是否存在此角色标识 默认不存在 */
-    @TableField(exist = false)
     private boolean flag = false;
 
     /** 菜单组 */
-    @TableField(exist = false)
     private Long[] menuIds;
 
     /** 部门组（数据权限） */
-    @TableField(exist = false)
     private Long[] deptIds;
 
     /** 角色菜单权限 */
-    @TableField(exist = false)
     private Set<String> permissions;
 
-    public SysRolePO()
+    public SysRole()
     {
 
     }
 
-    public SysRolePO(Long roleId)
+    public SysRole(Long roleId)
     {
         this.roleId = roleId;
     }
@@ -225,17 +213,6 @@ public class SysRolePO extends BaseDO implements Serializable
             .append("menuCheckStrictly", isMenuCheckStrictly())
             .append("deptCheckStrictly", isDeptCheckStrictly())
             .append("status", getStatus())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
             .toString();
-    }
-
-    public static SysRole convertToDomain(SysRolePO rolePO) {
-        SysRole sysRole = new SysRole();
-        BeanUtils.copyProperties(rolePO, sysRole);
-        return sysRole;
     }
 }
