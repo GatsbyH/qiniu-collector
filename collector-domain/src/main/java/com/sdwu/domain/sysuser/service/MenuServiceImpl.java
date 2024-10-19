@@ -37,5 +37,45 @@ public class MenuServiceImpl implements IMenuService{
         return menuTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
 
+    @Override
+    public List<Long> selectMenuListByRoleId(Long roleId) {
+        return sysMenuPermRepository.selectMenuListByRoleId(roleId);
+    }
+
+    @Override
+    public boolean checkMenuNameUnique(SysMenu menu) {
+        return sysMenuPermRepository.checkMenuNameUnique(menu);
+    }
+
+    @Override
+    public int insertMenu(SysMenu menu) {
+        return sysMenuPermRepository.insertMenu(menu);
+    }
+
+    @Override
+    public int updateMenu(SysMenu menu) {
+        return sysMenuPermRepository.updateMenu(menu);
+    }
+
+    @Override
+    public SysMenu selectMenuById(Long menuId) {
+        return sysMenuPermRepository.selectMenuById(menuId);
+    }
+
+    @Override
+    public boolean hasChildrenByMenuId(Long menuId) {
+        return sysMenuPermRepository.hasChildrenByMenuId(menuId);
+    }
+
+    @Override
+    public boolean checkMenuExistRole(Long menuId) {
+        return sysMenuPermRepository.checkMenuExistRole(menuId);
+    }
+
+    @Override
+    public int deleteMenuById(Long menuId) {
+        return sysMenuPermRepository.deleteMenuById(menuId);
+    }
+
 
 }

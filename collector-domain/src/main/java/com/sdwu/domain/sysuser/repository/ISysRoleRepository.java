@@ -20,4 +20,12 @@ public interface ISysRoleRepository {
     List<SysRole> findRoleListByRoleName(SysRole role);
 
     List<SysRole> findRoleListByRoleKey(SysRole role);
+
+    SysRole selectRoleById(Long roleId);
+
+    Integer updateRole(SysRole role);
+
+    Integer deleteRoleByIds(Long[] roleIds);
+
+    boolean checkRoleExistUser(Long[] roleIds);
 }

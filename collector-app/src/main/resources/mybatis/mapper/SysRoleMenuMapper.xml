@@ -11,5 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(#{item.roleId},#{item.menuId})
 		</foreach>
 	</insert>
+	<delete id="deleteRoleMenu" parameterType="Long">
+		delete from sys_role_menu where role_id in
+		<foreach collection="array" item="roleId" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</delete>
 
 </mapper>

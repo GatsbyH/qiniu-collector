@@ -97,6 +97,47 @@ public class SysMenuPO extends BaseDO implements Serializable
     @TableField(exist = false)
     private List<SysMenuPO> children = new ArrayList<SysMenuPO>();
 
+    public static SysMenuPO convertToPO(SysMenu menu) {
+        SysMenuPO po = new SysMenuPO();
+        po.setMenuId(menu.getMenuId());
+        po.setMenuName(menu.getMenuName());
+        po.setParentId(menu.getParentId());
+        po.setOrderNum(menu.getOrderNum());
+        po.setPath(menu.getPath());
+        po.setComponent(menu.getComponent());
+        po.setQuery(menu.getQuery());
+        po.setRouteName(menu.getRouteName());
+        po.setIsFrame(menu.getIsFrame());
+        po.setIsCache(menu.getIsCache());
+        po.setMenuType(menu.getMenuType());
+        po.setVisible(menu.getVisible());
+        po.setStatus(menu.getStatus());
+        po.setPerms(menu.getPerms());
+        po.setIcon(menu.getIcon());
+        return po;
+    }
+
+    public static SysMenu convertToDo(SysMenuPO sysMenuPO) {
+        SysMenu menu = new SysMenu();
+        menu.setMenuId(sysMenuPO.getMenuId());
+        menu.setMenuName(sysMenuPO.getMenuName());
+        menu.setParentId(sysMenuPO.getParentId());
+        menu.setOrderNum(sysMenuPO.getOrderNum());
+        menu.setPath(sysMenuPO.getPath());
+        menu.setComponent(sysMenuPO.getComponent());
+        menu.setQuery(sysMenuPO.getQuery());
+        menu.setRouteName(sysMenuPO.getRouteName());
+        menu.setIsFrame(sysMenuPO.getIsFrame());
+        menu.setIsCache(sysMenuPO.getIsCache());
+        menu.setMenuType(sysMenuPO.getMenuType());
+        menu.setVisible(sysMenuPO.getVisible());
+        menu.setStatus(sysMenuPO.getStatus());
+        menu.setPerms(sysMenuPO.getPerms());
+        menu.setIcon(sysMenuPO.getIcon());
+        return menu;
+    }
+
+
     public Long getMenuId()
     {
         return menuId;

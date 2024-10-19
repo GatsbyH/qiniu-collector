@@ -8,14 +8,18 @@ import com.sdwu.infrastructure.persistent.dao.ISysUserRoleDao;
 import com.sdwu.infrastructure.persistent.po.SysRoleMenuPO;
 import com.sdwu.infrastructure.persistent.po.SysRolePO;
 import com.sdwu.infrastructure.persistent.po.SysUserRolePO;
+import com.sdwu.infrastructure.persistent.utils.LambdaQueryWrapperX;
 import com.sdwu.types.model.PageResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+@Slf4j
 public class SysRoleRepository implements ISysRoleRepository {
 
     @Resource
@@ -108,6 +112,49 @@ public class SysRoleRepository implements ISysRoleRepository {
                 .map(SysRolePO::convertToDomain)
                 .collect(Collectors.toList());
         return sysRoles ;
+    }
+
+    @Override
+    public SysRole selectRoleById(Long roleId) {
+        SysRolePO sysRolePO = sysRoleDao.selectRoleById(roleId);
+        return SysRolePO.convertToDomain(sysRolePO);
+    }
+
+    @Override
+    @Transactional
+    public Integer updateRole(SysRole role) {
+        if (role.getRoleId()==null|| role.getRoleId()==null){
+            return 0;
+        }
+        int rows=1;
+        SysRolePO sysRolePO = SysRolePO.convertToPO(role);
+        int i = sysRoleDao.updateById(sysRolePO);
+        roleMenuDao.deleteByRoleId(role.getRoleId());
+        List<SysRoleMenuPO> list = new ArrayList<>();
+        for (Long menuId : role.getMenuIds()) {
+            SysRoleMenuPO sysRoleMenuPO = new SysRoleMenuPO();
+            sysRoleMenuPO.setRoleId(sysRolePO.getRoleId());
+            sysRoleMenuPO.setMenuId(menuId);
+            list.add(sysRoleMenuPO);
+        }
+        if (list.size() > 0){
+            rows= roleMenuDao.batchRoleMenu(list);
+        }
+        return i;
+    }
+
+    @Override
+    public Integer deleteRoleByIds(Long[] roleIds) {
+        roleMenuDao.deleteRoleMenu(roleIds);
+        return sysRoleDao.deleteRoleByIds(roleIds);
+    }
+
+    @Override
+    public boolean checkRoleExistUser(Long[] roleIds) {
+        if (userRoleDao.selectCount(new LambdaQueryWrapperX<SysUserRolePO>().eq(SysUserRolePO::getRoleId,roleIds))>0){
+            return true;
+        }
+        return false;
     }
 
 

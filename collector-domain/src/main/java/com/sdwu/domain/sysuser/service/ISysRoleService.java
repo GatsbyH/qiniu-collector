@@ -17,4 +17,12 @@ public interface ISysRoleService {
     boolean checkRoleNameUnique(SysRole role);
 
     boolean checkRoleKeyUnique(SysRole role);
+
+    SysRole selectRoleById(Long roleId);
+
+    Integer updateRole(SysRole role);
+
+    Integer deleteRoleByIds(Long[] roleIds);
+
+    boolean checkRoleExistUser(Long[] roleIds);
 }

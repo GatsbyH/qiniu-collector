@@ -48,5 +48,25 @@ public class SysRoleServiceImpl implements ISysRoleService{
         return UserConstants.UNIQUE;
     }
 
+    @Override
+    public SysRole selectRoleById(Long roleId) {
+        return systemRoleRepository.selectRoleById(roleId);
+    }
+
+    @Override
+    public Integer updateRole(SysRole role) {
+        return systemRoleRepository.updateRole(role);
+    }
+
+    @Override
+    public Integer deleteRoleByIds(Long[] roleIds) {
+        return systemRoleRepository.deleteRoleByIds(roleIds);
+    }
+
+    @Override
+    public boolean checkRoleExistUser(Long[] roleIds) {
+        return systemRoleRepository.checkRoleExistUser(roleIds);
+    }
+
 
 }

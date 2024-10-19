@@ -27,7 +27,9 @@
         <result property="updateBy"       column="update_by"      />
         <result property="remark"         column="remark"         />
     </resultMap>
-
+    <delete id="deleteMenuById" parameterType="Long">
+        delete from sys_menu where menu_id = #{menuId}
+    </delete>
 
     <select id="selectMenuByMenuIds" resultMap="SysMenuPOResultMap">
         SELECT *
@@ -40,7 +42,7 @@
     </select>
     <select id="selectMenuTreeAll" resultMap="SysMenuPOResultMap">
         select distinct m.menu_id, m.parent_id, m.menu_name, m.path, m.component, m.`query`, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_frame, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time
-        from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0
+        from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 and m.deleted != 1
         order by m.parent_id, m.order_num
     </select>
     <select id="selectMenuTreeByUserId" parameterType="Long" resultMap="SysMenuPOResultMap">
@@ -50,8 +52,24 @@
                  left join sys_user_role ur on rm.role_id = ur.role_id
                  left join sys_role ro on ur.role_id = ro.role_id
                  left join sys_user u on ur.user_id = u.user_id
-        where u.user_id = #{userId} and m.menu_type in ('M', 'C') and m.status = 0  AND ro.status = 0
+        where u.user_id = #{userId} and m.menu_type in ('M', 'C') and m.status = 0  AND ro.status = 0 And m.deleted != 1
         order by m.parent_id, m.order_num
+    </select>
+
+    <select id="selectMenuListByRoleId" resultType="Long">
+        select m.menu_id
+        from sys_menu m
+        left join sys_role_menu rm on m.menu_id = rm.menu_id
+        where rm.role_id = #{roleId}
+        <if test="menuCheckStrictly">
+            and m.menu_id not in (select m.parent_id from sys_menu m inner join sys_role_menu rm on m.menu_id = rm.menu_id and rm.role_id = #{roleId})
+        </if>
+        order by m.parent_id, m.order_num
+    </select>
+    <select id="selectMenuById" resultType="com.sdwu.infrastructure.persistent.po.SysMenuPO">
+        select menu_id, parent_id, menu_name, path, component, `query`, route_name, visible, status, ifnull(perms,'') as perms, is_frame, is_cache, menu_type, icon, order_num, create_time, update_time, remark
+        from sys_menu
+        where menu_id = #{menuId}
     </select>
 
 

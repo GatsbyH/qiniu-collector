@@ -74,6 +74,7 @@ public class SystemUserRepository implements ISystemUserRepository {
 
         int insert = systemUserDao.insert(systemUserPO);
 
+        user.setUserId(systemUserPO.getUserId());
         insertUserRole(user);
 
 

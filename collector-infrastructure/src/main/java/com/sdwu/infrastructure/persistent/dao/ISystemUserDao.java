@@ -34,4 +34,7 @@ public interface ISystemUserDao extends BaseMapperX<SystemUserPO> {
    };
 
 
+    public int deleteRoleByIds(Long[] roleIds);
+
+
 }

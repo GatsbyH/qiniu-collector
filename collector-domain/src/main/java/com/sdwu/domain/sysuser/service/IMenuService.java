@@ -16,4 +16,20 @@ public interface IMenuService {
     List<SysMenu> selectMenuListByUserId(Long userId);
 
     List<TreeSelect> buildMenuTreeSelect(List<SysMenu> menus);
+
+    List<Long> selectMenuListByRoleId(Long roleId);
+
+    boolean checkMenuNameUnique(SysMenu menu);
+
+    int insertMenu(SysMenu menu);
+
+    int updateMenu(SysMenu menu);
+
+    SysMenu selectMenuById(Long menuId);
+
+    boolean hasChildrenByMenuId(Long menuId);
+
+    boolean checkMenuExistRole(Long menuId);
+
+    int deleteMenuById(Long menuId);
 }

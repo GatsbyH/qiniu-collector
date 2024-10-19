@@ -11,6 +11,7 @@ import com.sdwu.domain.sysuser.repository.ISysMenuPermRepository;
 import com.sdwu.infrastructure.persistent.dao.*;
 import com.sdwu.infrastructure.persistent.po.SysMenuPO;
 import com.sdwu.infrastructure.persistent.po.SysRoleMenuPO;
+import com.sdwu.infrastructure.persistent.po.SysRolePO;
 import com.sdwu.infrastructure.persistent.po.SysUserRolePO;
 import com.sdwu.infrastructure.persistent.utils.StringUtils;
 import com.sdwu.types.common.Constants;
@@ -32,6 +33,10 @@ public class SysMenuPermRepository implements ISysMenuPermRepository {
 
     @Resource
     private ISysMenuDao sysMenuDao;
+
+
+    @Resource
+    private ISysRoleDao sysRoleDao;
     @Override
     public List<String> findMenuPermListByUserId(Long userId) {
         List<SysUserRolePO> sysUserRolePOList = sysUserRoleDao.selectSysUserRoleListByUserId(userId);
@@ -162,6 +167,60 @@ public class SysMenuPermRepository implements ISysMenuPermRepository {
             returnList = menus;
         }
         return returnList;
+    }
+
+    @Override
+    public List<Long> selectMenuListByRoleId(Long roleId) {
+        SysRolePO sysRolePO = sysRoleDao.findByRoleId(roleId);
+        return sysMenuDao.selectMenuListByRoleId(roleId, sysRolePO.isMenuCheckStrictly());
+    }
+
+    @Override
+    public boolean checkMenuNameUnique(SysMenu menu) {
+        if (sysMenuDao.findMenuByName(menu.getMenuName()).size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int insertMenu(SysMenu menu) {
+        SysMenuPO sysMenuPO = SysMenuPO.convertToPO(menu);
+        return sysMenuDao.insertMenu(sysMenuPO);
+    }
+
+    @Override
+    public int updateMenu(SysMenu menu) {
+        SysMenuPO sysMenuPO = SysMenuPO.convertToPO(menu);
+        return sysMenuDao.updateMenu(sysMenuPO);
+    }
+
+    @Override
+    public SysMenu selectMenuById(Long menuId) {
+        SysMenuPO sysMenuPO = sysMenuDao.selectMenuById(menuId);
+        SysMenu sysMenu = SysMenuPO.convertToDo(sysMenuPO);
+        return sysMenu;
+    }
+
+    @Override
+    public boolean hasChildrenByMenuId(Long menuId) {
+        if (sysMenuDao.hasChildrenByMenuId(menuId) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkMenuExistRole(Long menuId) {
+        if (sysRoleMenuDao.checkMenuExistRole(menuId) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int deleteMenuById(Long menuId) {
+        return sysMenuDao.deleteMenuById(menuId);
     }
 
 
