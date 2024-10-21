@@ -157,5 +157,11 @@ public class SysRoleRepository implements ISysRoleRepository {
         return false;
     }
 
+    @Override
+    public Integer updateRoleStatus(SysRole role) {
+        SysRolePO sysRolePO = SysRolePO.convertToPO(role);
+        return sysRoleDao.updateById(sysRolePO);
+    }
+
 
 }

@@ -71,4 +71,11 @@ public class SysRoleController {
         }
         return Response.success(roleService.deleteRoleByIds(roleIds));
     }
+
+    @PutMapping("/changeStatus")
+    public Response changeStatus(@RequestBody SysRole role) {
+        return Response.success(roleService.updateRoleStatus(role));
+    }
+
+
 }

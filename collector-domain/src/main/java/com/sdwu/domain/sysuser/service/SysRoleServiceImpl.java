@@ -68,5 +68,10 @@ public class SysRoleServiceImpl implements ISysRoleService{
         return systemRoleRepository.checkRoleExistUser(roleIds);
     }
 
+    @Override
+    public Integer updateRoleStatus(SysRole role) {
+        return systemRoleRepository.updateRoleStatus(role);
+    }
+
 
 }

@@ -28,4 +28,6 @@ public interface ISysRoleRepository {
     Integer deleteRoleByIds(Long[] roleIds);
 
     boolean checkRoleExistUser(Long[] roleIds);
+
+    Integer updateRoleStatus(SysRole role);
 }

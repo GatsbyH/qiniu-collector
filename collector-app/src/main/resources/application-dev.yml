@@ -95,3 +95,27 @@ redis:
       ping-interval: 60000
       keep-alive: true
 # OpenAi 配置；ChatGPT、ChatGLM..
+dromara:
+  x-file-storage: #文件存储配置
+    default-platform: aliyun-oss-1 #默认使用的存储平台
+    thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
+    #对应平台的配置写在这里，注意缩进要对齐
+    minio:
+      - platform: minio-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key: 03QlKvulEFSYIBhloq6a
+        secret-key: CTqRtyLHtGWREUYLGNoN2NcZ4d7yXomfulTMpDEr
+        end-point: http://10.34.34.73:9900
+        bucket-name: paper
+        domain: http://10.34.34.73:9900/paper/ # 访问域名，注意“/”结尾，例如：http://minio.abc.com/abc/
+        base-path: paper/ # 基础路径
+    aliyun-oss:
+      - platform: aliyun-oss-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key: LTAI5tM8kNgNwqtqpRUXhjpR
+        secret-key: HTbYYenrCN1mejKw5t2KLhNpEsdZyv
+        end-point: oss-cn-hangzhou.aliyuncs.com
+        bucket-name: ftdb-gatsbyh-open
+        domain: https://ftdb-gatsbyh-open.oss-cn-hangzhou.aliyuncs.com/ # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
+        base-path: paper/ # 基础路径
+
