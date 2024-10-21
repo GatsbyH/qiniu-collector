@@ -4,7 +4,7 @@ package com.sdwu.infrastructure.persistent.utils;
 /**
  * 字符串格式化
  *
- * @author ruoyi
+ * @author gatsbyh
  */
 public class StrFormatter
 {

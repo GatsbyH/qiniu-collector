@@ -22,4 +22,8 @@ public interface ISystemUserRepository {
     String selectUserRoleGroup(Long userId);
 
     boolean checkUserNameUnique(String userName);
+
+    void setCaptchaCache(String visitorId, String code);
+
+    boolean validateCaptcha(String username, String code, String uuid);
 }

@@ -16,7 +16,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * 字典数据表 sys_dict_data
  *
- * @author ruoyi
+ * @author gatsbyh
  */
 @TableName("sys_dict_data")
 public class SysDictDataPO extends BaseDO

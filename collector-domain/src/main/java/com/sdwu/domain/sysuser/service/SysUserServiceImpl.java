@@ -61,5 +61,10 @@ public class SysUserServiceImpl implements ISysUserService {
         return systemUserRepository.checkUserNameUnique(userName);
     }
 
+    @Override
+    public void setCaptchaCache(String visitorId, String code) {
+         systemUserRepository.setCaptchaCache(visitorId, code);
+    }
+
 
 }

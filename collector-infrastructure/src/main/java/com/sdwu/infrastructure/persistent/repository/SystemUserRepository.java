@@ -10,6 +10,8 @@ import com.sdwu.infrastructure.persistent.dao.ISystemUserDao;
 import com.sdwu.infrastructure.persistent.po.SysRolePO;
 import com.sdwu.infrastructure.persistent.po.SysUserRolePO;
 import com.sdwu.infrastructure.persistent.po.SystemUserPO;
+import com.sdwu.infrastructure.persistent.redis.RedissonService;
+import com.sdwu.types.common.CacheConstants;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
 import com.sdwu.types.model.PageResult;
@@ -20,6 +22,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Repository
@@ -31,6 +34,10 @@ public class SystemUserRepository implements ISystemUserRepository {
 
     @Resource
     private ISysUserRoleDao sysUserRoleDao;
+
+
+    @Resource
+    private RedissonService redissonService;
 
 
     @Resource
@@ -144,6 +151,24 @@ public class SystemUserRepository implements ISystemUserRepository {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setCaptchaCache(String visitorId, String code) {
+        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + visitorId;
+        redissonService.setValue(verifyKey, code, TimeUnit.MINUTES.toMillis(2));
+    }
+
+    @Override
+    public boolean validateCaptcha(String username, String code, String uuid) {
+        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
+        String captcha = redissonService.getValue(verifyKey);
+        if (!redissonService.isExists(verifyKey))
+            return false;
+        if (!code.equalsIgnoreCase(captcha))
+            return false;
+        redissonService.remove(verifyKey);
+        return true;
     }
 
 

@@ -21,4 +21,6 @@ public interface ISysUserService {
     String selectUserRoleGroup(Long userId);
 
     boolean checkUserNameUnique(String userName);
+
+    void setCaptchaCache(String visitorId, String code);
 }

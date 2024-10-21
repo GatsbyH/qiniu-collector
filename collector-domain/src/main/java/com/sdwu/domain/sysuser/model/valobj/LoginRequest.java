@@ -20,4 +20,16 @@ import javax.validation.constraints.Size;
 
        @NotNull(message = "Password cannot be null")
        private String password;
+
+       /**
+        * 验证码
+        */
+       @NotNull(message = "验证码不能为空")
+       private String code;
+
+       /**
+        * 唯一标识
+        */
+       @NotNull(message = "uuid不能为空")
+       private String uuid;
    }

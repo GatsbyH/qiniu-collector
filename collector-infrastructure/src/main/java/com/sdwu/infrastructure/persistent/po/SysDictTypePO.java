@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 字典类型表 sys_dict_type
  *
- * @author ruoyi
+ * @author gatsbyh
  */
 @TableName("sys_dict_type")
 public class SysDictTypePO extends BaseDO

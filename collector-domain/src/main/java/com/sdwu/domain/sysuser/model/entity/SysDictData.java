@@ -11,7 +11,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 字典数据表 sys_dict_data
  *
- * @author ruoyi
+ * @author gatsbyh
  */
 public class SysDictData
 {

@@ -7,6 +7,7 @@ import com.sdwu.domain.sysuser.model.entity.SystemUser;
 import com.sdwu.domain.sysuser.model.valobj.LoginRequest;
 import com.sdwu.domain.sysuser.repository.ISystemUserRepository;
 import com.sdwu.domain.sysuser.service.IMenuService;
+import com.sdwu.types.annotation.AccessInterceptor;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
 import com.sdwu.types.model.Response;
@@ -30,7 +31,17 @@ public class LoginController {
     private IMenuService menuService;
 
     @PostMapping("login")
+    @AccessInterceptor(key = "uuid", fallbackMethod = "loginErr", permitsPerSecond = 1.0d, blacklistCount = 10)
     public Response login(@RequestBody LoginRequest loginRequest){
+
+        boolean b= systemUserRepository.validateCaptcha(loginRequest.getUsername(), loginRequest.getCode(), loginRequest.getUuid());
+        if (!b){
+            return Response.builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.CAPTCHA_ERROR.getInfo())
+                    .build();
+        }
+
         SystemUser systemUser = null;
         try {
             systemUser = systemUserRepository.findByUserName(loginRequest.getUsername());
@@ -68,7 +79,12 @@ public class LoginController {
                 .build();
     }
 
-
+    public Response loginErr(@RequestBody LoginRequest loginRequest) {
+        return Response.builder()
+                .code(ResponseCode.UN_ERROR.getCode())
+                .info("请求过于频繁，请稍后再试")
+                .build();
+    }
     @GetMapping("getInfo")
     public Response getInfo()
     {
