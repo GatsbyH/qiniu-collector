@@ -1,0 +1,64 @@
+在实现开发者评估应用的过程中，使用了以下 GitHub API 端点：
+
+1. **获取开发者的基本信息**
+   - **API 端点**: `GET /users/{username}`
+   - **示例**: `https://api.github.com/users/octocat`
+   - **文档**: [GitHub REST API - Users](https://docs.github.com/en/rest/users/users#get-a-user)
+
+2. **获取开发者的仓库信息**
+   - **API 端点**: `GET /users/{username}/repos`
+   - **示例**: `https://api.github.com/users/octocat/repos`
+   - **文档**: [GitHub REST API - Repositories](https://docs.github.com/en/rest/repos/repos#list-repositories-for-a-user)
+
+3. **获取仓库的详细信息**
+   - **API 端点**: `GET /repos/{owner}/{repo}`
+   - **示例**: `https://api.github.com/repos/octocat/Hello-World`
+   - **文档**: [GitHub REST API - Repositories](https://docs.github.com/en/rest/repos/repos#get-a-repository)
+
+4. **获取仓库的贡献者**
+   - **API 端点**: `GET /repos/{owner}/{repo}/contributors`
+   - **示例**: `https://api.github.com/repos/octocat/Hello-World/contributors`
+   - **文档**: [GitHub REST API - Repositories](https://docs.github.com/en/rest/repos/repos#list-repository-contributors)
+
+5. **获取开发者的关注者**
+   - **API 端点**: `GET /users/{username}/followers`
+   - **示例**: `https://api.github.com/users/octocat/followers`
+   - **文档**: [GitHub REST API - Users](https://docs.github.com/en/rest/users/followers#list-followers-of-a-user)
+
+6. **获取开发者正在关注的人**
+   - **API 端点**: `GET /users/{username}/following`
+   - **示例**: `https://api.github.com/users/octocat/following`
+   - **文档**: [GitHub REST API - Users](https://docs.github.com/en/rest/users/followers#list-users-followed-by-another-user)
+
+7. **获取仓库的编程语言**
+   - **API 端点**: `GET /repos/{owner}/{repo}/languages`
+   - **示例**: `https://api.github.com/repos/octocat/Hello-World/languages`
+   - **文档**: [GitHub REST API - Repositories](https://docs.github.com/en/rest/repos/repos#list-repository-languages)
+
+8. **获取仓库的提交记录**
+   - **API 端点**: `GET /repos/{owner}/{repo}/commits`
+   - **示例**: `https://api.github.com/repos/octocat/Hello-World/commits`
+   - **文档**: [GitHub REST API - Commits](https://docs.github.com/en/rest/commits/commits#list-commits)
+
+9. **获取仓库的标签**
+   - **API 端点**: `GET /repos/{owner}/{repo}/tags`
+   - **示例**: `https://api.github.com/repos/octocat/Hello-World/tags`
+   - **文档**: [GitHub REST API - Repositories](https://docs.github.com/en/rest/repos/repos#list-repository-tags)
+
+这些 API 端点提供了获取开发者信息、仓库信息、贡献者信息、关注者信息等功能，帮助实现开发者评估应用的各项需求。
+
+关于使用了 GitHub 的 API，我又搜到了一些不同的信息：
+
+- 获取项目的 README 文件: `GET /repos/{owner}/{repo}/readme`
+- 获取特定提交的详情: `GET /repos/{owner}/{repo}/commits/{sha}`
+- 获取仓库的所有拉取请求: `GET /repos/{owner}/{repo}/pulls`
+- 获取特定拉取请求的详情: `GET /repos/{owner}/{repo}/pulls/{number}`
+- 获取仓库的所有问题: `GET /repos/{owner}/{repo}/issues`
+- 获取特定问题的详情: `GET /repos/{owner}/{repo}/issues/{number}`
+- 获取仓库的所有分支: `GET /repos/{owner}/{repo}/branches`
+- 获取特定分支的详情: `GET /repos/{owner}/{repo}/branches/{branch}`
+- 获取仓库的所有发布版本: `GET /repos/{owner}/{repo}/releases`
+- 获取最新发布版本: `GET /repos/{owner}/{repo}/releases/latest`
+- 获取组织的公开信息: `GET /orgs/{org}`
+- 获取组织的所有团队: `GET /orgs/{org}/teams`
+- 获取团队的成员列表: `GET /teams/{team_id}/members`
