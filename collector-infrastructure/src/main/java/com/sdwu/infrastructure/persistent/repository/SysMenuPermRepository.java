@@ -1,10 +1,7 @@
 package com.sdwu.infrastructure.persistent.repository;
 
-import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.sdwu.domain.sysuser.model.entity.SysMenu;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
-import com.sdwu.domain.sysuser.model.entity.TreeSelect;
 import com.sdwu.domain.sysuser.model.valobj.MetaVo;
 import com.sdwu.domain.sysuser.model.valobj.RouterVo;
 import com.sdwu.domain.sysuser.repository.ISysMenuPermRepository;

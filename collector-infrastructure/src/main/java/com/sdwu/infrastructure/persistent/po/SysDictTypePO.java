@@ -7,12 +7,9 @@ import javax.validation.constraints.Size;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sdwu.domain.sysuser.model.entity.SysDictData;
 import com.sdwu.infrastructure.persistent.utils.BaseDO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import java.util.List;
 
 /**
  * 字典类型表 sys_dict_type

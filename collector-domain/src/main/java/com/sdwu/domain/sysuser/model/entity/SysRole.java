@@ -1,6 +1,5 @@
 package com.sdwu.domain.sysuser.model.entity;
 
-import java.io.Serializable;
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

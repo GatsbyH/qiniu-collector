@@ -2,7 +2,6 @@ package com.sdwu.domain.sysuser.repository;
 
 import com.sdwu.domain.sysuser.model.entity.SysMenu;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
-import com.sdwu.domain.sysuser.model.entity.TreeSelect;
 import com.sdwu.domain.sysuser.model.valobj.RouterVo;
 
 import java.util.List;

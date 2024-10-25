@@ -1,7 +1,6 @@
 package com.sdwu.trigger.http;
 
 import com.google.code.kaptcha.Producer;
-import com.sdwu.domain.sysuser.repository.ISystemUserRepository;
 import com.sdwu.domain.sysuser.service.ISysUserService;
 import com.sdwu.types.common.Base64;
 import com.sdwu.types.enums.ResponseCode;

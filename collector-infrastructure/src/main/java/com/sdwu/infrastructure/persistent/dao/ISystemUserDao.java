@@ -1,7 +1,6 @@
 package com.sdwu.infrastructure.persistent.dao;
 
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
-import com.sdwu.infrastructure.persistent.po.SysUserRolePO;
 import com.sdwu.infrastructure.persistent.po.SystemUserPO;
 import com.sdwu.infrastructure.persistent.utils.BaseMapperX;
 import com.sdwu.infrastructure.persistent.utils.LambdaQueryWrapperX;

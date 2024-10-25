@@ -1,6 +1,5 @@
 package com.sdwu.trigger.http;
 
-import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.sdwu.domain.sysuser.model.entity.SysMenu;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
@@ -9,7 +8,6 @@ import com.sdwu.domain.sysuser.repository.ISystemUserRepository;
 import com.sdwu.domain.sysuser.service.IMenuService;
 import com.sdwu.types.annotation.AccessInterceptor;
 import com.sdwu.types.enums.ResponseCode;
-import com.sdwu.types.exception.AppException;
 import com.sdwu.types.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @RestController

@@ -1,7 +1,6 @@
 package com.sdwu.trigger.http;
 
 import com.sdwu.domain.sysuser.model.entity.SysDictData;
-import com.sdwu.domain.sysuser.repository.ISysDictTypeRepository;
 import com.sdwu.domain.sysuser.service.ISysDictTypeService;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.model.Response;

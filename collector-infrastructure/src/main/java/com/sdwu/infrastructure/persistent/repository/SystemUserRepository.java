@@ -1,7 +1,5 @@
 package com.sdwu.infrastructure.persistent.repository;
 
-import cn.dev33.satoken.stp.StpUtil;
-import com.sdwu.domain.sysuser.model.entity.SysRole;
 import com.sdwu.domain.sysuser.model.entity.SystemUser;
 import com.sdwu.domain.sysuser.repository.ISystemUserRepository;
 import com.sdwu.infrastructure.persistent.dao.ISysRoleDao;

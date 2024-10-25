@@ -1,7 +1,6 @@
 package com.sdwu.infrastructure.persistent.repository;
 
 import com.sdwu.domain.sysuser.model.entity.SysDictData;
-import com.sdwu.domain.sysuser.repository.ISysDictDataRepository;
 import com.sdwu.domain.sysuser.repository.ISysDictTypeRepository;
 import com.sdwu.infrastructure.persistent.dao.ISysDcitDataDao;
 import com.sdwu.infrastructure.persistent.po.SysDictDataPO;
