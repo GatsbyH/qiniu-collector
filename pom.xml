@@ -65,10 +65,21 @@
                 <version>2.3.3</version>
             </dependency>
 
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>1.39.0</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.redisson</groupId>-->
+<!--                <artifactId>redisson-spring-boot-starter</artifactId>-->
+<!--                <version>3.26.0</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>3.26.0</version>
+                <version>3.17.4</version>
             </dependency>
             <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
             <dependency>
@@ -77,12 +88,7 @@
                 <version>1.39.0</version>
             </dependency>
 
-            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
-            <dependency>
-                <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-redis-jackson</artifactId>
-                <version>1.39.0</version>
-            </dependency>
+
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
