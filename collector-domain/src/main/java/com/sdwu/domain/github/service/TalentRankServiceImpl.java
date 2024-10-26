@@ -46,24 +46,34 @@ public class TalentRankServiceImpl implements ITalentRankService{
         int forks = jsonObject.getIntValue("forks_count");
         int issues = jsonObject.getIntValue("open_issues_count");
         int commits=0;
-        if (jsonObject.getDate("pushed_at")!= null && jsonObject.getInteger("size") > 0){
-            commits = gitHubApi.getUserCommits(owner, repo, username);
+        int contributions=0;
+        String userContributions = gitHubApi.getUserContributions(owner, repo, username);
+        JSONArray jsonArray = JSON.parseArray(userContributions);
+        for (int i=0;i<jsonArray.size(); i++){
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            if (jsonObject1.getString("login").equals(username)){
+                contributions=jsonObject1.getIntValue("contributions");
+            }
         }
-        int pullRequests=0;
-        if (!jsonObject.getBooleanValue("fork") && jsonObject.getInteger("size") > 0){
-            pullRequests = gitHubApi.getUserPullRequests(owner, repo, username);
-        }
-        int userIssues=0;
-        if (jsonObject.getIntValue("open_issues_count")>0 && jsonObject.getInteger("size") > 0){
-            userIssues = gitHubApi.getUserIssues(owner, repo, username);
-        }
+//        if (jsonObject.getDate("pushed_at")!= null && jsonObject.getInteger("size") > 0){
+//            commits = gitHubApi.getUserCommits(owner, repo, username);
+//        }
+//        int pullRequests=0;
+//        if (!jsonObject.getBooleanValue("fork") && jsonObject.getInteger("size") > 0){
+//            pullRequests = gitHubApi.getUserPullRequests(owner, repo, username);
+//        }
+//        int userIssues=0;
+//        if (jsonObject.getIntValue("open_issues_count")>0 && jsonObject.getInteger("size") > 0){
+//            userIssues = gitHubApi.getUserIssues(owner, repo, username);
+//        }
 
 
         // 项目重要程度的权重
         double projectImportance = stars * 0.5 + forks * 0.3 + issues * 0.2;
 
         // 开发者贡献度的权重
-        double userContribution = commits * 0.5 + pullRequests * 0.3 + userIssues * 0.2;
+//        double userContribution = commits * 0.5 + pullRequests * 0.3 + userIssues * 0.2;
+        double userContribution = contributions;
 
         // 计算 TalentRank
         return projectImportance * 0.6 + userContribution * 0.4;

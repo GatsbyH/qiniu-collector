@@ -41,4 +41,10 @@ public class GitHubApiImpl implements IGitHubApi{
         JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
         return jsonArray.size();
     }
+
+    @Override
+    public String getUserContributions(String owner, String repo, String username) throws IOException {
+        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/contributors", null);
+        return fetchGitHubApi;
+    }
 }

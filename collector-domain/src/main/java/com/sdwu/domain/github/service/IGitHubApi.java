@@ -10,4 +10,6 @@ public interface IGitHubApi {
     int getUserPullRequests(String owner, String repo, String username) throws IOException;
 
     int getUserIssues(String owner, String repo, String username) throws IOException;
+
+    String getUserContributions(String owner, String repo, String username) throws IOException;
 }
