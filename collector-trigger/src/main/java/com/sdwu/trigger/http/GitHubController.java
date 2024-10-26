@@ -2,6 +2,7 @@ package com.sdwu.trigger.http;
 
 import com.sdwu.domain.github.service.GitHubClientService;
 import com.sdwu.domain.github.service.ITalentRankService;
+import com.sdwu.types.annotation.Loggable;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 public class GitHubController {
@@ -30,7 +32,8 @@ public class GitHubController {
     }
 
     @GetMapping("getTalentRankByUserName")
-    public Response getTalentRankByUserName(String username) throws IOException {
+    @Loggable
+    public Response getTalentRankByUserName(String username) throws IOException, ExecutionException, InterruptedException {
         double talentRankByUserName = talentRankService.getTalentRankByUserName(username);
         return Response.builder()
                 .code(200)
