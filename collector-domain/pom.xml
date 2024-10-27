@@ -11,6 +11,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.bugstack</groupId>
+            <artifactId>openai-sdk-java</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
         </dependency>

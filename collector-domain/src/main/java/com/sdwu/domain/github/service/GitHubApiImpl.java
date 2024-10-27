@@ -47,4 +47,43 @@ public class GitHubApiImpl implements IGitHubApi{
         String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/contributors", null);
         return fetchGitHubApi;
     }
+
+    @Override
+    public JSONObject getUserInfo(String username) throws IOException {
+        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username, null);
+        JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+        return jsonObject;
+    }
+
+    @Override
+    public List<String> getFollowersByUserName(String username) throws IOException {
+        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/followers", null);
+        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+        List<String> locations = new ArrayList<>();
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            if (jsonObject == null&&jsonObject.getString("location")==null){
+                continue;
+            }
+            JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
+            locations.add(userInfo.getString("location"));
+        }
+        return locations;
+    }
+
+    @Override
+    public List<String> getFollowingByUserName(String username) throws IOException {
+        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/following", null);
+        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+        List<String> locations = new ArrayList<>();
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            if (jsonObject == null&&jsonObject.getString("location")==null){
+                continue;
+            }
+            JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
+            locations.add(userInfo.getString("location"));
+        }
+        return locations;
+    }
 }

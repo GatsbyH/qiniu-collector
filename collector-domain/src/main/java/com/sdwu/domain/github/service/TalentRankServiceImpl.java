@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 public class TalentRankServiceImpl implements ITalentRankService{
@@ -120,25 +121,45 @@ public class TalentRankServiceImpl implements ITalentRankService{
         int stars = jsonObject.getIntValue("stargazers_count");
         int forks = jsonObject.getIntValue("forks_count");
         int issues = jsonObject.getIntValue("open_issues_count");
-        int contributions=0;
-        String userContributions = gitHubApi.getUserContributions(owner, repo, username);
-        JSONArray jsonArray = JSON.parseArray(userContributions);
-        if (jsonArray!=null){
-            for (int i=0;i<jsonArray.size(); i++){
-                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                if (jsonObject1.getString("login").equals(username)){
-                    contributions=jsonObject1.getIntValue("contributions");
-                }
-            }
-        }
+        // 获取用户在该仓库的贡献
+        int contributions = getUserContributions(owner, repo, username);
+        int pullRequests = getUserPullRequests(owner, repo, username, jsonObject);
+        int issuesReported = getUserIssuesReported(owner, repo, username, jsonObject);
         // 项目重要程度的权重
         double projectImportance = stars * 0.5 + forks * 0.3 + issues * 0.2;
-
-        // 开发者贡献度的权重
-        double userContribution = contributions;
-
+        // 综合开发者贡献度的权重
+        double userContribution = contributions * 0.5 + pullRequests * 0.3 + issuesReported * 0.2;
         // 计算 TalentRank
         return projectImportance * 0.6 + userContribution * 0.4;
     }
 
+    private int getUserContributions(String owner, String repo, String username) throws IOException {
+        String userContributionsJson = gitHubApi.getUserContributions(owner, repo, username);
+        JSONArray contributionsArray = JSON.parseArray(userContributionsJson);
+
+        if (contributionsArray == null) {
+            return 0;
+        }
+        for (int i = 0; i < contributionsArray.size(); i++) {
+            JSONObject contribution = contributionsArray.getJSONObject(i);
+            if (contribution.getString("login").equals(username)) {
+                return contribution.getIntValue("contributions");
+            }
+        }
+        return 0; // 如果没有找到贡献，返回 0
+    }
+
+    private int getUserPullRequests(String owner, String repo, String username, JSONObject jsonObject) throws IOException {
+        if (!jsonObject.getBooleanValue("fork") && jsonObject.getIntValue("size", 0) > 0) {
+            return gitHubApi.getUserPullRequests(owner, repo, username);
+        }
+        return 0; // 条件不满足时返回 0
+    }
+
+    private int getUserIssuesReported(String owner, String repo, String username, JSONObject jsonObject) throws IOException {
+        if (jsonObject.getIntValue("open_issues_count", 0) > 0 && jsonObject.getIntValue("size", 0) > 0) {
+            return gitHubApi.getUserIssues(owner, repo, username);
+        }
+        return 0; // 条件不满足时返回 0
+    }
 }
