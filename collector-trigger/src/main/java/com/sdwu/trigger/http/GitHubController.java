@@ -1,6 +1,7 @@
 package com.sdwu.trigger.http;
 
 import com.sdwu.domain.github.service.GitHubClientService;
+import com.sdwu.domain.github.service.IDeveloperFieldService;
 import com.sdwu.domain.github.service.ITalentRankService;
 import com.sdwu.domain.github.service.IDeveloperNationService;
 import com.sdwu.types.annotation.Loggable;
@@ -22,6 +23,9 @@ public class GitHubController {
 
     @Resource
     private IDeveloperNationService developerNationService;
+
+    @Resource
+    private IDeveloperFieldService developerFieldService;
 
     @Autowired
     public GitHubController(GitHubClientService gitHubClientService) {
@@ -51,6 +55,16 @@ public class GitHubController {
                 .code(200)
                 .info("success")
                 .data(developerNationService.getDeveloperNation(username))
+                .build();
+    }
+
+    //开发者的领域。可根据领域搜索匹配，并按 TalentRank 排序。Nation 作为可选的筛选项，比如只需要显示所有位于中国的开发者。
+    @GetMapping("getDeveloperByFieldAndNation")
+    public Response getDeveloperByFieldAndNation(String field,String nation) throws IOException {
+        return Response.builder()
+                .code(200)
+                .info("success")
+                .data(developerFieldService.getDeveloperByFieldAndNation(field,nation))
                 .build();
     }
 }

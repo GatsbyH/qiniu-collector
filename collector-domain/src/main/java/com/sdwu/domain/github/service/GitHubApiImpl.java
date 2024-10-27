@@ -3,6 +3,7 @@ package com.sdwu.domain.github.service;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.sdwu.domain.github.model.entity.Developer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ public class GitHubApiImpl implements IGitHubApi{
 
     @Resource
     private GitHubClientService gitHubClientService;
+
     @Override
     public String getReposByUserName(String username) throws IOException {
         String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/repos", null);
@@ -85,5 +87,11 @@ public class GitHubApiImpl implements IGitHubApi{
             locations.add(userInfo.getString("location"));
         }
         return locations;
+    }
+
+    @Override
+    public String getDeveloperByFieldAndNation(String field,String nation) throws IOException {
+        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=language:" + field +"&sort=stars&order=desc", null);
+       return fetchGitHubApi;
     }
 }

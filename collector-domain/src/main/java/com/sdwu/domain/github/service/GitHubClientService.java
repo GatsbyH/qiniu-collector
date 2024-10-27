@@ -164,11 +164,16 @@ public class GitHubClientService {
     }
 
     private void initializeTokens() {
+        tokenMap.put("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", true);
+        tokenMap.put("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", true);
+        tokenMap.put("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", true);
         tokenMap.put("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", true);
         tokenMap.put("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", true);
         tokenMap.put("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", true);
         tokenMap.put("ghp_VlTDQKohyxJ5HR3vPb5sDuxwBr5ZzZAuhkVh", true);
+        tokenMap.put("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", true);
         tokenMap.put("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", true);
+
     }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
@@ -208,9 +213,15 @@ public class GitHubClientService {
     private void markTokenInvalid(String token) {
         lock.lock();
         try {
-            tokenMap.put(token, false); // 将令牌标记为无效
+            tokenMap.put(token, false);
         } finally {
             lock.unlock();
         }
+        try {
+            Thread.sleep(1000); // Wait 1 second before retrying
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
+
 }

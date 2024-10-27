@@ -1,6 +1,7 @@
 package com.sdwu.domain.github.service;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.sdwu.domain.github.model.entity.Developer;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,4 +22,6 @@ public interface IGitHubApi {
     List<String> getFollowersByUserName(String username) throws IOException;
 
     List<String> getFollowingByUserName(String username) throws IOException;
+
+    String getDeveloperByFieldAndNation(String field, String nation) throws IOException;
 }
