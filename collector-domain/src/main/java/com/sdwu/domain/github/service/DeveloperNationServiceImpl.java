@@ -15,13 +15,16 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
     private IGitHubApi gitHubApi;
     @Resource
     private IMoonShotApi moonShotApi;
+    @Resource
+    private IChatGlmApi chatGlmApi;
     @Override
     public String getDeveloperNation(String username) throws IOException {
         JSONObject userInfo = gitHubApi.getUserInfo(username);
         if (userInfo.get("location") != null){
-//            String country = moonShotApi.getCountry(jsonObject.getString("location"));
-//            return country;
-            return userInfo.getString("location");
+//            String country = moonShotApi.getCountry(userInfo.getString("location"));
+            String country = chatGlmApi.getCountry(userInfo.getString("location"));
+            return country;
+//            return userInfo.getString("location");
         }
         List<String> followersLocations = gitHubApi.getFollowersByUserName(username);
         List<String> followingByUserName = gitHubApi.getFollowingByUserName(username);
@@ -29,7 +32,8 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
         //合成一个集合
         followersLocations.addAll(followingByUserName);
 
-        String country = moonShotApi.getCountryByUserRelations(followersLocations);
+//        String country = moonShotApi.getCountryByUserRelations(followersLocations);
+        String country = chatGlmApi.getCountryByUserRelations(followersLocations);
 //        log.info("followersLocations: " + followersLocations);
         return country;
     }

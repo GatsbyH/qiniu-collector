@@ -147,6 +147,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 @Service
 public class GitHubClientService {
@@ -157,6 +158,9 @@ public class GitHubClientService {
     @Autowired
     public GitHubClientService(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient.newBuilder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
                 .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // 确保代理设置正确
                 .build();
         this.tokenMap = new ConcurrentHashMap<>();
@@ -164,15 +168,10 @@ public class GitHubClientService {
     }
 
     private void initializeTokens() {
-        tokenMap.put("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", true);
-        tokenMap.put("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", true);
-        tokenMap.put("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", true);
         tokenMap.put("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", true);
         tokenMap.put("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", true);
         tokenMap.put("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", true);
-        tokenMap.put("ghp_VlTDQKohyxJ5HR3vPb5sDuxwBr5ZzZAuhkVh", true);
         tokenMap.put("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", true);
-        tokenMap.put("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", true);
 
     }
 

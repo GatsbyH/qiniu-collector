@@ -43,7 +43,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
                     .talentRank(talentRank)
                     .build();
             developers.add(developer);
-            System.out.println("用户名："+login+"  位置："+location+"  领域："+field+"  国籍："+nation+" github地址："+ htmlUrl+"  人才指数："+talentRank);
+            System.out.println("用户名："+login+"  位置："+location+"  领域："+field+"  国籍："+developerNation+" github地址："+ htmlUrl+"  人才指数："+talentRank);
         }
         //使用stream流将developers按照人才指数降序排序
         developers.sort((o1, o2) -> Double.compare(o2.getTalentRank(), o1.getTalentRank()));
