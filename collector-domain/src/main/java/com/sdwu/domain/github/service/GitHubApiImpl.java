@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.repository.IGithubUserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,7 +17,8 @@ public class GitHubApiImpl implements IGitHubApi{
 
     @Resource
     private GitHubClientService gitHubClientService;
-
+    @Resource
+    private IGithubUserRepository githubUserRepository;
     @Override
     public String getReposByUserName(String username) throws IOException {
         String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/repos", null);
@@ -93,5 +95,15 @@ public class GitHubApiImpl implements IGitHubApi{
     public String getDeveloperByFieldAndNation(String field,String nation) throws IOException {
         String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=language:" + field +"&sort=stars&order=desc", null);
        return fetchGitHubApi;
+    }
+
+    @Override
+    public String getDevelopersByFields(String field) throws IOException {
+        Integer page = githubUserRepository.getGitHubPageByField(field);
+//        Integer page = 1;
+        Integer per_page = 4;
+        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=" + field +"+in:description,topics&sort=stars"+"&page="+page+"&per_page="+per_page, null);
+        githubUserRepository.updateGitHubPageByField(field);
+        return fetchGitHubApi;
     }
 }

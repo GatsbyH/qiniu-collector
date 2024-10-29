@@ -24,4 +24,6 @@ public interface IGitHubApi {
     List<String> getFollowingByUserName(String username) throws IOException;
 
     String getDeveloperByFieldAndNation(String field, String nation) throws IOException;
+
+    String getDevelopersByFields(String field) throws IOException;
 }

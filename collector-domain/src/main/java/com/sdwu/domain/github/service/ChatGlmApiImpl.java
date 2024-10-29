@@ -2,6 +2,8 @@ package com.sdwu.domain.github.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sdwu.types.enums.ResponseCode;
+import com.sdwu.types.exception.AppException;
 import com.zhipu.oapi.ClientV4;
 import com.zhipu.oapi.Constants;
 import com.zhipu.oapi.service.v4.deserialize.MessageDeserializeFactory;
@@ -43,6 +45,7 @@ public class ChatGlmApiImpl implements IChatGlmApi{
                 .requestId(requestId)
                 .extraJson(extraJson)
                 .build();
+        log.info("request: {}", mapper.writeValueAsString(chatCompletionRequest));
         ModelApiResponse invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
         log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
         return invokeModelApiResp;
@@ -51,7 +54,7 @@ public class ChatGlmApiImpl implements IChatGlmApi{
     @Override
     public String getCountry(String location) throws JsonProcessingException {
         List<ChatMessage> messages = new ArrayList<>();
-        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), location+"是哪个国家，只需回答国家");
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), location+"是哪个国家（台湾是中国的），只需回答国家");
         messages.add(chatMessage);
         String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
 
@@ -66,7 +69,11 @@ public class ChatGlmApiImpl implements IChatGlmApi{
                 .requestId(requestId)
                 .extraJson(extraJson)
                 .build();
-        ModelApiResponse invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+        ModelApiResponse invokeModelApiResp = null;
+        log.info("request: {}", mapper.writeValueAsString(chatCompletionRequest));
+
+        invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+
         String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
         log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
         return message;

@@ -1,7 +1,9 @@
 package com.sdwu.infrastructure.persistent.redis;
 
+import com.sdwu.infrastructure.persistent.po.DeveloperPO;
 import org.redisson.api.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,6 +56,12 @@ public interface IRedisService {
      */
     <T> RBlockingQueue<T> getBlockingQueue(String key);
 
+
+
+    void addUser(String key, DeveloperPO user, double talentRank);
+    List<DeveloperPO> getUsersByRankDesc(String key, int pageNumber, int pageSize);
+
+    void removeUser(String key, DeveloperPO user);
     /**
      * 延迟队列
      *

@@ -168,11 +168,10 @@ public class GitHubClientService {
     }
 
     private void initializeTokens() {
-        tokenMap.put("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", true);
-        tokenMap.put("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", true);
         tokenMap.put("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", true);
         tokenMap.put("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", true);
-
+        tokenMap.put("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", true);
+        tokenMap.put("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", true);
     }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
@@ -212,7 +211,8 @@ public class GitHubClientService {
     private void markTokenInvalid(String token) {
         lock.lock();
         try {
-            tokenMap.put(token, false);
+//            tokenMap.put(token, false);
+            tokenMap.remove(token);
         } finally {
             lock.unlock();
         }

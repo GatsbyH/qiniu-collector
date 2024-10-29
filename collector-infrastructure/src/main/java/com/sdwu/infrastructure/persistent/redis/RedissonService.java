@@ -1,10 +1,15 @@
 package com.sdwu.infrastructure.persistent.redis;
 
+import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.util.ArrayUtil;
+import com.sdwu.infrastructure.persistent.po.DeveloperPO;
 import org.redisson.api.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.Duration;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -133,6 +138,28 @@ public class RedissonService implements IRedisService {
         RSortedSet<String> sortedSet = redissonClient.getSortedSet(key);
         sortedSet.add(value);
     }
+    @Override
+    public void addUser(String key, DeveloperPO user, double talentRank) {
+        RScoredSortedSet<DeveloperPO> sortedSet = redissonClient.getScoredSortedSet(key);
+        sortedSet.add(talentRank, user);
+    }
+    @Override
+    public  List<DeveloperPO> getUsersByRankDesc(String key, int pageNumber, int pageSize) {
+        RScoredSortedSet<DeveloperPO> sortedSet = redissonClient.getScoredSortedSet(key);
+        int startIndex = (pageNumber - 1) * pageSize;
+        int endIndex = startIndex + pageSize - 1;
+
+        Collection<DeveloperPO> collection = sortedSet.valueRangeReversed(startIndex, endIndex);
+        List<DeveloperPO> users = ListUtil.toList(collection);
+        return users;
+    }
+
+    @Override
+    public void removeUser(String key, DeveloperPO user) {
+        RScoredSortedSet<DeveloperPO> sortedSet = redissonClient.getScoredSortedSet(key);
+        sortedSet.remove(user);
+    }
+
 
     @Override
     public RLock getLock(String key) {

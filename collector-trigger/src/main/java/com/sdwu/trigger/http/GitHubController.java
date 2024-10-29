@@ -30,6 +30,7 @@ public class GitHubController {
     @Resource
     private IChatGlmApi chatGlmApi;
 
+
     @Autowired
     public GitHubController(GitHubClientService gitHubClientService) {
         this.gitHubClientService = gitHubClientService;
@@ -61,6 +62,7 @@ public class GitHubController {
                 .data(developerNationService.getDeveloperNation(username))
                 .build();
     }
+
 
     //开发者的领域。可根据领域搜索匹配，并按 TalentRank 排序。Nation 作为可选的筛选项，比如只需要显示所有位于中国的开发者。
     @GetMapping("getDeveloperByFieldAndNation")
