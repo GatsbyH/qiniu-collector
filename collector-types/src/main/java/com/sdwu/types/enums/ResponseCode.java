@@ -1,5 +1,6 @@
 package com.sdwu.types.enums;
 
+import jdk.nashorn.internal.codegen.CompileUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,6 @@ public enum ResponseCode {
     CAPTCHA_EXPIRED(12, "验证码已过期"),
     CAPTCHA_ERROR(13, "验证码错误")
     ;
-
     private Integer code;
     private String info;
 

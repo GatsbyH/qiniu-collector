@@ -47,7 +47,17 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <!-- 百度内容审核 https://mvnrepository.com/artifact/com.baidu.aip/java-sdk -->
+            <dependency>
+                <groupId>com.baidu.aip</groupId>
+                <artifactId>java-sdk</artifactId>
+                <version>4.16.17</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.houbb</groupId>
+                <artifactId>sensitive-word</artifactId>
+                <version>0.8.0</version>
+            </dependency>
             <dependency>
                 <groupId>cn.bigmodel.openapi</groupId>
                 <artifactId>oapi-java-sdk</artifactId>

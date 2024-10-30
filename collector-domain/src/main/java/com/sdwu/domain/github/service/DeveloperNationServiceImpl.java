@@ -1,6 +1,7 @@
 package com.sdwu.domain.github.service;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.sdwu.domain.censorship.factory.DefaultLogicFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
     private IMoonShotApi moonShotApi;
     @Resource
     private IChatGlmApi chatGlmApi;
+
     @Override
     public String getDeveloperNation(String username) throws IOException {
         JSONObject userInfo = gitHubApi.getUserInfo(username);

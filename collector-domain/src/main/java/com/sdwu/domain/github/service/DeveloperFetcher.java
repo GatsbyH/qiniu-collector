@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class DeveloperFetcher {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private String currentField;
@@ -81,11 +83,12 @@ public class DeveloperFetcher {
         githubUserRepository.save(field,developers);
     }
 
-    public void stopFetching() {
+    public void stopFetching(String field) {
         if (isFetching) {
             scheduler.shutdown();
-            isFetching = false;
-            System.out.println("Fetching stopped.");
+            githubUserRepository.updateFetchFlag(field);
+
+            log.info("Fetching stopped.");
         }
     }
 }

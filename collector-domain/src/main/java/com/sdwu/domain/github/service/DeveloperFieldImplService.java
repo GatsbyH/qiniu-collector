@@ -4,7 +4,9 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import com.sdwu.types.model.PageResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -63,5 +65,33 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         developers.sort((o1, o2) -> Double.compare(o2.getTalentRank(), o1.getTalentRank()));
         developerFetcher.startFetching(field, nation);
         return developers;
+    }
+
+    @Override
+    public Boolean startGetDeveloperByField(String field) {
+        String nation = "all";
+        try {
+            developerFetcher.startFetching(field, nation);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean stopGetDeveloperByField(String field) {
+        String nation = "all";
+        try {
+            developerFetcher.startFetching(field, nation);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo) {
+        PageResult<Developer> developersByFields = githubUserRepository.getDevelopersByFieldsPage(developersByFieldReqVo);
+        return developersByFields;
     }
 }

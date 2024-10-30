@@ -1,6 +1,8 @@
 package com.sdwu.domain.github.repository;
 
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.types.model.PageResult;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface IGithubUserRepository {
     Boolean getFetchFlag(String field);
 
     void updateFetchFlag(String field);
+
+    PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo);
 }

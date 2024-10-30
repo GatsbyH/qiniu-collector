@@ -44,6 +44,6 @@ public class CacheConstants
 
     public static final String GITHUB_USER_INFO_KEY = "github_user_info:";
     public static final String GITHUB_PAGE = "github:page:";
-    private static final String FETCHING_KEY = "isFetching";
+    public static final String FETCHING_KEY = "isFetching";
 
 }

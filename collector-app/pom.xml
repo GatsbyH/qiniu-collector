@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>sensitive-word</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cn.bugstack</groupId>
             <artifactId>openai-sdk-java</artifactId>
             <exclusions>
