@@ -73,6 +73,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         try {
             developerFetcher.startFetching(field, nation);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -84,6 +85,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         try {
             developerFetcher.stopFetching(field);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;

@@ -98,6 +98,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.domain.github.service.IDeveloperNationService;
 import com.sdwu.domain.github.service.IGitHubApi;
 import com.sdwu.domain.github.service.ITalentRankService;
@@ -130,8 +131,14 @@ public class DeveloperFetcher {
     @Resource
     private IGithubUserRepository githubUserRepository;
 
+    @Resource
+    private IScheduledTaskRepository scheduledTaskRepository;
     public void startFetching(String field, String nation) {
 //        Boolean isFetching = githubUserRepository.getFetchFlag(field);
+        if (!scheduledTaskRepository.checkScheduledTaskByField(field)){
+            scheduledTaskRepository.insertScheduledTask(field,"RUNNING");
+        }
+        scheduledTaskRepository.updateScheduledTaskRUNNING(field,"RUNNING");
         // 检查是否已经在获取中
         if (scheduledFutures.containsKey(field)) {
             return; // 已在获取中，返回
@@ -150,6 +157,9 @@ public class DeveloperFetcher {
                 getDeveloperByFieldAndNation(currentField, currentNation);
             } catch (IOException e) {
                 log.error("Error fetching developers: ", e);
+                //把错误信息转换成字符串
+                String errorMessage = e.getMessage();
+                scheduledTaskRepository.updateScheduledTask(field,"FALED",errorMessage);
             }
         }, 0, 2, TimeUnit.SECONDS);
 
@@ -212,6 +222,7 @@ public class DeveloperFetcher {
             future.cancel(true); // 取消定时任务
 //            scheduledFuture.cancel(true); // 取消定时任务
 //            githubUserRepository.updateFetchFlag(field);
+            scheduledTaskRepository.endScheduledTask(field,"COMPLETED");
             log.info("Fetching stopped for field: {}", field);
         }
     }
