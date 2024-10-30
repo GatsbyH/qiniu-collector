@@ -43,7 +43,7 @@ public class CacheConstants
     public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
 
     public static final String GITHUB_USER_INFO_KEY = "github_user_info:";
-    public static final String GITHUB_PAGE = "github:page:";
-    public static final String FETCHING_KEY = "isFetching";
+    public static final String GITHUB_PAGE = "github_page:";
+    public static final String FETCHING_KEY = "github_isFetching:";
 
 }

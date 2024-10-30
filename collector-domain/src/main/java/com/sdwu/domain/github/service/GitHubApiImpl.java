@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class GitHubApiImpl implements IGitHubApi{
 
     @Resource
@@ -102,8 +104,32 @@ public class GitHubApiImpl implements IGitHubApi{
         Integer page = githubUserRepository.getGitHubPageByField(field);
 //        Integer page = 1;
         Integer per_page = 4;
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=" + field +"+in:description,topics&sort=stars"+"&page="+page+"&per_page="+per_page, null);
-        githubUserRepository.updateGitHubPageByField(field);
-        return fetchGitHubApi;
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=" + field + "+in:description,topics&sort=stars" + "&page=" + page + "&per_page=" + per_page, null);
+
+            // Check if the response is valid (you may want to implement a response validation method)
+            if (fetchGitHubApi == null || fetchGitHubApi.isEmpty()) {
+                log.error("Received an empty response for field: {}", field);
+                throw new IOException("Received an empty response from GitHub API");
+            }
+
+            // Optionally, parse the response and check for errors (if applicable)
+            JSONObject responseObject = JSON.parseObject(fetchGitHubApi);
+            if (responseObject.getInteger("total_count") == 0) {
+                log.warn("No repositories found for field: {}", field);
+            }
+
+            // Update the page number in the repository
+            githubUserRepository.updateGitHubPageByField(field);
+
+            return fetchGitHubApi;
+
+        } catch (IOException e) {
+            log.error("Error fetching developers from GitHub API for field: {} - {}", field, e.getMessage());
+            throw e; // Rethrow to notify the caller about the error
+        } catch (Exception e) {
+            log.error("Unexpected error occurred while fetching developers for field: {} - {}", field, e.getMessage());
+            throw new IOException("An unexpected error occurred", e);
+        }
     }
 }

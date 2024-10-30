@@ -82,7 +82,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     public Boolean stopGetDeveloperByField(String field) {
         String nation = "all";
         try {
-            developerFetcher.startFetching(field, nation);
+            developerFetcher.stopFetching(field);
         } catch (Exception e) {
             return false;
         }

@@ -47,18 +47,18 @@ public class SysRoleController {
 
     @PutMapping
     public Response edit(@RequestBody SysRole role) {
-        if (!roleService.checkRoleNameUnique(role)){
-            return Response.builder()
-                    .code(ResponseCode.UN_ERROR.getCode())
-                    .info(ResponseCode.ROLE_NAME_EXIST.getInfo())
-                    .build();
-        }
-        if (!roleService.checkRoleKeyUnique(role)){
-            return Response.builder()
-                    .code(ResponseCode.UN_ERROR.getCode())
-                    .info(ResponseCode.ROLE_KEY_EXIST.getInfo())
-                    .build();
-        }
+//        if (!roleService.checkRoleNameUnique(role)){
+//            return Response.builder()
+//                    .code(ResponseCode.UN_ERROR.getCode())
+//                    .info(ResponseCode.ROLE_NAME_EXIST.getInfo())
+//                    .build();
+//        }
+//        if (!roleService.checkRoleKeyUnique(role)){
+//            return Response.builder()
+//                    .code(ResponseCode.UN_ERROR.getCode())
+//                    .info(ResponseCode.ROLE_KEY_EXIST.getInfo())
+//                    .build();
+//        }
         return Response.success(roleService.updateRole(role));
     }
     @DeleteMapping("/{roleIds}")

@@ -66,12 +66,12 @@ public class SysMenuController {
     @PutMapping
     public Response edit(@RequestBody SysMenu menu)
     {
-        if (menuService.checkMenuNameUnique(menu)){
-            return Response.builder()
-                    .code(ResponseCode.UN_ERROR.getCode())
-                    .info(ResponseCode.MENU_NAME_EXIST.getInfo())
-                    .build();
-        }
+//        if (menuService.checkMenuNameUnique(menu)){
+//            return Response.builder()
+//                    .code(ResponseCode.UN_ERROR.getCode())
+//                    .info(ResponseCode.MENU_NAME_EXIST.getInfo())
+//                    .build();
+//        }
         if (menu.getParentId().equals(menu.getMenuId())){
             return Response.builder()
                     .code(ResponseCode.UN_ERROR.getCode())
