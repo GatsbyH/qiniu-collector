@@ -275,4 +275,5 @@ public interface IRedisService {
 
     Boolean setNx(String key, long expired, TimeUnit timeUnit);
 
+    Integer getUsersByRankSize(String s);
 }

@@ -118,4 +118,16 @@ public class GitHubController {
                 .data(modelApiResponse)
                 .build();
     }
+
+    //测试ChatGlm联网搜索
+    @GetMapping("testChatGlmWebSearch")
+    public Response testChatGlmWebSearch(String query) throws JsonProcessingException {
+        ModelApiResponse modelApiResponse = chatGlmApi.testChatGlmWebSearch();
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(modelApiResponse)
+                .build();
+    }
+
 }

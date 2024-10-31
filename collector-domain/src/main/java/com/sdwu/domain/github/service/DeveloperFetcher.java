@@ -170,8 +170,14 @@ public class DeveloperFetcher {
     private void getDeveloperByFieldAndNation(String field, String nation) throws IOException {
             List<Developer> developers = null;
 
-            String developerByFieldAndNation = gitHubApi.getDevelopersByFields(field);
-            JSONObject responseObject = JSON.parseObject(developerByFieldAndNation);
+        String developerByFieldAndNation = null;
+        try {
+            developerByFieldAndNation = gitHubApi.getDevelopersByFields(field);
+        } catch (IOException e) {
+            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+            throw new RuntimeException(e);
+        }
+        JSONObject responseObject = JSON.parseObject(developerByFieldAndNation);
             JSONArray itemsArray = responseObject.getJSONArray("items");
             developers = new ArrayList<>();
             for (Object o : itemsArray) {
@@ -179,10 +185,19 @@ public class DeveloperFetcher {
                 JSONObject owner = jsonObject.getJSONObject("owner");
                 String login = owner.getString("login");
                 String htmlUrl = owner.getString("html_url");
-                JSONObject userInfo = gitHubApi.getUserInfo(login);
-                String location = userInfo.getString("location");
-                double talentRank = talentRankService.getTalentRankByUserName(login);
-                String developerNation = developerNationService.getDeveloperNation(login);
+                JSONObject userInfo = null;
+                String location = null;
+                double talentRank = 0;
+                String developerNation = null;
+                try {
+                    userInfo = gitHubApi.getUserInfo(login);
+                    location = userInfo.getString("location");
+                    talentRank = talentRankService.getTalentRankByUserName(login);
+                    developerNation = developerNationService.getDeveloperNation(login);
+                } catch (IOException e) {
+                    scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+                    throw new RuntimeException(e);
+                }
                 Developer developer = Developer.builder()
                         .login(login)
                         .field(field)
@@ -190,6 +205,7 @@ public class DeveloperFetcher {
                         .nation(developerNation)
                         .htmlUrl(htmlUrl)
                         .talentRank(talentRank)
+                        .avatarUrl(userInfo.getString("avatar_url"))
                         .type(userInfo.getString("type"))
                         .company(userInfo.getString("company"))
                         .location(userInfo.getString("location"))

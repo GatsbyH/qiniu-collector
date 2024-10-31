@@ -4,6 +4,7 @@ import com.sdwu.infrastructure.persistent.po.SysMenuPO;
 import com.sdwu.infrastructure.persistent.utils.BaseMapperX;
 import com.sdwu.infrastructure.persistent.utils.LambdaQueryWrapperX;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,14 +13,13 @@ import java.util.Set;
 public interface ISysMenuDao extends BaseMapperX<SysMenuPO> {
 
 
-    List<SysMenuPO> selectMenuByMenuIds(Set<Long> menuIds);
+    List<SysMenuPO> selectMenuByMenuIds(@Param("menuIds")Set<Long> menuIds);
 
     List<SysMenuPO> selectMenuTreeAll();
 
     List<SysMenuPO> selectMenuTreeByUserId(Long userId);
 
-    List<Long> selectMenuListByRoleId(Long roleId, boolean menuCheckStrictly);
-
+    List<Long> selectMenuListByRoleId(@Param("roleId") Long roleId, @Param("menuCheckStrictly") boolean menuCheckStrictly);
     default List<SysMenuPO> findMenuByName(String menuName){
         return selectList(SysMenuPO::getMenuName, menuName);
     };

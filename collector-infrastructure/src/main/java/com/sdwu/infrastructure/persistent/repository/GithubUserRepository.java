@@ -59,7 +59,8 @@ public class GithubUserRepository implements IGithubUserRepository {
     @Override
     public PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo) {
         List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
-        PageResult<Developer> developerPageResult = new PageResult<>(developers.stream().map(DeveloperPO::toDeveloper).collect(Collectors.toList()), (long) developers.size());
+        Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField());
+        PageResult<Developer> developerPageResult = new PageResult<>(developers.stream().map(DeveloperPO::toDeveloper).collect(Collectors.toList()), (long) size);
         return developerPageResult;
     }
 }

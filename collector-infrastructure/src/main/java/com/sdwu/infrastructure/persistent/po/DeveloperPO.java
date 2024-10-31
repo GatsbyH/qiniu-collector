@@ -59,6 +59,7 @@ public class DeveloperPO {
 
     public static Developer toDeveloper(DeveloperPO po) {
         return Developer.builder()
+                .avatarUrl(po.getAvatarUrl())
                 .login(po.getLogin())
                 .location(po.getLocation())
                 .field(po.getField())

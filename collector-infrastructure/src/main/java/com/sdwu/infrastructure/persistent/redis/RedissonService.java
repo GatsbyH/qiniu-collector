@@ -206,4 +206,10 @@ public class RedissonService implements IRedisService {
         return redissonClient.getBucket(key).trySet("lock", expired, timeUnit);
     }
 
+    @Override
+    public Integer getUsersByRankSize(String key) {
+        RScoredSortedSet<DeveloperPO> sortedSet = redissonClient.getScoredSortedSet(key);
+        return sortedSet.size();
+    }
+
 }

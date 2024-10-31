@@ -137,90 +137,140 @@ package com.sdwu.domain.github.service;//package com.sdwu.domain.github.service;
 //        return null;
 //    }
 //}
+//import okhttp3.OkHttpClient;
+//import okhttp3.Request;
+//import okhttp3.Response;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import java.io.IOException;
+//import java.net.InetSocketAddress;
+//import java.net.Proxy;
+//import java.util.concurrent.ConcurrentHashMap;
+//import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.locks.ReentrantLock;
+//@Service
+//public class GitHubClientService {
+//    private final OkHttpClient okHttpClient;
+//    private final ConcurrentHashMap<String, Boolean> tokenMap;
+//    private final ReentrantLock lock = new ReentrantLock();
+//
+//    @Autowired
+//    public GitHubClientService(OkHttpClient okHttpClient) {
+//        this.okHttpClient = okHttpClient.newBuilder()
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                .readTimeout(30, TimeUnit.SECONDS)
+//                .writeTimeout(30, TimeUnit.SECONDS)
+//                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // 确保代理设置正确
+//                .build();
+//        this.tokenMap = new ConcurrentHashMap<>();
+//        initializeTokens();
+//    }
+//
+//    private void initializeTokens() {
+//        tokenMap.put("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", true);
+//        tokenMap.put("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", true);
+//        tokenMap.put("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", true);
+//        tokenMap.put("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", true);
+//    }
+//
+//    public String fetchGitHubApi(String endpoint, Object params) throws IOException {
+//        String token;
+//        while (true) {
+//            token = getNextValidToken();
+//            if (token == null) {
+//                throw new IOException("No valid tokens available");
+//            }
+//            Request request = new Request.Builder()
+//                    .url("https://api.github.com" + endpoint)
+//                    .header("Authorization", "Bearer " + token) // 使用 Bearer 方式传递令牌
+//                    .header("X-GitHub-Api-Version", "2022-11-28") // 设置 API 版本`
+//                    .build();
+//
+//            try (Response response = okHttpClient.newCall(request).execute()) {
+//                if (response.code() == 401 || response.code() == 403) {
+//                    // Token 无效或权限不足，标记为无效并重试
+//                    markTokenInvalid(token);
+//                    continue;
+//                }
+//                if (!response.isSuccessful()) {
+//                    throw new IOException("Unexpected code " + response);
+//                }
+//                return response.body().string();
+//            }
+//        }
+//    }
+//
+//    private String getNextValidToken() {
+//        return tokenMap.keySet().stream()
+//                .filter(tokenMap::get) // 过滤出有效的令牌
+//                .findFirst()
+//                .orElse(null); // 如果没有可用的令牌，返回 null
+//    }
+//
+//
+//
+//    private void markTokenInvalid(String token) {
+//        lock.lock();
+//        try {
+////            tokenMap.put(token, false);
+//            tokenMap.remove(token);
+//        } finally {
+//            lock.unlock();
+//        }
+//        try {
+//            Thread.sleep(1000); // Wait 1 second before retrying
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
+//    }
+//
+//}
+import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
+
 @Service
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
-    private final ConcurrentHashMap<String, Boolean> tokenMap;
-    private final ReentrantLock lock = new ReentrantLock();
-
+    private final String token; // Store a single token
+    @Resource
+    private IScheduledTaskRepository scheduledTaskRepository;
     @Autowired
     public GitHubClientService(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient.newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
-                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // 确保代理设置正确
+                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
                 .build();
-        this.tokenMap = new ConcurrentHashMap<>();
-        initializeTokens();
-    }
-
-    private void initializeTokens() {
-        tokenMap.put("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", true);
-        tokenMap.put("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", true);
-        tokenMap.put("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", true);
-        tokenMap.put("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", true);
+        this.token = "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"; // Use a single token
     }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
-        String token;
-        while (true) {
-            token = getNextValidToken();
-            if (token == null) {
-                throw new IOException("No valid tokens available");
+        Request request = new Request.Builder()
+                .url("https://api.github.com" + endpoint)
+                .header("Authorization", "Bearer " + token) // Use Bearer token
+                .header("X-GitHub-Api-Version", "2022-11-28") // Set API version
+                .build();
+
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            if (response.code() == 401 || response.code() == 403) {
+                throw new IOException("Token is invalid or permissions are insufficient");
             }
-            Request request = new Request.Builder()
-                    .url("https://api.github.com" + endpoint)
-                    .header("Authorization", "Bearer " + token) // 使用 Bearer 方式传递令牌
-                    .header("X-GitHub-Api-Version", "2022-11-28") // 设置 API 版本`
-                    .build();
-
-            try (Response response = okHttpClient.newCall(request).execute()) {
-                if (response.code() == 401 || response.code() == 403) {
-                    // Token 无效或权限不足，标记为无效并重试
-                    markTokenInvalid(token);
-                    continue;
-                }
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
-                return response.body().string();
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
             }
+            return response.body().string();
         }
     }
-
-    private String getNextValidToken() {
-        return tokenMap.keySet().stream()
-                .filter(tokenMap::get) // 过滤出有效的令牌
-                .findFirst()
-                .orElse(null); // 如果没有可用的令牌，返回 null
-    }
-
-    private void markTokenInvalid(String token) {
-        lock.lock();
-        try {
-//            tokenMap.put(token, false);
-            tokenMap.remove(token);
-        } finally {
-            lock.unlock();
-        }
-        try {
-            Thread.sleep(1000); // Wait 1 second before retrying
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
 }

@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.types.model.PageResult;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
 
     @Resource
     private DeveloperFetcher developerFetcher;
+    @Resource
+    private IScheduledTaskRepository scheduledTaskRepository;
 
     @Override
     public List<Developer> getDeveloperByFieldAndNation(String field, String nation) throws IOException {
@@ -73,6 +76,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         try {
             developerFetcher.startFetching(field, nation);
         } catch (Exception e) {
+            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -85,6 +89,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         try {
             developerFetcher.stopFetching(field);
         } catch (Exception e) {
+            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
             e.printStackTrace();
             return false;
         }

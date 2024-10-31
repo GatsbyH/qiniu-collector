@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class GitHubApiImpl implements IGitHubApi{
     private GitHubClientService gitHubClientService;
     @Resource
     private IGithubUserRepository githubUserRepository;
+    @Resource
+    private IScheduledTaskRepository scheduledTaskRepository;
     @Override
     public String getReposByUserName(String username) throws IOException {
         String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/repos", null);
@@ -95,8 +98,14 @@ public class GitHubApiImpl implements IGitHubApi{
 
     @Override
     public String getDeveloperByFieldAndNation(String field,String nation) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=language:" + field +"&sort=stars&order=desc", null);
-       return fetchGitHubApi;
+        String fetchGitHubApi = null;
+        try {
+            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=language:" + field +"&sort=stars&order=desc", null);
+        } catch (IOException e) {
+            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return fetchGitHubApi;
     }
 
     @Override
@@ -125,9 +134,11 @@ public class GitHubApiImpl implements IGitHubApi{
             return fetchGitHubApi;
 
         } catch (IOException e) {
+            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
             log.error("Error fetching developers from GitHub API for field: {} - {}", field, e.getMessage());
             throw e; // Rethrow to notify the caller about the error
         } catch (Exception e) {
+            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
             log.error("Unexpected error occurred while fetching developers for field: {} - {}", field, e.getMessage());
             throw new IOException("An unexpected error occurred", e);
         }

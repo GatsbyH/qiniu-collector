@@ -127,5 +127,10 @@ public class ChatGlmApiImpl implements IChatGlmApi{
         return message;
     }
 
+    @Override
+    public ModelApiResponse testChatGlmWebSearch() {
+        return null;
+    }
+
 
 }
