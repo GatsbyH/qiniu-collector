@@ -252,5 +252,33 @@ public class ChatGlmApiImpl implements IChatGlmApi{
         return message;
     }
 
+    @Override
+    public String guessTheFieldBasedOnTheTopic(String topics) throws JsonProcessingException {
+        List<ChatMessage> messages = new ArrayList<>();
+
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "根据"+topics+"，猜测一个领域，只输出一个领域，比如：机器学习，深度学习，计算机视觉等");
+        messages.add(chatMessage);
+        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+
+        HashMap<String, Object> extraJson = new HashMap<>();
+        extraJson.put("temperature", 0.5);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("GLM-4-AirX")
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(messages)
+                .requestId(requestId)
+                .extraJson(extraJson)
+                .build();
+        ModelApiResponse invokeModelApiResp = null;
+        log.info("request: {}", mapper.writeValueAsString(chatCompletionRequest));
+
+        invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+
+        String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
+        log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
+        return message;    }
+
 
 }

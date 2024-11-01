@@ -25,10 +25,7 @@
 
     <developers>
         <developer>
-            <name>xiaofuge</name>
-            <email>184172133@qq.com</email>
-            <organization>fuzhengwei</organization>
-            <organizationUrl>https://github.com/fuzhengwei</organizationUrl>
+
         </developer>
     </developers>
 
@@ -98,11 +95,11 @@
                 <artifactId>sa-token-redis-jackson</artifactId>
                 <version>1.39.0</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.redisson</groupId>-->
-<!--                <artifactId>redisson-spring-boot-starter</artifactId>-->
-<!--                <version>3.26.0</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.redisson</groupId>-->
+            <!--                <artifactId>redisson-spring-boot-starter</artifactId>-->
+            <!--                <version>3.26.0</version>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>

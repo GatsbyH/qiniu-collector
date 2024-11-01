@@ -17,4 +17,6 @@ public interface IChatGlmApi {
     String doDevelopmentAssessment(String blog,String bio) throws JsonProcessingException;
 
     String fieldOptimization(String field) throws JsonProcessingException;
+
+    String guessTheFieldBasedOnTheTopic(String string) throws JsonProcessingException;
 }

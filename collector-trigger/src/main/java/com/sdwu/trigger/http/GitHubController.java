@@ -1,12 +1,14 @@
 package com.sdwu.trigger.http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sdwu.domain.github.model.valobj.DeveloperContributionVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.service.*;
 import com.sdwu.types.annotation.Loggable;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.model.Response;
 import com.zhipu.oapi.service.v4.model.ModelApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@Slf4j
 public class GitHubController {
     private final GitHubClientService gitHubClientService;
 
@@ -130,4 +133,20 @@ public class GitHubController {
                 .build();
     }
 
+    //根据账号评估开发者页面
+    @GetMapping("getDeveloperAssessment")
+    public Response getDeveloperAssessment(String username) throws JsonProcessingException {
+        DeveloperContributionVo developerAssessment= null;
+        try {
+            developerAssessment = talentRankService.getDeveloperAssessment(username);
+        } catch (IOException e) {
+            log.error("获取开发者{}的评估信息时发生错误: {}", username, e.getMessage());
+            return Response.fail(null);
+        }
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerAssessment)
+                .build();
+    }
 }

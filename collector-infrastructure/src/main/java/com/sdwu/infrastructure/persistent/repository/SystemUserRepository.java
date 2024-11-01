@@ -181,4 +181,6 @@ public class SystemUserRepository implements ISystemUserRepository {
 
         sysUserRoleDao.insertUserRoleBatch(list);
     }
+
+
 }
