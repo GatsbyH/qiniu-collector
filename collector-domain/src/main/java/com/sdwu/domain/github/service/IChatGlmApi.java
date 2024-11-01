@@ -12,5 +12,9 @@ public interface IChatGlmApi {
 
     String getCountryByUserRelations(List<String> followersLocations) throws JsonProcessingException;
 
-    ModelApiResponse testChatGlmWebSearch();
+    String testChatGlmWebSearch(String blog,String bio) throws JsonProcessingException;
+
+    String doDevelopmentAssessment(String blog,String bio) throws JsonProcessingException;
+
+    String fieldOptimization(String field) throws JsonProcessingException;
 }

@@ -31,6 +31,7 @@ public class DeveloperPO {
     private String avatarUrl;           // 头像 URL
     private String type;                // 用户类型
     private String repositoryUrl;             // 项目URL
+    private String assessment;
 
     public static DeveloperPO toPO(Developer developer) {
         return DeveloperPO.builder()
@@ -54,6 +55,7 @@ public class DeveloperPO {
                 .avatarUrl(developer.getAvatarUrl())
                 .type(developer.getType())
                 .repositoryUrl(developer.getRepositoryUrl())
+                .assessment(developer.getAssessment())
                 .build();
     }
 
@@ -80,6 +82,7 @@ public class DeveloperPO {
                 .avatarUrl(po.getAvatarUrl())
                 .type(po.getType())
                 .repositoryUrl(po.getRepositoryUrl())
+                .assessment(po.getAssessment())
                 .build();
     }
 }

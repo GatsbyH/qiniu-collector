@@ -121,12 +121,12 @@ public class GitHubController {
 
     //测试ChatGlm联网搜索
     @GetMapping("testChatGlmWebSearch")
-    public Response testChatGlmWebSearch(String query) throws JsonProcessingException {
-        ModelApiResponse modelApiResponse = chatGlmApi.testChatGlmWebSearch();
+    public Response testChatGlmWebSearch(String blog,String bio) throws JsonProcessingException {
+        String assessment = chatGlmApi.testChatGlmWebSearch(blog,bio);
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
-                .data(modelApiResponse)
+                .data(assessment)
                 .build();
     }
 

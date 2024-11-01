@@ -24,76 +24,186 @@ public class GitHubApiImpl implements IGitHubApi{
     private IGithubUserRepository githubUserRepository;
     @Resource
     private IScheduledTaskRepository scheduledTaskRepository;
+//    @Override
+//    public String getReposByUserName(String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/repos", null);
+//        return fetchGitHubApi;
+//    }
+//
+//    @Override
+//    public int getUserCommits(String owner, String repo, String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/commits?author=" + username, null);
+//        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+//        return jsonArray.size();
+//    }
+//
+//    @Override
+//    public int getUserPullRequests(String owner, String repo, String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/pulls?state=all&author=" + username, null);
+//        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+//        return jsonArray.size();
+//    }
+//
+//    @Override
+//    public int getUserIssues(String owner, String repo, String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/issues?creator=" + username, null);
+//        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+//        return jsonArray.size();
+//    }
+//
+//    @Override
+//    public String getUserContributions(String owner, String repo, String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/contributors", null);
+//        return fetchGitHubApi;
+//    }
+//
+//    @Override
+//    public JSONObject getUserInfo(String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username, null);
+//        JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+//        return jsonObject;
+//    }
+//
+//    @Override
+//    public List<String> getFollowersByUserName(String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/followers", null);
+//        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+//        List<String> locations = new ArrayList<>();
+//        for (Object o : jsonArray) {
+//            JSONObject jsonObject = (JSONObject) o;
+//            if (jsonObject == null&&jsonObject.getString("location")==null){
+//                continue;
+//            }
+//            JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
+//            locations.add(userInfo.getString("location"));
+//        }
+//        return locations;
+//    }
+//
+//    @Override
+//    public List<String> getFollowingByUserName(String username) throws IOException {
+//        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/following", null);
+//        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+//        List<String> locations = new ArrayList<>();
+//        for (Object o : jsonArray) {
+//            JSONObject jsonObject = (JSONObject) o;
+//            if (jsonObject == null&&jsonObject.getString("location")==null){
+//                continue;
+//            }
+//            JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
+//            locations.add(userInfo.getString("location"));
+//        }
+//        return locations;
+//    }
+
     @Override
     public String getReposByUserName(String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/repos", null);
-        return fetchGitHubApi;
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/repos", null);
+            return fetchGitHubApi;
+        } catch (IOException e) {
+            log.error("获取用户{}的仓库信息时发生错误: {}", username, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public int getUserCommits(String owner, String repo, String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/commits?author=" + username, null);
-        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
-        return jsonArray.size();
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/commits?author=" + username, null);
+            JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+            return jsonArray.size();
+        } catch (IOException e) {
+            log.error("获取用户{}的Commits数时发生错误: {}", username, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public int getUserPullRequests(String owner, String repo, String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/pulls?state=all&author=" + username, null);
-        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
-        return jsonArray.size();
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/pulls?state=all&author=" + username, null);
+            JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+            return jsonArray.size();
+        } catch (IOException e) {
+            log.error("获取用户{}的拉取请求数时发生错误: {}", username, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public int getUserIssues(String owner, String repo, String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/issues?creator=" + username, null);
-        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
-        return jsonArray.size();
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/issues?creator=" + username, null);
+            JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+            return jsonArray.size();
+        } catch (IOException e) {
+            log.error("获取用户{}的Issues报告数时发生错误: {}", username, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public String getUserContributions(String owner, String repo, String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/contributors", null);
-        return fetchGitHubApi;
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/repos/" + owner + "/" + repo + "/contributors", null);
+            return fetchGitHubApi;
+        } catch (IOException e) {
+            log.error("获取用户{}的贡献数值时发生错误: {}", username, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public JSONObject getUserInfo(String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username, null);
-        JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
-        return jsonObject;
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username, null);
+            JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+            return jsonObject;
+        } catch (IOException e) {
+            log.error("获取用户{}的信息时发生错误: {}", username, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public List<String> getFollowersByUserName(String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/followers", null);
-        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
-        List<String> locations = new ArrayList<>();
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = (JSONObject) o;
-            if (jsonObject == null&&jsonObject.getString("location")==null){
-                continue;
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/followers", null);
+            JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+            List<String> locations = new ArrayList<>();
+            for (Object o : jsonArray) {
+                JSONObject jsonObject = (JSONObject) o;
+                if (jsonObject != null && jsonObject.getString("location") != null) {
+                    JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
+                    locations.add(userInfo.getString("location"));
+                }
             }
-            JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
-            locations.add(userInfo.getString("location"));
+            return locations;
+        } catch (IOException e) {
+            log.error("获取用户{}的关注者时发生错误: {}", username, e.getMessage());
+            throw e;
         }
-        return locations;
     }
 
     @Override
     public List<String> getFollowingByUserName(String username) throws IOException {
-        String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/following", null);
-        JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
-        List<String> locations = new ArrayList<>();
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = (JSONObject) o;
-            if (jsonObject == null&&jsonObject.getString("location")==null){
-                continue;
+        try {
+            String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/users/" + username + "/following", null);
+            JSONArray jsonArray = JSON.parseArray(fetchGitHubApi);
+            List<String> locations = new ArrayList<>();
+            for (Object o : jsonArray) {
+                JSONObject jsonObject = (JSONObject) o;
+                if (jsonObject != null && jsonObject.getString("location") != null) {
+                    JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
+                    locations.add(userInfo.getString("location"));
+                }
             }
-            JSONObject userInfo = this.getUserInfo(jsonObject.getString("login"));
-            locations.add(userInfo.getString("location"));
+            return locations;
+        } catch (IOException e) {
+            log.error("获取用户{}正在关注的用户时发生错误: {}", username, e.getMessage());
+            throw e;
         }
-        return locations;
     }
 
     @Override
@@ -102,7 +212,7 @@ public class GitHubApiImpl implements IGitHubApi{
         try {
             fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=language:" + field +"&sort=stars&order=desc", null);
         } catch (IOException e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
             throw new RuntimeException(e);
         }
         return fetchGitHubApi;
@@ -116,31 +226,31 @@ public class GitHubApiImpl implements IGitHubApi{
         try {
             String fetchGitHubApi = gitHubClientService.fetchGitHubApi("/search/repositories?q=" + field + "+in:description,topics&sort=stars" + "&page=" + page + "&per_page=" + per_page, null);
 
-            // Check if the response is valid (you may want to implement a response validation method)
+
             if (fetchGitHubApi == null || fetchGitHubApi.isEmpty()) {
-                log.error("Received an empty response for field: {}", field);
-                throw new IOException("Received an empty response from GitHub API");
+                log.error("收到 field 的空响应: {}", field);
+                throw new IOException("收到来自 GitHub API 的空响应");
             }
 
-            // Optionally, parse the response and check for errors (if applicable)
+
             JSONObject responseObject = JSON.parseObject(fetchGitHubApi);
             if (responseObject.getInteger("total_count") == 0) {
-                log.warn("No repositories found for field: {}", field);
+                log.warn("未找到 field 的存储库: {}", field);
             }
 
-            // Update the page number in the repository
+
             githubUserRepository.updateGitHubPageByField(field);
 
             return fetchGitHubApi;
 
         } catch (IOException e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
-            log.error("Error fetching developers from GitHub API for field: {} - {}", field, e.getMessage());
-            throw e; // Rethrow to notify the caller about the error
+            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
+            log.error("从 GitHub API 获取字段的开发人员时出错: {} - {}", field, e.getMessage());
+            throw e;
         } catch (Exception e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
-            log.error("Unexpected error occurred while fetching developers for field: {} - {}", field, e.getMessage());
-            throw new IOException("An unexpected error occurred", e);
+            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
+            log.error("为字段获取开发人员时发生意外错误: {} - {}", field, e.getMessage());
+            throw new IOException("发生意外错误", e);
         }
     }
 }

@@ -3,11 +3,13 @@ package com.sdwu.domain.github.service;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.types.model.PageResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class DeveloperFieldImplService implements IDeveloperFieldService {
     @Resource
     private IGitHubApi gitHubApi;
@@ -31,6 +34,9 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     private DeveloperFetcher developerFetcher;
     @Resource
     private IScheduledTaskRepository scheduledTaskRepository;
+
+    @Resource
+    private IChatGlmApi chatGlmApi;
 
     @Override
     public List<Developer> getDeveloperByFieldAndNation(String field, String nation) throws IOException {
@@ -73,10 +79,17 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     @Override
     public Boolean startGetDeveloperByField(String field) {
         String nation = "all";
+//        String fieldedOptimization="";
+//        try {
+//             fieldedOptimization = chatGlmApi.fieldOptimization(field);
+//        } catch (JsonProcessingException e) {
+//            scheduledTaskRepository.updateScheduledTask(fieldedOptimization,"FAILED",e.getMessage());
+//            throw new RuntimeException(e);
+//        }
         try {
             developerFetcher.startFetching(field, nation);
         } catch (Exception e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -89,7 +102,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         try {
             developerFetcher.stopFetching(field);
         } catch (Exception e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
             e.printStackTrace();
             return false;
         }

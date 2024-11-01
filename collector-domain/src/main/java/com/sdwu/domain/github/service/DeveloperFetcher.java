@@ -137,6 +137,8 @@ public class DeveloperFetcher {
 
     @Resource
     private IScheduledTaskRepository scheduledTaskRepository;
+    @Resource
+    private IChatGlmApi chatGlmApi;
     public void startFetching(String field, String nation) {
 //        Boolean isFetching = githubUserRepository.getFetchFlag(field);
         if (!scheduledTaskRepository.checkScheduledTaskByField(field)){
@@ -160,10 +162,9 @@ public class DeveloperFetcher {
             try {
                 getDeveloperByFieldAndNation(currentField, currentNation);
             } catch (IOException e) {
-                log.error("Error fetching developers: ", e);
-                //把错误信息转换成字符串
+                log.error("获取用户信息时发生错误: {}", e.getMessage());
                 String errorMessage = e.getMessage();
-                scheduledTaskRepository.updateScheduledTask(field,"FALED",errorMessage);
+                scheduledTaskRepository.updateScheduledTask(field,"FAILED",errorMessage);
             }
         }, 0, 2, TimeUnit.SECONDS);
 
@@ -178,13 +179,13 @@ public class DeveloperFetcher {
         try {
             Integer page = githubUserRepository.getGitHubPageByField(field);
             if (page>250){
-                log.info("该领域已抓取完毕,Only the first 1000 search results are available");
+                log.info("{}领域已抓取完毕,只有前 1000 个搜索结果可用", field);
                 stopFetching(field);
                 return;
             }
             developerByFieldAndNation = gitHubApi.getDevelopersByFields(field);
         } catch (IOException e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
             throw new RuntimeException(e);
         }
         JSONObject responseObject = JSON.parseObject(developerByFieldAndNation);
@@ -199,18 +200,24 @@ public class DeveloperFetcher {
                 String location = null;
                 double talentRank = 0;
                 String developerNation = null;
+                String assessment="";
                 try {
                     userInfo = gitHubApi.getUserInfo(login);
+                    if (userInfo.getString("blog")!=null){
+                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
+                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
+                    }
                     location = userInfo.getString("location");
                     talentRank = talentRankService.getTalentRankByUserName(login);
                     developerNation = developerNationService.getDeveloperNation(login);
                 } catch (IOException e) {
-                    scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
+                    scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
                     throw new RuntimeException(e);
                 }
                 Developer developer = Developer.builder()
                         .login(login)
                         .field(field)
+                        .assessment(assessment)
                         .location(location)
                         .nation(developerNation)
                         .htmlUrl(htmlUrl)
@@ -248,7 +255,7 @@ public class DeveloperFetcher {
             future.cancel(true); // 取消定时任务
 //            scheduledFuture.cancel(true); // 取消定时任务
 //            githubUserRepository.updateFetchFlag(field);
-            log.info("Fetching stopped for field: {}", field);
+            log.info("已停止对 {}领域开发者的获取", field);
         }
     }
 
@@ -264,14 +271,14 @@ public class DeveloperFetcher {
 
     @Scheduled(fixedDelay = 60000) // 每60秒执行一次
     public void checkScheduledTasks() {
-        List<ScheduledTask> tasks = scheduledTaskRepository.findAllByStatusIn(Arrays.asList("RUNNING", "FALED"));
+        List<ScheduledTask> tasks = scheduledTaskRepository.findAllByStatusIn(Arrays.asList("RUNNING", "FAILED"));
         for (ScheduledTask task : tasks) {
             switch (task.getStatus()) {
                 case "RUNNING":
                     // 检查是否需要重新启动任务
                     handleRunningTask(task);
                     break;
-                case "FALED":
+                case "FAILED":
                     // 检查是否需要修复或重新启动任务
                     handleFatalTask(task);
                     break;
@@ -284,14 +291,14 @@ public class DeveloperFetcher {
 
     private void handleRunningTask(ScheduledTask task) {
         // 实现检查逻辑，例如检查任务是否超时或是否需要重新启动
-        log.info("Handling running task: {}", task.getField());
+        log.info("处理正在运行的任务: {}", task.getField());
         // 假设需要重新启动任务
         startFetching(task.getField(), null);
     }
 
     private void handleFatalTask(ScheduledTask task) {
         // 实现错误处理逻辑，例如记录错误、尝试修复或通知管理员
-        log.error("Handling fatal task: {}", task.getField());
+        log.error("处理失败任务: {}", task.getField());
         // 假设需要重新启动任务
         startFetching(task.getField(), null);
     }

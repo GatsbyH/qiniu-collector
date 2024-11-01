@@ -288,9 +288,9 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
-    private final String token; // Store a single token
-    private static final int MAX_RETRIES = 3; // Maximum number of retries
-    private static final long RETRY_DELAY_MS = 2000; // Delay between retries in milliseconds
+    private final String token;
+    private static final int MAX_RETRIES = 3;
+    private static final long RETRY_DELAY_MS = 2000;
 
     @Autowired
     public GitHubClientService(OkHttpClient okHttpClient) {
@@ -300,21 +300,22 @@ public class GitHubClientService {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
                 .build();
-        this.token = "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"; // Use a single token
+        this.token = "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";
+//        this.token = "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";
     }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
         int retries = 0;
         while (retries < MAX_RETRIES) {
             Request request = new Request.Builder()
-                    .url("https://api.github.com" + endpoint) // Fixed the URL concatenation
-                    .header("Authorization", "Bearer " + token) // Use Bearer token
-                    .header("X-GitHub-Api-Version", "2022-11-28") // Set API version
+                    .url("https://api.github.com" + endpoint)
+                    .header("Authorization", "Bearer " + token)
+                    .header("X-GitHub-Api-Version", "2022-11-28")
                     .build();
 
             try (Response response = okHttpClient.newCall(request).execute()) {
                 if (response.code() == 401 || response.code() == 403) {
-                    throw new IOException("Token is invalid or permissions are insufficient");
+                    throw new IOException("Token失效，已超过Github规定请求次数");
                 }
                 if (!response.isSuccessful()) {
                     if (retries < MAX_RETRIES - 1) {
@@ -323,7 +324,7 @@ public class GitHubClientService {
                             Thread.sleep(RETRY_DELAY_MS);
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
-                            throw new IOException("Retry interrupted", e);
+                            throw new IOException("重试已中断", e);
                         }
                         retries++;
                         continue;
@@ -333,12 +334,11 @@ public class GitHubClientService {
                 return response.body().string();
             } catch (IOException e) {
                 if (retries < MAX_RETRIES - 1) {
-                    // Wait before retrying
                     try {
                         Thread.sleep(RETRY_DELAY_MS);
                     } catch (InterruptedException e1) {
                         Thread.currentThread().interrupt();
-                        throw new IOException("Retry interrupted", e1);
+                        throw new IOException("重试已中断", e1);
                     }
                     retries++;
                     continue;
@@ -346,6 +346,6 @@ public class GitHubClientService {
                 throw e;
             }
         }
-        throw new IOException("Max retries reached for GitHub API request");
+        throw new IOException("GitHub API 请求达到的最大重试次数");
     }
 }

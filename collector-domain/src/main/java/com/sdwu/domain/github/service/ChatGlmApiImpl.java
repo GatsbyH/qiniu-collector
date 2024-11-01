@@ -2,6 +2,8 @@ package com.sdwu.domain.github.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.houbb.sensitive.word.bs.SensitiveWordBs;
 import com.sdwu.domain.censorship.factory.DefaultLogicFactory;
@@ -13,6 +15,7 @@ import com.zhipu.oapi.ClientV4;
 import com.zhipu.oapi.Constants;
 import com.zhipu.oapi.service.v4.deserialize.MessageDeserializeFactory;
 import com.zhipu.oapi.service.v4.model.*;
+import com.zhipu.oapi.service.v4.tools.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.stereotype.Service;
@@ -133,8 +136,120 @@ public class ChatGlmApiImpl implements IChatGlmApi{
     }
 
     @Override
-    public ModelApiResponse testChatGlmWebSearch() {
-        return null;
+    public String testChatGlmWebSearch(String blog,String bio) throws JsonProcessingException {
+        String webSearchResult = this.webSearch(blog);
+        //开发者技术能力评估信息自动整理
+        String assessment = this.developmentAssessment(webSearchResult,bio);
+        return assessment;
+    }
+
+    @Override
+    public String doDevelopmentAssessment(String blog,String bio) throws JsonProcessingException {
+        log.info("blog:{},bio:{}",blog,bio);
+        String webSearchResult = null;
+        try {
+            webSearchResult = this.webSearch(blog);
+        } catch (JsonProcessingException e) {
+            log.error("网络搜索结果:{}",e.getMessage());
+        }
+        //开发者技术能力评估信息自动整理
+        String assessment = null;
+        try {
+            assessment = this.developmentAssessment(webSearchResult,bio);
+        } catch (JsonProcessingException e) {
+            log.error("开发者技术能力评估信息自动整理:{}",e.getMessage());
+        }
+        return assessment;
+    }
+
+
+
+    private String developmentAssessment(String webSearchResult,String bio) throws JsonProcessingException {
+        List<ChatMessage> messages = new ArrayList<>();
+
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "根据开发者的作品："+webSearchResult+"和他的个人简介"+bio+"整理出开发者评估信息，只输出对开发者的评价");
+        messages.add(chatMessage);
+        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+
+        HashMap<String, Object> extraJson = new HashMap<>();
+        extraJson.put("temperature", 0.5);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("GLM-4-AirX")
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(messages)
+                .requestId(requestId)
+                .extraJson(extraJson)
+                .build();
+        ModelApiResponse invokeModelApiResp = null;
+        log.info("request: {}", mapper.writeValueAsString(chatCompletionRequest));
+
+        invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+
+        String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
+        log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
+        return message;
+    }
+
+    private String webSearch(String blog) throws JsonProcessingException {
+        String jsonString = "[\n" +
+                "    {\n" +
+                "        \"content\": \"读取网页并总结：" + blog + "\",\n" +
+                "        \"role\": \"user\"\n" +
+                "    }\n" +
+                "]";
+        ArrayList<SearchChatMessage> messages = new ObjectMapper().readValue(jsonString, new TypeReference<ArrayList<SearchChatMessage>>() {
+        });
+
+
+        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+        WebSearchParamsRequest chatCompletionRequest = WebSearchParamsRequest.builder()
+                .model("web-search-pro")
+                .stream(Boolean.FALSE)
+                .messages(messages)
+                .requestId(requestId)
+                .build();
+        WebSearchApiResponse webSearchApiResponse = null;
+        try {
+            webSearchApiResponse = client.invokeWebSearchPro(chatCompletionRequest);
+        } catch (Exception e) {
+            log.error("网络搜索blog错误: {}", e.getMessage());
+            return null;
+        }
+        WebSearchMessageToolCall jsonNodes = webSearchApiResponse.getData().getChoices().get(0).getMessage().getToolCalls().get(1);
+        log.info("jsonNodes: {}", jsonNodes);
+        log.info("model output: {}", mapper.writeValueAsString(webSearchApiResponse));
+        return jsonNodes.toString();
+    }
+
+    @Override
+    public String fieldOptimization(String field) throws JsonProcessingException {
+        List<ChatMessage> messages = new ArrayList<>();
+
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), "根据"+field+"，生成一些关键词，用与github api搜索仓库，只输出3个关键词之间用"+"隔开");
+        messages.add(chatMessage);
+        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+
+        HashMap<String, Object> extraJson = new HashMap<>();
+        extraJson.put("temperature", 0.5);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("GLM-4-AirX")
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(messages)
+                .requestId(requestId)
+                .extraJson(extraJson)
+                .build();
+        ModelApiResponse invokeModelApiResp = null;
+        log.info("request: {}", mapper.writeValueAsString(chatCompletionRequest));
+
+        invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+
+        String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
+        log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
+        return message;
     }
 
 

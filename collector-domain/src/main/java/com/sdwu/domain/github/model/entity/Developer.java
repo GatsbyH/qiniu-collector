@@ -30,5 +30,5 @@ public class Developer {
     private String avatarUrl;           // 头像 URL
     private String type;                // 用户类型
     private String repositoryUrl;             // 项目URL
-
+    private String assessment;
 }
