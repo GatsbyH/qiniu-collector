@@ -36,4 +36,9 @@ public interface IScheduledTaskDao extends BaseMapperX<ScheduledTaskPO> {
         return selectList(new LambdaQueryWrapperX<ScheduledTaskPO>()
                 .eq(ScheduledTaskPO::getField, field));
     };
+
+    default List<ScheduledTaskPO> findAllByStatusIn(List<String> list){
+        return selectList(new LambdaQueryWrapperX<ScheduledTaskPO>()
+                .in(ScheduledTaskPO::getStatus, list));
+    };
 }

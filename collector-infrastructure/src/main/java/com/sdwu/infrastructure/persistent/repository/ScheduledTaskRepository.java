@@ -103,4 +103,14 @@ public class ScheduledTaskRepository implements IScheduledTaskRepository {
         }
         return false;
     }
+
+    @Override
+    public List<ScheduledTask> findAllByStatusIn(List<String> list) {
+        List<ScheduledTaskPO> scheduledTaskPOS = scheduledTaskDao.findAllByStatusIn(list);
+
+            return scheduledTaskPOS.stream()
+                    .map(ScheduledTaskPO::convertToDomain)
+                    .collect(Collectors.toList());
+
+    }
 }

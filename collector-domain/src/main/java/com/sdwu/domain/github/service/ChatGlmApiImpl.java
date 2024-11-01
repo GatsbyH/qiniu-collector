@@ -67,7 +67,12 @@ public class ChatGlmApiImpl implements IChatGlmApi{
         List<ChatMessage> messages = new ArrayList<>();
 
         String replace = sensitiveWordBs.replace(location);
-
+        if (replace.contains("Hong Kong")){
+            return "中国";
+        }
+        if (replace.contains("香港")){
+            return "中国";
+        }
         ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), replace+"是哪个国家（台湾是中国的），只需回答国家");
         messages.add(chatMessage);
         String requestId = String.format(requestIdTemplate, System.currentTimeMillis());

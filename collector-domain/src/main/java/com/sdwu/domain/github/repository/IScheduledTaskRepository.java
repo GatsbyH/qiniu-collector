@@ -3,6 +3,8 @@ package com.sdwu.domain.github.repository;
 import com.sdwu.domain.github.model.entity.ScheduledTask;
 import com.sdwu.types.model.PageResult;
 
+import java.util.List;
+
 public interface IScheduledTaskRepository {
     PageResult<ScheduledTask> selcetScheduledTaskPage(ScheduledTask task);
 
@@ -15,4 +17,6 @@ public interface IScheduledTaskRepository {
     boolean checkScheduledTaskByField(String field);
 
     boolean updateScheduledTaskRUNNING(String field, String running);
+
+    List<ScheduledTask> findAllByStatusIn(List<String> list);
 }

@@ -226,14 +226,60 @@ package com.sdwu.domain.github.service;//package com.sdwu.domain.github.service;
 //    }
 //
 //}
-import com.sdwu.domain.github.repository.IScheduledTaskRepository;
+//import com.sdwu.domain.github.repository.IScheduledTaskRepository;
+//import okhttp3.OkHttpClient;
+//import okhttp3.Request;
+//import okhttp3.Response;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import javax.annotation.Resource;
+//import java.io.IOException;
+//import java.net.InetSocketAddress;
+//import java.net.Proxy;
+//import java.util.concurrent.TimeUnit;
+//
+//@Service
+//public class GitHubClientService {
+//    private final OkHttpClient okHttpClient;
+//    private final String token; // Store a single token
+//    @Resource
+//    private IScheduledTaskRepository scheduledTaskRepository;
+//    @Autowired
+//    public GitHubClientService(OkHttpClient okHttpClient) {
+//        this.okHttpClient = okHttpClient.newBuilder()
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                .readTimeout(30, TimeUnit.SECONDS)
+//                .writeTimeout(30, TimeUnit.SECONDS)
+//                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
+//                .build();
+//        this.token = "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"; // Use a single token
+//    }
+//
+//    public String fetchGitHubApi(String endpoint, Object params) throws IOException {
+//        Request request = new Request.Builder()
+//                .url("https://api.github.com" + endpoint)
+//                .header("Authorization", "Bearer " + token) // Use Bearer token
+//                .header("X-GitHub-Api-Version", "2022-11-28") // Set API version
+//                .build();
+//
+//        try (Response response = okHttpClient.newCall(request).execute()) {
+//            if (response.code() == 401 || response.code() == 403) {
+//                throw new IOException("Token is invalid or permissions are insufficient");
+//            }
+//            if (!response.isSuccessful()) {
+//                throw new IOException("Unexpected code " + response);
+//            }
+//            return response.body().string();
+//        }
+//    }
+//}
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -243,8 +289,9 @@ import java.util.concurrent.TimeUnit;
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
     private final String token; // Store a single token
-    @Resource
-    private IScheduledTaskRepository scheduledTaskRepository;
+    private static final int MAX_RETRIES = 3; // Maximum number of retries
+    private static final long RETRY_DELAY_MS = 2000; // Delay between retries in milliseconds
+
     @Autowired
     public GitHubClientService(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient.newBuilder()
@@ -257,20 +304,48 @@ public class GitHubClientService {
     }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
-        Request request = new Request.Builder()
-                .url("https://api.github.com" + endpoint)
-                .header("Authorization", "Bearer " + token) // Use Bearer token
-                .header("X-GitHub-Api-Version", "2022-11-28") // Set API version
-                .build();
+        int retries = 0;
+        while (retries < MAX_RETRIES) {
+            Request request = new Request.Builder()
+                    .url("https://api.github.com" + endpoint) // Fixed the URL concatenation
+                    .header("Authorization", "Bearer " + token) // Use Bearer token
+                    .header("X-GitHub-Api-Version", "2022-11-28") // Set API version
+                    .build();
 
-        try (Response response = okHttpClient.newCall(request).execute()) {
-            if (response.code() == 401 || response.code() == 403) {
-                throw new IOException("Token is invalid or permissions are insufficient");
+            try (Response response = okHttpClient.newCall(request).execute()) {
+                if (response.code() == 401 || response.code() == 403) {
+                    throw new IOException("Token is invalid or permissions are insufficient");
+                }
+                if (!response.isSuccessful()) {
+                    if (retries < MAX_RETRIES - 1) {
+                        // Wait before retrying
+                        try {
+                            Thread.sleep(RETRY_DELAY_MS);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            throw new IOException("Retry interrupted", e);
+                        }
+                        retries++;
+                        continue;
+                    }
+                    throw new IOException("Unexpected code " + response);
+                }
+                return response.body().string();
+            } catch (IOException e) {
+                if (retries < MAX_RETRIES - 1) {
+                    // Wait before retrying
+                    try {
+                        Thread.sleep(RETRY_DELAY_MS);
+                    } catch (InterruptedException e1) {
+                        Thread.currentThread().interrupt();
+                        throw new IOException("Retry interrupted", e1);
+                    }
+                    retries++;
+                    continue;
+                }
+                throw e;
             }
-            if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response);
-            }
-            return response.body().string();
         }
+        throw new IOException("Max retries reached for GitHub API request");
     }
 }

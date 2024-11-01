@@ -97,6 +97,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.entity.ScheduledTask;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.domain.github.service.IDeveloperNationService;
@@ -105,11 +106,14 @@ import com.sdwu.domain.github.service.ITalentRankService;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -140,9 +144,9 @@ public class DeveloperFetcher {
         }
         scheduledTaskRepository.updateScheduledTaskRUNNING(field,"RUNNING");
         // 检查是否已经在获取中
-        if (scheduledFutures.containsKey(field)) {
-            return; // 已在获取中，返回
-        }
+//        if (scheduledFutures.containsKey(field)) {
+//            return; // 已在获取中，返回
+//        }
 
         // 如果已经在获取中，则不再启动新任务
 //        if (isFetching) {
@@ -172,6 +176,12 @@ public class DeveloperFetcher {
 
         String developerByFieldAndNation = null;
         try {
+            Integer page = githubUserRepository.getGitHubPageByField(field);
+            if (page>250){
+                log.info("该领域已抓取完毕,Only the first 1000 search results are available");
+                stopFetching(field);
+                return;
+            }
             developerByFieldAndNation = gitHubApi.getDevelopersByFields(field);
         } catch (IOException e) {
             scheduledTaskRepository.updateScheduledTask(field,"FALED",e.getMessage());
@@ -233,13 +243,56 @@ public class DeveloperFetcher {
 
     public void stopFetching(String field) {
         ScheduledFuture<?> future = scheduledFutures.remove(field); // 从 Map 中获取并移除
-
+        scheduledTaskRepository.endScheduledTask(field,"COMPLETED");
         if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
             future.cancel(true); // 取消定时任务
 //            scheduledFuture.cancel(true); // 取消定时任务
 //            githubUserRepository.updateFetchFlag(field);
-            scheduledTaskRepository.endScheduledTask(field,"COMPLETED");
             log.info("Fetching stopped for field: {}", field);
         }
+    }
+
+
+
+    @PostConstruct
+    private void init() {
+        // 在服务启动后立即执行一次检查任务
+        checkScheduledTasks();
+        // 每60秒执行一次检查任务
+        scheduledFuture = scheduler.scheduleAtFixedRate(this::checkScheduledTasks, 0, 60, TimeUnit.SECONDS);
+    }
+
+    @Scheduled(fixedDelay = 60000) // 每60秒执行一次
+    public void checkScheduledTasks() {
+        List<ScheduledTask> tasks = scheduledTaskRepository.findAllByStatusIn(Arrays.asList("RUNNING", "FALED"));
+        for (ScheduledTask task : tasks) {
+            switch (task.getStatus()) {
+                case "RUNNING":
+                    // 检查是否需要重新启动任务
+                    handleRunningTask(task);
+                    break;
+                case "FALED":
+                    // 检查是否需要修复或重新启动任务
+                    handleFatalTask(task);
+                    break;
+                default:
+                    // 其他状态的处理
+                    break;
+            }
+        }
+    }
+
+    private void handleRunningTask(ScheduledTask task) {
+        // 实现检查逻辑，例如检查任务是否超时或是否需要重新启动
+        log.info("Handling running task: {}", task.getField());
+        // 假设需要重新启动任务
+        startFetching(task.getField(), null);
+    }
+
+    private void handleFatalTask(ScheduledTask task) {
+        // 实现错误处理逻辑，例如记录错误、尝试修复或通知管理员
+        log.error("Handling fatal task: {}", task.getField());
+        // 假设需要重新启动任务
+        startFetching(task.getField(), null);
     }
 }
