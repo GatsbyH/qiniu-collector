@@ -274,9 +274,84 @@ package com.sdwu.domain.github.service;//package com.sdwu.domain.github.service;
 //        }
 //    }
 //}
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+//import com.google.gson.Gson;
+//import okhttp3.*;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import java.io.IOException;
+//import java.net.InetSocketAddress;
+//import java.net.Proxy;
+//import java.util.concurrent.TimeUnit;
+
+//@Service
+//public class GitHubClientService {
+//    private final OkHttpClient okHttpClient;
+//    private final String token;
+//    private static final int MAX_RETRIES = 3;
+//    private static final long RETRY_DELAY_MS = 2000;
+//
+//    @Autowired
+//    public GitHubClientService(OkHttpClient okHttpClient) {
+//        this.okHttpClient = okHttpClient.newBuilder()
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                .readTimeout(30, TimeUnit.SECONDS)
+//                .writeTimeout(30, TimeUnit.SECONDS)
+//                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
+//                .build();
+//        this.token = "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";
+////        this.token = "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";
+//    }
+//
+//    public String fetchGitHubApi(String endpoint, Object params) throws IOException {
+//        int retries = 0;
+//        while (retries < MAX_RETRIES) {
+//            Request request = new Request.Builder()
+//                    .url("https://api.github.com" + endpoint)
+//                    .header("Authorization", "Bearer " + token)
+//                    .header("X-GitHub-Api-Version", "2022-11-28")
+//                    .build();
+//
+//            try (Response response = okHttpClient.newCall(request).execute()) {
+//                if (response.code() == 401 || response.code() == 403) {
+//                    throw new IOException("Token失效，已超过Github规定请求次数");
+//                }
+//                if (!response.isSuccessful()) {
+//                    if (retries < MAX_RETRIES - 1) {
+//                        // Wait before retrying
+//                        try {
+//                            Thread.sleep(RETRY_DELAY_MS);
+//                        } catch (InterruptedException e) {
+//                            Thread.currentThread().interrupt();
+//                            throw new IOException("重试已中断", e);
+//                        }
+//                        retries++;
+//                        continue;
+//                    }
+//                    throw new IOException("Unexpected code " + response);
+//                }
+//                return response.body().string();
+//            } catch (IOException e) {
+//                if (retries < MAX_RETRIES - 1) {
+//                    try {
+//                        Thread.sleep(RETRY_DELAY_MS);
+//                    } catch (InterruptedException e1) {
+//                        Thread.currentThread().interrupt();
+//                        throw new IOException("重试已中断", e1);
+//                    }
+//                    retries++;
+//                    continue;
+//                }
+//                throw e;
+//            }
+//        }
+//        throw new IOException("GitHub API 请求达到的最大重试次数");
+//    }
+//
+//
+//}
+import com.google.gson.Gson;
+import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -284,7 +359,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
-
 @Service
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
@@ -301,10 +375,19 @@ public class GitHubClientService {
                 .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
                 .build();
         this.token = "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";
-//        this.token = "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";
+//        this.token = "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";
+        // this.token = "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";
     }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
+        if (endpoint.startsWith("/graphql")) {
+            return fetchGraphQLApi(endpoint, params);
+        } else {
+            return fetchRestApi(endpoint, params);
+        }
+    }
+
+    private String fetchRestApi(String endpoint, Object params) throws IOException {
         int retries = 0;
         while (retries < MAX_RETRIES) {
             Request request = new Request.Builder()
@@ -318,34 +401,61 @@ public class GitHubClientService {
                     throw new IOException("Token失效，已超过Github规定请求次数");
                 }
                 if (!response.isSuccessful()) {
-                    if (retries < MAX_RETRIES - 1) {
-                        // Wait before retrying
-                        try {
-                            Thread.sleep(RETRY_DELAY_MS);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                            throw new IOException("重试已中断", e);
-                        }
-                        retries++;
-                        continue;
-                    }
-                    throw new IOException("Unexpected code " + response);
-                }
-                return response.body().string();
-            } catch (IOException e) {
-                if (retries < MAX_RETRIES - 1) {
-                    try {
-                        Thread.sleep(RETRY_DELAY_MS);
-                    } catch (InterruptedException e1) {
-                        Thread.currentThread().interrupt();
-                        throw new IOException("重试已中断", e1);
-                    }
+                    handleRetries(retries);
                     retries++;
                     continue;
                 }
-                throw e;
+                return response.body().string();
+            } catch (IOException e) {
+                handleRetries(retries);
+                retries++;
             }
         }
-        throw new IOException("GitHub API 请求达到的最大重试次数");
+        throw new IOException("GitHub REST API 请求达到的最大重试次数");
+    }
+
+    private String fetchGraphQLApi(String endpoint, Object params) throws IOException {
+        int retries = 0;
+        while (retries < MAX_RETRIES) {
+            RequestBody body = RequestBody.create(
+                    MediaType.get("application/json"),
+                    new Gson().toJson(params)
+            );
+
+            Request request = new Request.Builder()
+                    .url("https://api.github.com" + endpoint)
+                    .header("Authorization", "Bearer " + token)
+                    .header("Content-Type", "application/json")
+                    .header("X-GitHub-Api-Version", "2022-11-28")
+                    .post(body)
+                    .build();
+
+            try (Response response = okHttpClient.newCall(request).execute()) {
+                if (response.code() == 401 || response.code() == 403) {
+                    throw new IOException("Token失效，已超过Github规定请求次数");
+                }
+                if (!response.isSuccessful()) {
+                    handleRetries(retries);
+                    retries++;
+                    continue;
+                }
+                return response.body().string();
+            } catch (IOException e) {
+                handleRetries(retries);
+                retries++;
+            }
+        }
+        throw new IOException("GitHub GraphQL API 请求达到的最大重试次数");
+    }
+
+    private void handleRetries(int retries) throws IOException {
+        if (retries < MAX_RETRIES - 1) {
+            try {
+                Thread.sleep(RETRY_DELAY_MS);
+            } catch (InterruptedException e1) {
+                Thread.currentThread().interrupt();
+                throw new IOException("重试已中断", e1);
+            }
+        }
     }
 }

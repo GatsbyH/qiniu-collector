@@ -22,6 +22,7 @@ public  class DeveloperContributionVo {
         private Double totalTalentRank;
         private String assessment;
         private String field;
+        private String avatarUrl;
         private Map<String, Integer> languageCount;
         private Map<String, Integer> topicCount;
 }

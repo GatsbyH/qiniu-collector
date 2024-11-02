@@ -173,6 +173,7 @@ public class TalentRankServiceImpl implements ITalentRankService{
                 .assessment(assessment)
                 .totalTalentRank(talentRank)
                 .username(username)
+                .avatarUrl(userInfo.getString("avatar_url"))
                 .totalStars(totalStars)
                 .totalForks(totalForks)
                 .totalIssues(totalIssues)
@@ -187,9 +188,15 @@ public class TalentRankServiceImpl implements ITalentRankService{
     }
 
     private void calculateDeveloperGithubContribution(String owner, String repo, String username, JSONObject jsonObject) throws IOException {
-        int stars = jsonObject.getIntValue("stargazers_count");
-        int forks = jsonObject.getIntValue("forks_count");
-        int issues = jsonObject.getIntValue("open_issues_count");
+        int stars=0;
+        int forks=0;
+        int issues=0;
+        if (!jsonObject.getBooleanValue("fork") && jsonObject.getInteger("size") > 0) {
+             stars = jsonObject.getIntValue("stargazers_count");
+             forks = jsonObject.getIntValue("forks_count");
+             issues = jsonObject.getIntValue("open_issues_count");
+        }
+
         String language = jsonObject.getString("language");
         JSONArray topicsArray = jsonObject.getJSONArray("topics");
 
