@@ -18,4 +18,6 @@ public class DevelopeVo {
     private Integer totalFollowers;
     private Integer contributeTo;
     private RankResult rankResult;
+    private String assessment;
+    private String field;
 }

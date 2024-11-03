@@ -56,4 +56,14 @@ public class GitHubGraphQLController {
                 .data(developerAssessment)
                 .build();
     }
+    //测试领域搜索
+    @GetMapping("testSearch")
+    public Response testSearch(String topic) throws IOException {
+        talentRankGraphQLService.fetchUserByRepoTopic(topic);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(null)
+                .build();
+    }
 }

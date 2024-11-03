@@ -1,0 +1,21 @@
+query{
+  search(query:"topic:$topic", type: REPOSITORY, first: 100,after: null) {
+    edges {
+      node {
+        ... on Repository {
+          id
+          name
+          url
+          owner {
+            login
+            __typename
+          }
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

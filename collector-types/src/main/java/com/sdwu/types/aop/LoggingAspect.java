@@ -31,11 +31,11 @@ public class LoggingAspect {
         //记录方法结束时间
         long endTime = System.currentTimeMillis();
 
-        //计算方法执行时间
-        long executionTime = endTime-startTime;
 
+        // 计算方法执行时间（转换为秒）
+        double executionTime = (endTime - startTime) / 1000.0;
         //记录日志
-        logger.info("方法{}执行时间为{}毫秒",joinPoint.getSignature().toShortString(),executionTime);
+        logger.info("方法{}执行时间为{}秒",joinPoint.getSignature().toShortString(),executionTime);
         return result;
     }
 }

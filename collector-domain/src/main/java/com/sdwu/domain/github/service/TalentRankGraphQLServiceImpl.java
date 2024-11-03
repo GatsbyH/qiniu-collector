@@ -1,5 +1,6 @@
 package com.sdwu.domain.github.service;
 
+import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,10 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
 //        DevelopeVo userStats = gitHubGraphQLApi.fetchUserStats(username);
         gitHubGraphQLApi.fetchTopLanguages(username);
         return null;
+    }
+
+    @Override
+    public void fetchUserByRepoTopic(String topic) {
+      gitHubGraphQLApi.fetchUserByRepoTopic(topic);
     }
 }

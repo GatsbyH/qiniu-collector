@@ -62,3 +62,36 @@
 - 获取组织的公开信息: `GET /orgs/{org}`
 - 获取组织的所有团队: `GET /orgs/{org}/teams`
 - 获取团队的成员列表: `GET /teams/{team_id}/members`
+query{
+  search(query:"topic:$topic", type: REPOSITORY, first: 100,after: null) {
+    edges {
+      node {
+        ... on Repository {
+          id
+          name
+          url
+          __typename
+          owner {
+            login
+          }
+          languages(first: 10){
+            nodes{
+              name
+            }
+          }
+          repositoryTopics(first: 10) {
+            nodes {
+              topic {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

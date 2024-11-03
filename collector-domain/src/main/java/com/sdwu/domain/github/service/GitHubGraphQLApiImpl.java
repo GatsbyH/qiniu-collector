@@ -2,6 +2,8 @@ package com.sdwu.domain.github.service;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
@@ -9,13 +11,13 @@ import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sun.applet.AppletIOException;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -26,12 +28,25 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     private IGithubUserRepository githubUserRepository;
     @Resource
     private IScheduledTaskRepository scheduledTaskRepository;
+    @Resource
+    private IGitHubApi gitHubApi;
 
+    @Resource
+    private IChatGlmApi chatGlmApi;
 
+    @Resource
+    private IDeveloperNationService developerNationService;
     final String GRAPHQL_REPOS_FIELD = "repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {\n" +
             "    totalCount\n" +
             "    nodes {\n" +
             "      name\n" +
+//            "      repositoryTopics(first: 10) {\n" +
+//            "        nodes {\n" +
+//            "          topic {\n" +
+//            "            name\n" +
+//            "          }\n" +
+//            "        }\n" +
+//            "      }\n" +
             "      stargazers {\n" +
             "        totalCount\n" +
             "      }\n" +
@@ -82,6 +97,54 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             + "    }"
             + "  }";
 
+    String DOMAIN_QUERY = "query($topic: String!) {\n" +
+            "  search(query: $topic, type: USER, first: 100) {\n" +
+            "    edges {\n" +
+            "      node {\n" +
+            "        ... on User {\n" +
+            "          login\n" +
+            "          name\n" +
+            "          bio\n" +
+            "          avatarUrl\n" +
+            "          repositories(first: 1) {\n" +
+            "            edges {\n" +
+            "              node {\n" +
+            "                name\n" +
+            "                url\n" +
+            "              }\n" +
+            "            }\n" +
+            "          }\n" +
+            "        }\n" +
+            "      }\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
+
+
+
+    String searchRepositoriesByTopicAndDescriptionQuery = "query SearchRepositoriesByTopicAndDescription($topic: String!, $description: String!, $after: String) {\n" +
+                                                          "    search(type: REPOSITORY, query: \\\"topic:\\\" + $topic + \\\" description:\\\" + $description, first: 10, after: $after) {\n" +
+                                                          "      edges {\n" +
+                                                          "        node {\n" +
+                                                          "          ... on Repository {\n" +
+                                                          "            name\n" +
+                                                          "            description\n" +
+                                                          "            owner {\n" +
+                                                          "              login\n" +
+                                                          "              avatarUrl\n" +
+                                                          "            }\n" +
+                                                          "          }\n" +
+                                                          "        }\n" +
+                                                          "      }\n" +
+                                                          "      pageInfo {\n" +
+                                                          "        hasNextPage\n" +
+                                                          "        endCursor\n" +
+                                                          "      }\n" +
+                                                          "    }\n" +
+                                                          "  }\n";
+
+
+
 
     String getRepoQuery = "fragment RepoInfo on Repository {\n" +
             "    name\n" +
@@ -116,6 +179,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             "    user(login: $login) {\n" +
             "      name\n" +
             "      login\n" +
+//            "      websiteUrl\n" +
+//            "      bio\n" +
             "      contributionsCollection {\n" +
             "        totalCommitContributions,\n" +
             "        totalPullRequestReviewContributions\n" +
@@ -273,6 +338,10 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         String after = null;
         boolean hasNextPage = true;
 
+        String blog=null;
+        String bio=null;
+
+        JSONArray topics=new JSONArray();
         while (hasNextPage) {
             Map<String, Object> variables = new HashMap<>();
             variables.put("login", username);
@@ -305,6 +374,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
             // 获取用户数据
             JSONObject user = data.getJSONObject("user");
+//            blog=user.getString("websiteUrl");
+//            bio=user.getString("bio");
             totalFollowers = user.getJSONObject("followers").getIntValue("totalCount");
             totalReviews = user.getJSONObject("contributionsCollection").getIntValue("totalPullRequestReviewContributions");
             totalCommits = user.getJSONObject("contributionsCollection").getIntValue("totalCommitContributions");
@@ -319,22 +390,50 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             hasNextPage = repositories.getJSONObject("pageInfo").getBoolean("hasNextPage");
             after = repositories.getJSONObject("pageInfo").getString("endCursor");
 
+
             // 合并当前页的仓库数据
             JSONArray nodes = repositories.getJSONArray("nodes");
+
             stats.addAll(nodes);
         }
+
 
         // 计算总星标数
 //        totalStars = stats.stream()
 //                .mapToInt(node -> ((JSONObject) node).getJSONObject("stargazers").getIntValue("totalCount"))
 //                .sum();
+        JSONArray repositoryTopics = new JSONArray();
         for (Object item : stats) {
             JSONObject jsonObject = (JSONObject) item;
             JSONObject stargazers = jsonObject.getJSONObject("stargazers");
+//            repositoryTopics.add(jsonObject.getJSONObject("repositoryTopics"));
             int totalCount = stargazers.getIntValue("totalCount");
             totalStars += totalCount;
         }
+
         log.info("用户 {} 的仓库总 star 数为：{}", username, totalStars);
+        log.info("用户 {} 的仓库topics为：{}", username,repositoryTopics);
+
+//        String assessment = "";
+//        if (blog!=null){
+//            log.info("用户{}的博客地址为：{}",username,blog);
+//            try {
+//                assessment = chatGlmApi.doDevelopmentAssessment(blog,bio);
+//            } catch (JsonProcessingException e) {
+//                log.error("调用 ChatGLM API 错误: {}", e.getMessage());
+//                throw new RuntimeException(e);
+//            }
+//        }
+
+//        String field="";
+//        try {
+//            field = chatGlmApi.guessTheFieldBasedOnTheTopic(repositoryTopics.toString());
+//        } catch (JsonProcessingException e) {
+//            log.error("调用 ChatGLM API 错误: {}", e.getMessage());
+//            throw new RuntimeException(e);
+//        }
+
+
 
         RankResult talentRank = calculateRank(false, totalCommits, totalPRs, totalIssues, totalReviews, totalStars, totalFollowers);
         log.info("用户 {} 的等级为：{}", username, talentRank.getLevel());
@@ -342,6 +441,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         DevelopeVo developeVo = new DevelopeVo().builder()
                 .totalCommits(totalCommits)
                 .totalPRs(totalPRs)
+//                .field(field)
+//                .assessment(assessment)
                 .totalIssues(totalIssues)
                 .totalReviews(totalReviews)
                 .totalStars(totalStars)
@@ -442,18 +543,53 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
         return talentRank;
     }
+    public static String buildSearchQuery(String topic) {
+        return "query{" +
+                "search(query:\"topic:" + topic + "\", type: REPOSITORY, first: 10) {" +
+                "edges {" +
+                "node {" +
+                "... on Repository {" +
+                "id," + // 添加逗号
+                "name," + // 添加逗号
+                "owner {" +
+                "login" +
+                "}," + // 添加逗号
+                "languages(first: 10){" +
+                "nodes{" +
+                "name" +
+                "}" +
+                "}," + // 添加逗号
+                "repositoryTopics(first: 10) {" +
+                "nodes {" +
+                "topic {" +
+                "name" +
+                "}" +
+                "}" +
+                "}" +
+                "}" +
+                "}" +
+                "}" +
+                "}" +
+                "}";
+    }
 
     @Override
     public void fetchTopLanguages(String username) {
         Map<String, Object> variables = new HashMap<>();
-        variables.put("login", username);
+//        variables.put("login", username);
 //        variables.put("repo", "CuppaCorner");
+        variables.put("topic", "javaweb");
+        variables.put("$description", "java");
+        String query = buildSearchQuery("java");
+        String searchRepositoriesByTopicAndDescriptionQuery = readFile("searchRepositoriesByTopicAndDescriptionQuery.graphql");
+        String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", "java");
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("query", TOP_LANGUAGES_QUERY);
+        requestMap.put("query", searchRepositoriesByTopicAndDescriptionQuery);
         requestMap.put("variables", variables);
         String fetchGitHubApi = null;
+
         try {
-            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", requestMap);
+            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", Collections.singletonMap("query", modifiedQuery));
         } catch (IOException e) {
             log.error("获取用户{}的语言分布时发生错误: {}", username, e.getMessage());
             throw new RuntimeException(e);
@@ -461,6 +597,132 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         log.info("用户{}的语言分布信息为: {}", username, fetchGitHubApi);
     }
 
+    @Override
+    public void fetchUserByRepoTopic(String topic) {
+
+        boolean hasNextPage = true;
+        String after=null;
+        String fetchGitHubApi = null;
+        JSONObject userInfo=new JSONObject();
+        List<Developer> developers = new ArrayList<>();
+        try {
+            while (hasNextPage){
+                String searchRepositoriesByTopicAndDescriptionQuery = readFile("searchRepositoriesByTopicAndDescriptionQuery.graphql");
+                String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", topic);;
+                if (after!=null){
+                    modifiedQuery = modifiedQuery.replace("null", ""+after+"");
+                }
+                fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", Collections.singletonMap("query", modifiedQuery));
+                JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+
+                JSONObject data = jsonObject.getJSONObject("data");
+
+//                JSONObject pageInfo = data.getJSONObject("search").getJSONObject("pageInfo");
+//                hasNextPage = pageInfo.getBoolean("hasNextPage");
+//                after = pageInfo.getString("endCursor");
+                JSONObject searchObject = data.getJSONObject("search");
+                if (searchObject != null) {
+                    JSONObject pageInfo = searchObject.getJSONObject("pageInfo");
+                    if (pageInfo != null) {
+                        hasNextPage = pageInfo.getBoolean("hasNextPage");
+                        // 继续处理 pageInfo
+                    } else {
+                        // 处理 pageInfo 为空的情况
+                        hasNextPage = false; // 或其他适当的默认值
+                    }
+                } else {
+                    // 处理 search 为空的情况
+                    hasNextPage = false; // 或其他适当的默认值
+                }
+                JSONArray nodes = data.getJSONObject("search").getJSONArray("edges");
+                for (Object node : nodes) {
+                    JSONObject jsonObject1 = (JSONObject) node;
+                    String login = jsonObject1.getJSONObject("node").getJSONObject("owner").getString("login");
+
+                    JSONObject owner= jsonObject1.getJSONObject("node").getJSONObject("owner");
+                    String __typename =owner.getString("__typename");
+                    if (__typename.equals("Organization")){
+                        continue;
+                    }
+                    userInfo = gitHubApi.getUserInfo(login);
+                    double talentRank = 0;
+                    String level = null;
+                    String developerNation = null;
+                    developerNation = developerNationService.getDeveloperNation(login);
+                    RankResult talentRankByUserName = this.getTalentRankByUserName(login);
+                    if (talentRankByUserName!=null){
+                        talentRank =100- talentRankByUserName.getPercentile();
+                        level=talentRankByUserName.getLevel();
+                    }
+                    String assessment = null;
+//                    if (userInfo.getString("blog")!=null){
+//                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
+//                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
+//                    }
+                    // 使用String.format()方法格式化为两位小数的字符串
+                    String talentRankFormatted = String.format("%.2f", talentRank);
+
+                    // 如果你需要talentRank仍然是double类型，可以这样做：
+                    talentRank = Double.parseDouble(talentRankFormatted);
+                    Developer developer = Developer.builder()
+                            .login(login)
+                            .bio(userInfo.getString("bio"))
+                            .company(userInfo.getString("company"))
+                            .location(userInfo.getString("location"))
+                            .htmlUrl(userInfo.getString("html_url"))
+                            .name(userInfo.getString("name"))
+                            .blog(userInfo.getString("blog"))
+                            .email(userInfo.getString("email"))
+                            .hireable(userInfo.getBoolean("hireable"))
+                            .talentRank(talentRank)
+                            .level(level)
+                            .nation(developerNation)
+                            .assessment(assessment)
+                            .twitterUsername(userInfo.getString("twitter_username"))
+                            .publicRepos(userInfo.getIntValue("public_repos"))
+                            .publicGists(userInfo.getIntValue("public_gists"))
+                            .followers(userInfo.getIntValue("followers"))
+                            .following(userInfo.getIntValue("following"))
+                            .type(userInfo.getString("type"))
+                            .repositoryUrl(jsonObject1.getJSONObject("node").getString("url"))
+                            .avatarUrl(userInfo.getString("avatar_url"))
+                            .build();
+                    log.info("用户名：{}  位置：{}   国籍：{} github地址：{}",
+                            login, userInfo.getString("location"), userInfo.getString("nation"), userInfo.getString("html_url"));
+//                    developers.add(developer);
+                    githubUserRepository.saveSingle(topic,developer);
+                }
+            }
+            log.info("开发者们: {}", developers);
+//            if (!developers.isEmpty()) {
+//                githubUserRepository.save(topic, developers);
+//            }
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 辅助方法，用于读取文件内容
+    private String readFile(String fileName) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        if (inputStream == null) {
+            log.error("文件{}未找到", fileName);
+            return null;
+        }
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            String currentLine;
+            while ((currentLine = br.readLine()) != null) {
+                contentBuilder.append(currentLine).append("\n");
+            }
+        } catch (IOException e) {
+            log.error("读取文件{}时发生错误: {}", fileName, e.getMessage());
+            return null;
+        }
+        return contentBuilder.toString();
+    }
     /**
          * Calculates the exponential cdf.
          *

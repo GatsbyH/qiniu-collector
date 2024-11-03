@@ -144,6 +144,8 @@ public class DeveloperFetcher {
     @Resource
     private ITalentRankGraphQLService talentRankGraphQLService;
 
+
+
     public void startFetching(String field, String nation) {
 //        Boolean isFetching = githubUserRepository.getFetchFlag(field);
         if (!scheduledTaskRepository.checkScheduledTaskByField(field)){
@@ -177,94 +179,100 @@ public class DeveloperFetcher {
 
     }
 
+//    private void getDeveloperByFieldAndNation(String field, String nation) throws IOException {
+//            List<Developer> developers = null;
+//
+//        String developerByFieldAndNation = null;
+//        try {
+//            Integer page = githubUserRepository.getGitHubPageByField(field);
+//            if (page>250){
+//                log.info("{}领域已抓取完毕,只有前 1000 个搜索结果可用", field);
+//                stopFetching(field);
+//                return;
+//            }
+//            developerByFieldAndNation = gitHubApi.getDevelopersByFields(field);
+//        } catch (IOException e) {
+//            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
+//            throw new RuntimeException(e);
+//        }
+//        JSONObject responseObject = JSON.parseObject(developerByFieldAndNation);
+//            JSONArray itemsArray = responseObject.getJSONArray("items");
+//            developers = new ArrayList<>();
+//            for (Object o : itemsArray) {
+//                JSONObject jsonObject = (JSONObject) o;
+//                JSONObject owner = jsonObject.getJSONObject("owner");
+//                String login = owner.getString("login");
+//                String htmlUrl = owner.getString("html_url");
+//                JSONObject userInfo = null;
+//                String location = null;
+//                double talentRank = 0;
+//                String developerNation = null;
+//                String assessment="";
+//                String level = "";
+//                try {
+//                    userInfo = gitHubApi.getUserInfo(login);
+//                    if (userInfo.getString("blog")!=null){
+//                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
+//                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
+//                    }
+//                    location = userInfo.getString("location");
+////                    talentRank = talentRankService.getTalentRankByUserName(login);
+//
+//                    RankResult talentRankByUserName = talentRankGraphQLService.getTalentRankByUserName(login);
+//                    if (talentRankByUserName!=null){
+//                        talentRank =100- talentRankByUserName.getPercentile();
+//                        level=talentRankByUserName.getLevel();
+//                    }
+//                    // 使用String.format()方法格式化为两位小数的字符串
+//                    String talentRankFormatted = String.format("%.2f", talentRank);
+//
+//                    // 如果你需要talentRank仍然是double类型，可以这样做：
+//                    talentRank = Double.parseDouble(talentRankFormatted);
+//                    developerNation = developerNationService.getDeveloperNation(login);
+//                } catch (IOException e) {
+//                    scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
+//                    throw new RuntimeException(e);
+//                }
+//                Developer developer = Developer.builder()
+//                        .login(login)
+//                        .field(field)
+//                        .assessment(assessment)
+//                        .location(location)
+//                        .nation(developerNation)
+//                        .htmlUrl(htmlUrl)
+//                        .level(level)
+//                        .talentRank(talentRank)
+//                        .avatarUrl(userInfo.getString("avatar_url"))
+//                        .type(userInfo.getString("type"))
+//                        .company(userInfo.getString("company"))
+//                        .location(userInfo.getString("location"))
+//                        .blog(userInfo.getString("blog"))
+//                        .email(userInfo.getString("email"))
+//                        .name(userInfo.getString("name"))
+//                        .type(userInfo.getString("type"))
+//                        .bio(userInfo.getString("bio"))
+//                        .publicRepos(userInfo.getIntValue("public_repos"))
+//                        .publicGists(userInfo.getIntValue("public_gists"))
+//                        .followers(userInfo.getIntValue("followers"))
+//                        .following(userInfo.getIntValue("following"))
+//                        .hireable(userInfo.getBoolean("hireable"))
+//                        .twitterUsername(userInfo.getString("twitter_username"))
+//                        .repositoryUrl(jsonObject.getString("html_url"))
+//                        .build();
+//                developers.add(developer);
+//                log.info("用户名：{}  位置：{}  领域：{}  国籍：{} github地址：{}  人才指数：{}",
+//                        login, location, field, developerNation, htmlUrl, talentRank);
+//            }
+//        if (!developers.isEmpty()) {
+//            githubUserRepository.save(field, developers);
+//        }
+//    }
+
+
     private void getDeveloperByFieldAndNation(String field, String nation) throws IOException {
-            List<Developer> developers = null;
-
-        String developerByFieldAndNation = null;
-        try {
-            Integer page = githubUserRepository.getGitHubPageByField(field);
-            if (page>250){
-                log.info("{}领域已抓取完毕,只有前 1000 个搜索结果可用", field);
-                stopFetching(field);
-                return;
-            }
-            developerByFieldAndNation = gitHubApi.getDevelopersByFields(field);
-        } catch (IOException e) {
-            scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
-            throw new RuntimeException(e);
-        }
-        JSONObject responseObject = JSON.parseObject(developerByFieldAndNation);
-            JSONArray itemsArray = responseObject.getJSONArray("items");
-            developers = new ArrayList<>();
-            for (Object o : itemsArray) {
-                JSONObject jsonObject = (JSONObject) o;
-                JSONObject owner = jsonObject.getJSONObject("owner");
-                String login = owner.getString("login");
-                String htmlUrl = owner.getString("html_url");
-                JSONObject userInfo = null;
-                String location = null;
-                double talentRank = 0;
-                String developerNation = null;
-                String assessment="";
-                String level = "";
-                try {
-                    userInfo = gitHubApi.getUserInfo(login);
-                    if (userInfo.getString("blog")!=null){
-                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
-                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
-                    }
-                    location = userInfo.getString("location");
-//                    talentRank = talentRankService.getTalentRankByUserName(login);
-
-                    RankResult talentRankByUserName = talentRankGraphQLService.getTalentRankByUserName(login);
-                    if (talentRankByUserName!=null){
-                        talentRank =100- talentRankByUserName.getPercentile();
-                        level=talentRankByUserName.getLevel();
-                    }
-                    // 使用String.format()方法格式化为两位小数的字符串
-                    String talentRankFormatted = String.format("%.2f", talentRank);
-
-                    // 如果你需要talentRank仍然是double类型，可以这样做：
-                    talentRank = Double.parseDouble(talentRankFormatted);
-                    developerNation = developerNationService.getDeveloperNation(login);
-                } catch (IOException e) {
-                    scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
-                    throw new RuntimeException(e);
-                }
-                Developer developer = Developer.builder()
-                        .login(login)
-                        .field(field)
-                        .assessment(assessment)
-                        .location(location)
-                        .nation(developerNation)
-                        .htmlUrl(htmlUrl)
-                        .level(level)
-                        .talentRank(talentRank)
-                        .avatarUrl(userInfo.getString("avatar_url"))
-                        .type(userInfo.getString("type"))
-                        .company(userInfo.getString("company"))
-                        .location(userInfo.getString("location"))
-                        .blog(userInfo.getString("blog"))
-                        .email(userInfo.getString("email"))
-                        .name(userInfo.getString("name"))
-                        .type(userInfo.getString("type"))
-                        .bio(userInfo.getString("bio"))
-                        .publicRepos(userInfo.getIntValue("public_repos"))
-                        .publicGists(userInfo.getIntValue("public_gists"))
-                        .followers(userInfo.getIntValue("followers"))
-                        .following(userInfo.getIntValue("following"))
-                        .hireable(userInfo.getBoolean("hireable"))
-                        .twitterUsername(userInfo.getString("twitter_username"))
-                        .repositoryUrl(jsonObject.getString("html_url"))
-                        .build();
-                developers.add(developer);
-                log.info("用户名：{}  位置：{}  领域：{}  国籍：{} github地址：{}  人才指数：{}",
-                        login, location, field, developerNation, htmlUrl, talentRank);
-            }
-        if (!developers.isEmpty()) {
-            githubUserRepository.save(field, developers);
-        }
+        talentRankGraphQLService.fetchUserByRepoTopic(field);
     }
+
 
     public void stopFetching(String field) {
         ScheduledFuture<?> future = scheduledFutures.remove(field); // 从 Map 中获取并移除
@@ -292,10 +300,10 @@ public class DeveloperFetcher {
         List<ScheduledTask> tasks = scheduledTaskRepository.findAllByStatusIn(Arrays.asList("RUNNING", "FAILED"));
         for (ScheduledTask task : tasks) {
             switch (task.getStatus()) {
-                case "RUNNING":
-                    // 检查是否需要重新启动任务
-                    handleRunningTask(task);
-                    break;
+//                case "RUNNING":
+//                    // 检查是否需要重新启动任务
+//                    handleRunningTask(task);
+//                    break;
                 case "FAILED":
                     // 检查是否需要修复或重新启动任务
                     handleFatalTask(task);

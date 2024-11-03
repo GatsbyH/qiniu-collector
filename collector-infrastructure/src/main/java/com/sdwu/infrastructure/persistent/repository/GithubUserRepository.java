@@ -25,6 +25,12 @@ public class GithubUserRepository implements IGithubUserRepository {
     }
 
     @Override
+    public void saveSingle(String field, Developer developers) {
+        DeveloperPO developerPO = DeveloperPO.toPO(developers);
+        redisService.addUser(GITHUB_USER_INFO_KEY+field, developerPO, developerPO.getTalentRank());
+    }
+
+    @Override
     public List<Developer> getDevelopersByFields(String field) {
         List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+field, 0, 100);
         return developers.stream().map(DeveloperPO::toDeveloper).collect(Collectors.toList());

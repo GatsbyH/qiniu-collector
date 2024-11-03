@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IGithubUserRepository {
     void save(String field,List<Developer> developers);
+    void saveSingle(String field,Developer developers);
 
     List<Developer> getDevelopersByFields(String field);
 

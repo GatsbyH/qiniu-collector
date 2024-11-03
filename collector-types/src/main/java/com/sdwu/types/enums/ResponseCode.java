@@ -1,6 +1,5 @@
 package com.sdwu.types.enums;
 
-import jdk.nashorn.internal.codegen.CompileUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

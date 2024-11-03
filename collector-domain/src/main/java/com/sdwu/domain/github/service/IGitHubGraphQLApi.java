@@ -1,5 +1,6 @@
 package com.sdwu.domain.github.service;
 
+import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 
@@ -14,4 +15,6 @@ public interface IGitHubGraphQLApi {
     RankResult getTalentRankByUserName(String username) throws IOException;
 
     void fetchTopLanguages(String username);
+
+    void fetchUserByRepoTopic(String topic);
 }
