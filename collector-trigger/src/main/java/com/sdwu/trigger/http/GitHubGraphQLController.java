@@ -3,6 +3,7 @@ package com.sdwu.trigger.http;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.service.ITalentRankGraphQLService;
+import com.sdwu.types.annotation.Loggable;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.model.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +36,24 @@ public class GitHubGraphQLController {
 
     //GraphQL获得talentRank
     @GetMapping("getTalentRankByUserName")
+    @Loggable
     public Response getTalentRankByUserName(String username) throws IOException {
-        DevelopeVo talentRank = talentRankGraphQLService.getTalentRankByUserName(username);
+        DevelopeVo talentRank = talentRankGraphQLService.getDeveloperStatsByUserName(username);
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
                 .data(talentRank)
+                .build();
+    }
+
+    //根据账号评估开发者页面
+    @GetMapping("getDeveloperAssessment")
+    public Response getDeveloperAssessment(String username) throws IOException {
+        DevelopeVo developerAssessment = talentRankGraphQLService.getDeveloperAssessment(username);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerAssessment)
                 .build();
     }
 }

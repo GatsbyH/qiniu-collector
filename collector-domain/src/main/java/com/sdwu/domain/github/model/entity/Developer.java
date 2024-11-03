@@ -31,4 +31,5 @@ public class Developer {
     private String type;                // 用户类型
     private String repositoryUrl;             // 项目URL
     private String assessment;
+    private String level;
 }

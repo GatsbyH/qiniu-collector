@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.types.model.PageResult;
@@ -38,6 +39,10 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     @Resource
     private IChatGlmApi chatGlmApi;
 
+
+    @Resource
+    private ITalentRankGraphQLService talentRankGraphQLService;
+
     @Override
     public List<Developer> getDeveloperByFieldAndNation(String field, String nation) throws IOException {
 //        String developerByFieldAndNation = gitHubApi.getDeveloperByFieldAndNation(field, nation);
@@ -56,7 +61,19 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
             String htmlUrl = owner.getString("html_url");
             JSONObject userInfo = gitHubApi.getUserInfo(login);
             String location = userInfo.getString("location");
-            double talentRank = talentRankService.getTalentRankByUserName(login);
+//            double talentRank = talentRankService.getTalentRankByUserName(login);
+            double talentRank = 0;
+            String level = "";
+            RankResult talentRankByUserName = talentRankGraphQLService.getTalentRankByUserName(login);
+            if (talentRankByUserName!=null){
+                talentRank =100- talentRankByUserName.getPercentile();
+                level=talentRankByUserName.getLevel();
+            }
+            // 使用String.format()方法格式化为两位小数的字符串
+            String talentRankFormatted = String.format("%.2f", talentRank);
+
+            // 如果你需要talentRank仍然是double类型，可以这样做：
+            talentRank = Double.parseDouble(talentRankFormatted);
             String developerNation = developerNationService.getDeveloperNation(login);
             Developer developer = Developer.builder()
                     .login(login)
@@ -65,6 +82,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
                     .nation(developerNation)
                     .htmlUrl(htmlUrl)
                     .talentRank(talentRank)
+                    .level(level)
                     .build();
             developers.add(developer);
             System.out.println("用户名："+login+"  位置："+location+"  领域："+field+"  国籍："+developerNation+" github地址："+ htmlUrl+"  人才指数："+talentRank);

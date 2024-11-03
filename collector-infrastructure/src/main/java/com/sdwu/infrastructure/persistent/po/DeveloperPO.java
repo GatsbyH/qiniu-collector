@@ -32,6 +32,7 @@ public class DeveloperPO {
     private String type;                // 用户类型
     private String repositoryUrl;             // 项目URL
     private String assessment;
+    private String level;
 
     public static DeveloperPO toPO(Developer developer) {
         return DeveloperPO.builder()
@@ -56,6 +57,7 @@ public class DeveloperPO {
                 .type(developer.getType())
                 .repositoryUrl(developer.getRepositoryUrl())
                 .assessment(developer.getAssessment())
+                .level(developer.getLevel())
                 .build();
     }
 
@@ -83,6 +85,7 @@ public class DeveloperPO {
                 .type(po.getType())
                 .repositoryUrl(po.getRepositoryUrl())
                 .assessment(po.getAssessment())
+                .level(po.getLevel())
                 .build();
     }
 }

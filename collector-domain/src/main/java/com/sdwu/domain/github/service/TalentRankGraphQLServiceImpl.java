@@ -1,6 +1,7 @@
 package com.sdwu.domain.github.service;
 
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
+import com.sdwu.domain.github.model.valobj.RankResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,8 +18,21 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
     }
 
     @Override
-    public DevelopeVo getTalentRankByUserName(String username) throws IOException {
+    public RankResult getTalentRankByUserName(String username) throws IOException {
+        RankResult talentRankByUserName = gitHubGraphQLApi.getTalentRankByUserName(username);
+        return talentRankByUserName;
+    }
+
+    @Override
+    public DevelopeVo getDeveloperStatsByUserName(String username) throws IOException {
         DevelopeVo userStats = gitHubGraphQLApi.fetchUserStats(username);
         return userStats;
+    }
+
+    @Override
+    public DevelopeVo getDeveloperAssessment(String username) throws IOException {
+//        DevelopeVo userStats = gitHubGraphQLApi.fetchUserStats(username);
+        gitHubGraphQLApi.fetchTopLanguages(username);
+        return null;
     }
 }

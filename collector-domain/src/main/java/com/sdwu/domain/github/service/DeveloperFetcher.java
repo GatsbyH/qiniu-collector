@@ -98,6 +98,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.entity.ScheduledTask;
+import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.domain.github.service.IDeveloperNationService;
@@ -139,6 +140,10 @@ public class DeveloperFetcher {
     private IScheduledTaskRepository scheduledTaskRepository;
     @Resource
     private IChatGlmApi chatGlmApi;
+
+    @Resource
+    private ITalentRankGraphQLService talentRankGraphQLService;
+
     public void startFetching(String field, String nation) {
 //        Boolean isFetching = githubUserRepository.getFetchFlag(field);
         if (!scheduledTaskRepository.checkScheduledTaskByField(field)){
@@ -201,6 +206,7 @@ public class DeveloperFetcher {
                 double talentRank = 0;
                 String developerNation = null;
                 String assessment="";
+                String level = "";
                 try {
                     userInfo = gitHubApi.getUserInfo(login);
                     if (userInfo.getString("blog")!=null){
@@ -208,7 +214,18 @@ public class DeveloperFetcher {
                         assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
                     }
                     location = userInfo.getString("location");
-                    talentRank = talentRankService.getTalentRankByUserName(login);
+//                    talentRank = talentRankService.getTalentRankByUserName(login);
+
+                    RankResult talentRankByUserName = talentRankGraphQLService.getTalentRankByUserName(login);
+                    if (talentRankByUserName!=null){
+                        talentRank =100- talentRankByUserName.getPercentile();
+                        level=talentRankByUserName.getLevel();
+                    }
+                    // 使用String.format()方法格式化为两位小数的字符串
+                    String talentRankFormatted = String.format("%.2f", talentRank);
+
+                    // 如果你需要talentRank仍然是double类型，可以这样做：
+                    talentRank = Double.parseDouble(talentRankFormatted);
                     developerNation = developerNationService.getDeveloperNation(login);
                 } catch (IOException e) {
                     scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
@@ -221,6 +238,7 @@ public class DeveloperFetcher {
                         .location(location)
                         .nation(developerNation)
                         .htmlUrl(htmlUrl)
+                        .level(level)
                         .talentRank(talentRank)
                         .avatarUrl(userInfo.getString("avatar_url"))
                         .type(userInfo.getString("type"))
