@@ -1,8 +1,10 @@
 package com.sdwu.infrastructure.persistent.repository;
 
 import cn.hutool.core.date.DateUtil;
+import com.sdwu.domain.github.event.FieldSearchMessageEvent;
 import com.sdwu.domain.github.model.entity.ScheduledTask;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
+import com.sdwu.infrastructure.event.EventPublisher;
 import com.sdwu.infrastructure.persistent.dao.IScheduledTaskDao;
 import com.sdwu.infrastructure.persistent.po.ScheduledTaskPO;
 import com.sdwu.types.model.PageResult;
@@ -18,7 +20,12 @@ public class ScheduledTaskRepository implements IScheduledTaskRepository {
 
     @Resource
     private IScheduledTaskDao scheduledTaskDao;
+    @Resource
+    private EventPublisher eventPublisher;
 
+
+    @Resource
+    private FieldSearchMessageEvent fieldSearchMessageEvent;
     @Override
     public PageResult<ScheduledTask> selcetScheduledTaskPage(ScheduledTask task) {
         PageResult<ScheduledTaskPO> scheduledTaskPOPageResult = scheduledTaskDao.selcetScheduledTaskPage(task);
@@ -33,6 +40,9 @@ public class ScheduledTaskRepository implements IScheduledTaskRepository {
 
     @Override
     public Boolean insertScheduledTask(String field,String status) {
+        FieldSearchMessageEvent.FieldSearchMessage fieldSearchMessage = new FieldSearchMessageEvent.FieldSearchMessage();
+        fieldSearchMessage.setField(field);
+        eventPublisher.publish(fieldSearchMessageEvent.topic(),fieldSearchMessageEvent.buildEventMessage(fieldSearchMessage));
         ScheduledTaskPO scheduledTaskPO = ScheduledTaskPO.builder()
                 .field(field)
                 .status(status)

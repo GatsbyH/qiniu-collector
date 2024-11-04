@@ -29,7 +29,23 @@ spring:
     connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
     connection-test-query: SELECT 1
   type: com.zaxxer.hikari.HikariDataSource
-
+  # Spring 配置；rabbitmq
+  rabbitmq:
+    addresses: 10.34.34.73
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+    listener:
+      simple:
+        prefetch: 10 # 每次投递n个消息，消费完在投递n个
+        retry:
+          enabled: true # 开启消费者失败重试
+          initial-interval: 1000 # 初识的失败等待时长为1秒
+          multiplier: 1 # 失败的等待时长倍数，下次等待时长 = multiplier * last-interval
+          max-attempts: 3 # 最大重试次数
+          stateless: true # true无状态；false有状态。如果业务中包含事务，这里改为false
+    topic:
+      field: field
 #mybatis:
 #  mapper-locations: classpath:/mybatis/mapper/*.xml
 #  config-location:  classpath:/mybatis/config/mybatis-config.xml
@@ -119,3 +135,19 @@ dromara:
         domain: https://ftdb-gatsbyh-open.oss-cn-hangzhou.aliyuncs.com/ # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
         base-path: paper/ # 基础路径
 
+# OpenAi 配置；ChatGPT、ChatGLM...
+openai:
+  sdk:
+    config:
+      enabled: true
+      moonshot:
+        #        # 状态；true = 开启、false 关闭
+        enabled: true
+        # 官网地址
+        api-host: https://api.moonshot.cn/
+        # 官网申请 https://open.bigmodel.cn/usercenter/apikeys
+        api-key: sk-6iJzBNQib9q0Oiym0uyk4Kvtvta7JOmEsyqsM4xbDFV6RLuu
+      chatglm:
+        api-host: https://open.bigmodel.cn/
+        api-key: 2589ec5698aa22ce677a261bb7bf5221.nCX8m9P7dfLKUBdp
+        enabled: true

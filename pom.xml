@@ -44,6 +44,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>3.2.0</version>
+            </dependency>
             <!-- 百度内容审核 https://mvnrepository.com/artifact/com.baidu.aip/java-sdk -->
             <dependency>
                 <groupId>com.baidu.aip</groupId>

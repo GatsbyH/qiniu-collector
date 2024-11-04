@@ -604,11 +604,13 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         String after=null;
         String fetchGitHubApi = null;
         JSONObject userInfo=new JSONObject();
+        Set<String> uniqueLogins = new HashSet<>(); // 用于存储唯一的login
         List<Developer> developers = new ArrayList<>();
         try {
             while (hasNextPage){
+                String newTopic = topic.replaceAll("\\s+", "");
                 String searchRepositoriesByTopicAndDescriptionQuery = readFile("searchRepositoriesByTopicAndDescriptionQuery.graphql");
-                String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", topic);;
+                String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", newTopic);;
                 if (after!=null){
                     modifiedQuery = modifiedQuery.replace("null", ""+after+"");
                 }
@@ -639,6 +641,10 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                     JSONObject jsonObject1 = (JSONObject) node;
                     String login = jsonObject1.getJSONObject("node").getJSONObject("owner").getString("login");
 
+                    if (uniqueLogins.contains(login)) {
+                        continue; // 如果这个login已经处理过，跳过
+                    }
+                    uniqueLogins.add(login); // 将这个login添加到集合中
                     JSONObject owner= jsonObject1.getJSONObject("node").getJSONObject("owner");
                     String __typename =owner.getString("__typename");
                     if (__typename.equals("Organization")){
@@ -655,10 +661,10 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                         level=talentRankByUserName.getLevel();
                     }
                     String assessment = null;
-//                    if (userInfo.getString("blog")!=null){
-//                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
-//                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
-//                    }
+                    if (userInfo.getString("blog")!=null){
+                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
+                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
+                    }
                     // 使用String.format()方法格式化为两位小数的字符串
                     String talentRankFormatted = String.format("%.2f", talentRank);
 
@@ -668,6 +674,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                             .login(login)
                             .bio(userInfo.getString("bio"))
                             .company(userInfo.getString("company"))
+                            .field(topic)
                             .location(userInfo.getString("location"))
                             .htmlUrl(userInfo.getString("html_url"))
                             .name(userInfo.getString("name"))
@@ -687,8 +694,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                             .repositoryUrl(jsonObject1.getJSONObject("node").getString("url"))
                             .avatarUrl(userInfo.getString("avatar_url"))
                             .build();
-                    log.info("用户名：{}  位置：{}   国籍：{} github地址：{}",
-                            login, userInfo.getString("location"), userInfo.getString("nation"), userInfo.getString("html_url"));
+                    log.info("开发者: {}", developer.toString());
 //                    developers.add(developer);
                     githubUserRepository.saveSingle(topic,developer);
                 }
