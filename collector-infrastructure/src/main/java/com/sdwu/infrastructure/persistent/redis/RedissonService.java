@@ -150,6 +150,7 @@ public class RedissonService implements IRedisService {
         int endIndex = startIndex + pageSize - 1;
 
         Collection<DeveloperPO> collection = sortedSet.valueRangeReversed(startIndex, endIndex);
+
         List<DeveloperPO> users = ListUtil.toList(collection);
         return users;
     }

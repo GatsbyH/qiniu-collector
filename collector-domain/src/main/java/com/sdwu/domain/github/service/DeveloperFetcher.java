@@ -316,6 +316,10 @@ public class DeveloperFetcher {
 
 
     private boolean getDeveloperByFieldAndNation(String field, String nation) throws IOException {
+        //如果是中文
+        if (field.matches(".*[\\u4e00-\\u9fa5].*")) {
+            return talentRankGraphQLService.fetchUserByRepoDescription(field);
+        }
         return talentRankGraphQLService.fetchUserByRepoTopic(field);
     }
 

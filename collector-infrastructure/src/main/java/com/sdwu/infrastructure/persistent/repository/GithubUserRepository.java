@@ -6,16 +6,19 @@ import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.infrastructure.persistent.po.DeveloperPO;
 import com.sdwu.infrastructure.persistent.redis.IRedisService;
 import com.sdwu.types.model.PageResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.sdwu.types.common.CacheConstants.*;
 
 @Repository
+@Slf4j
 public class GithubUserRepository implements IGithubUserRepository {
     @Resource
     private IRedisService redisService;
@@ -67,8 +70,32 @@ public class GithubUserRepository implements IGithubUserRepository {
     public PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo) {
         List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
         Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField());
-        PageResult<Developer> developerPageResult = new PageResult<>(developers.stream().map(DeveloperPO::toDeveloper).collect(Collectors.toList()), (long) size);
-        return developerPageResult;
+//        List<Developer> filteredDevelopers = developers.stream()
+//                .filter(po -> po.getNation() != null && po.getNation().matches(".*" + Pattern.quote(developersByFieldReqVo.getNation()) + ".*"))
+//                .map(DeveloperPO::toDeveloper)
+//                .collect(Collectors.toList());
+//        PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) size);
+//        PageResult<Developer> developerPageResult = new PageResult<>(developers.stream().map(DeveloperPO::toDeveloper).collect(Collectors.toList()), (long) size);
+//        return developerPageResult;
+
+
+        // 确保developersByFieldReqVo.getNation()不为空
+        if (developersByFieldReqVo.getNation() == null || developersByFieldReqVo.getNation().isEmpty()) {
+            // 如果nation为空，则不进行过滤，直接映射并返回结果
+            List<Developer> filteredDevelopers = developers.stream()
+                    .map(DeveloperPO::toDeveloper)
+                    .collect(Collectors.toList());
+            PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) size);
+            return developerPageResult;
+        }
+
+        List<Developer> filteredDevelopersByNation = developers.stream()
+                // 确保po.getNation()不为空
+                .filter(po -> po.getNation() != null && po.getNation().matches(".*" + Pattern.quote(developersByFieldReqVo.getNation()) + ".*"))
+                .map(DeveloperPO::toDeveloper)
+                .collect(Collectors.toList());
+        PageResult<Developer> developerPageResultByNation = new PageResult<>(filteredDevelopersByNation, (long) size);
+        return developerPageResultByNation;
     }
 
     @Override
@@ -103,6 +130,28 @@ public class GithubUserRepository implements IGithubUserRepository {
     @Override
     public void addLogin(String login,String topic) {
         redisService.setValue(GITHUB_USER_LOGIN+topic+":"+login, login);
+    }
+
+    @Override
+    public void countDeveloperEmptyCount(String topic) {
+        redisService.incr(GITHUB_EMPTY_COUNT+topic);
+    }
+
+    @Override
+    public int getDeveloperEmptyCount(String topic) {
+        Object value = redisService.getValue(GITHUB_EMPTY_COUNT + topic);
+        if (value == null) {
+            return 0; // 或者根据业务需求返回默认值
+        }
+        if (value instanceof Long) {
+            return ((Long) value).intValue();
+        } else if (value instanceof Integer) {
+            return (Integer) value;
+        }else {
+            log.error("getDeveloperEmptyCount: value is not Long or Integer");
+            return 0;
+        }
+
     }
 
 }

@@ -16,4 +16,6 @@ public interface ITalentRankGraphQLService {
 
 
     boolean fetchUserByRepoTopic(String topic);
+
+    boolean fetchUserByRepoDescription(String field);
 }

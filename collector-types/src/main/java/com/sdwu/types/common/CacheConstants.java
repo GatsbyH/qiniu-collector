@@ -47,5 +47,8 @@ public class CacheConstants
     public static final String FETCHING_KEY = "github_isFetching:";
     public static final String GITHUB_NX = "github_nx:";
     public static final String GITHUB_USER_LOGIN = "github_user_login:";
+    public static final String GITHUB_EMPTY_COUNT = "github_empty_count:";
+
+
 
 }

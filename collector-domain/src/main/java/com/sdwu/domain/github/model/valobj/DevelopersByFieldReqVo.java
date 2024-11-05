@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DevelopersByFieldReqVo extends PageParam {
     private String field;
+    private String nation;
 }

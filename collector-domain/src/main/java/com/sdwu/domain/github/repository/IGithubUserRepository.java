@@ -33,4 +33,8 @@ public interface IGithubUserRepository {
     boolean checkLoginExist(String login,String topic);
 
     void addLogin(String login,String topic);
+
+    void countDeveloperEmptyCount(String topic);
+
+    int getDeveloperEmptyCount(String topic);
 }
