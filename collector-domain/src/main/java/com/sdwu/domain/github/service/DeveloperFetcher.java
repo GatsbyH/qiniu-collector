@@ -365,12 +365,12 @@ public class DeveloperFetcher {
         }
     }
 
-    private void handleRunningTask(ScheduledTask task) {
-        // 实现检查逻辑，例如检查任务是否超时或是否需要重新启动
-        log.info("处理正在运行的任务: {}", task.getField());
-        // 假设需要重新启动任务
-        startFetching(task.getField(), null);
-    }
+//    private void handleRunningTask(ScheduledTask task) {
+//        // 实现检查逻辑，例如检查任务是否超时或是否需要重新启动
+//        log.info("处理正在运行的任务: {}", task.getField());
+//        // 假设需要重新启动任务
+//        startFetching(task.getField(), null);
+//    }
 
     private void handleFatalTask(ScheduledTask task) {
         // 实现错误处理逻辑，例如记录错误、尝试修复或通知管理员

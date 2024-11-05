@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author gatsbyh
  * @description 规则工厂
  * @create 2024-01-07 09:45
  */

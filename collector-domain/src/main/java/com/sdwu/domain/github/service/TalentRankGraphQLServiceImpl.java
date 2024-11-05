@@ -33,7 +33,7 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
     @Override
     public DevelopeVo getDeveloperAssessment(String username) throws IOException {
 //        DevelopeVo userStats = gitHubGraphQLApi.fetchUserStats(username);
-        gitHubGraphQLApi.fetchTopLanguages(username);
+//        gitHubGraphQLApi.fetchTopLanguages(username);
         return null;
     }
 

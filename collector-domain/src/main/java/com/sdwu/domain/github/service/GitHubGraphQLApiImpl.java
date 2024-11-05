@@ -31,12 +31,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     private IDeveloperNationService developerNationService;
     @Resource
     private IGitHubApi gitHubApi;
-
-
-
 //    @Resource
 //    private EventBus eventBus;
-
 
     final String GRAPHQL_REPOS_FIELD = "repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {\n" +
             "    totalCount\n" +
@@ -56,125 +52,6 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             "    pageInfo {\n" +
             "      hasNextPage\n" +
             "      endCursor\n" +
-            "    }\n" +
-            "  }";
-
-    final String GRAPHQL_REPOS_QUERY = "query userInfo($login: String!, $after: String) {\n" +
-            "    user(login: $login) {\n" +
-            "      " + GRAPHQL_REPOS_FIELD + "\n" +
-            "    }\n" +
-            "  }";
-
-
-
-
-
-
-
-//    String TOP_LANGUAGES_QUERY = "query userInfo($login: String!) { "
-//            + "user(login: $login) { "
-//            + "repositories(ownerAffiliations: OWNER, isFork: false, first: 100) { "
-//            + "nodes { "
-//            + "name "
-//            + "languages(first: 10, orderBy: {field: SIZE, direction: DESC}) { "
-//            + "edges { "
-//            + "size "
-//            + "node { "
-//            + "color "
-//            + "name "
-//            + "} "
-//            + "} "
-//            + "} "
-//            + "} "
-//            + "} "
-//            + "} ";
-
-    String TOP_LANGUAGES_QUERY = "  user(login: \"用户名\") {"
-            + "    repositories(first: 100) {"
-            + "      nodes {"
-            + "        primaryLanguage {"
-            + "          name"
-            + "        }"
-            + "      }"
-            + "    }"
-            + "  }";
-
-    String DOMAIN_QUERY = "query($topic: String!) {\n" +
-            "  search(query: $topic, type: USER, first: 100) {\n" +
-            "    edges {\n" +
-            "      node {\n" +
-            "        ... on User {\n" +
-            "          login\n" +
-            "          name\n" +
-            "          bio\n" +
-            "          avatarUrl\n" +
-            "          repositories(first: 1) {\n" +
-            "            edges {\n" +
-            "              node {\n" +
-            "                name\n" +
-            "                url\n" +
-            "              }\n" +
-            "            }\n" +
-            "          }\n" +
-            "        }\n" +
-            "      }\n" +
-            "    }\n" +
-            "  }\n" +
-            "}";
-
-
-
-    String searchRepositoriesByTopicAndDescriptionQuery = "query SearchRepositoriesByTopicAndDescription($topic: String!, $description: String!, $after: String) {\n" +
-                                                          "    search(type: REPOSITORY, query: \\\"topic:\\\" + $topic + \\\" description:\\\" + $description, first: 10, after: $after) {\n" +
-                                                          "      edges {\n" +
-                                                          "        node {\n" +
-                                                          "          ... on Repository {\n" +
-                                                          "            name\n" +
-                                                          "            description\n" +
-                                                          "            owner {\n" +
-                                                          "              login\n" +
-                                                          "              avatarUrl\n" +
-                                                          "            }\n" +
-                                                          "          }\n" +
-                                                          "        }\n" +
-                                                          "      }\n" +
-                                                          "      pageInfo {\n" +
-                                                          "        hasNextPage\n" +
-                                                          "        endCursor\n" +
-                                                          "      }\n" +
-                                                          "    }\n" +
-                                                          "  }\n";
-
-
-
-
-    String getRepoQuery = "fragment RepoInfo on Repository {\n" +
-            "    name\n" +
-            "    nameWithOwner\n" +
-            "    isPrivate\n" +
-            "    isArchived\n" +
-            "    isTemplate\n" +
-            "    stargazers {\n" +
-            "      totalCount\n" +
-            "    }\n" +
-            "    description\n" +
-            "    primaryLanguage {\n" +
-            "      color\n" +
-            "      id\n" +
-            "      name\n" +
-            "    }\n" +
-            "    forkCount\n" +
-            "  }\n" +
-            "  query getRepo($login: String!, $repo: String!) {\n" +
-            "    user(login: $login) {\n" +
-            "      repository(name: $repo) {\n" +
-            "        ...RepoInfo\n" +
-            "      }\n" +
-            "    }\n" +
-            "    organization(login: $login) {\n" +
-            "      repository(name: $repo) {\n" +
-            "        ...RepoInfo\n" +
-            "      }\n" +
             "    }\n" +
             "  }";
     final String GRAPHQL_STATS_QUERY = "query userInfo($login: String!, $after: String, $includeMergedPullRequests: Boolean!, $includeDiscussions: Boolean!, $includeDiscussionsAnswers: Boolean!) {\n" +
@@ -228,99 +105,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         }
         return fetchGitHubApi;
     }
-    //        String query = String.format("{ user(login: \"%s\") { name, login, contributionsCollection { totalCommitContributions, totalPullRequestReviewContributions }, repositoriesContributedTo(first: 1, contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]) { totalCount }, pullRequests(first: 1) { totalCount }, mergedPullRequests: pullRequests(states: MERGED) { totalCount }, openIssues: issues(states: OPEN) { totalCount }, closedIssues: issues(states: CLOSED) { totalCount }, followers { totalCount }, repositoryDiscussions { totalCount }, repositoryDiscussionComments(onlyAnswers: true) { totalCount }, repositories(first: 100, orderBy: {direction: DESC, field: STARGAZERS}) { totalCount, nodes { name, stargazers { totalCount } }, pageInfo { hasNextPage, endCursor } } } }", username);
-//        try {
-//            HashMap<String, Object> map = new HashMap<>();
-//            map.put("query", query);
-//            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", map);
-//        } catch (IOException e) {
-//            log.error("获取用户{}信息时发生错误: {}", username, e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//    @Override
-//    public String fetchUserStats(String username) throws IOException {
-//        String fetchGitHubApi= null;
-//        Boolean includeMergedPullRequests = true;
-//        Boolean includeDiscussions = true;
-//        Boolean includeDiscussionsAnswers = true;
-//        boolean hasNextPage= false;
-//        Integer totalCommits = 0;
-//        Integer totalPRs = 0;
-//        String after = null;
-//        JSONArray stats = null;
-//        Integer totalIssues = 0;
-//        Integer totalStars= 0;
-//        Integer contributedTo = 0;
-//        Integer totalFollowers = 0;
-//        Integer totalReviews = 0;
-//        while (!hasNextPage){
-//            HashMap<String, Object> map = new HashMap<>();
-//            map.put("query", GRAPHQL_STATS_QUERY);
-//            Map<String, Object> variables = new HashMap<>();
-//            variables.put("login", username);
-//            variables.put("after", after);
-//            variables.put("includeMergedPullRequests", includeMergedPullRequests);
-//            variables.put("includeDiscussions", includeDiscussions);
-//            variables.put("includeDiscussionsAnswers", includeDiscussionsAnswers);
-//            map.put("variables", variables);
-//            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", map);
-//            JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
-//            JSONObject data = jsonObject.getJSONObject("data");
-//            JSONArray errorsArray = jsonObject.getJSONArray("errors");
-//            if (errorsArray != null && errorsArray.size() > 0) {
-//                // 获取第一个错误对象
-//                JSONObject errorObject = errorsArray.getJSONObject(0);
-//
-//                // 从错误对象中获取type字段
-//                String type = errorObject.getString("type");
-//
-//                // 判断type是否为NOT_FOUND
-//                if ("NOT_FOUND".equals(type)) {
-//                    throw new AppException(404, "用户不存在,你输入的可能是组织");
-//                }
-//            }
-//            JSONObject user = data.getJSONObject("user");
-//            JSONObject followers = user.getJSONObject("followers");
-//            totalFollowers = followers.getIntValue("totalCount");
-//            JSONObject contributionsCollection = user.getJSONObject("contributionsCollection");
-//            totalReviews = contributionsCollection.getIntValue("totalPullRequestReviewContributions");
-//            totalCommits=contributionsCollection.getIntValue("totalCommitContributions");
-//            JSONObject pullRequests = user.getJSONObject("pullRequests");
-//            totalPRs = pullRequests.getIntValue("totalCount");
-//            JSONObject openIssues = user.getJSONObject("openIssues");
-//            openIssues.getIntValue("totalCount");
-//            JSONObject closedIssues = user.getJSONObject("closedIssues");
-//            closedIssues.getIntValue("totalCount");
-//            totalIssues = openIssues.getIntValue("totalCount")+closedIssues.getIntValue("totalCount");
-//            JSONObject repositoriesContributedTo = user.getJSONObject("repositoriesContributedTo");
-//            contributedTo = repositoriesContributedTo.getIntValue("totalCount");
-//            JSONObject repositories = user.getJSONObject("repositories");
-//            JSONObject pageInfo = repositories.getJSONObject("pageInfo");
-//            hasNextPage = pageInfo.getBoolean("hasNextPage");
-//            after = pageInfo.getString("endCursor");
-//            JSONArray nodes = repositories.getJSONArray("nodes");
-//            if (stats!=null){
-//                stats.addAll(nodes);
-//            }else {
-//                stats = nodes;
-//            }
-//        }
-//        for (Object item : stats) {
-//            JSONObject jsonObject = (JSONObject) item;
-//            String name = jsonObject.getString("name");
-//            JSONObject stargazers = jsonObject.getJSONObject("stargazers");
-//            int totalCount = stargazers.getIntValue("totalCount");
-//            totalStars += totalCount;
-//        }
-//
-//        log.info("用户{}的仓库总star数为：{}", username, totalStars);
-//
-//        RankResult talentRank = this.calculateRank(false, totalCommits, totalPRs, totalIssues, totalReviews, totalStars, totalFollowers);
-//
-//        log.info("用户{}的等级为：{}", username, talentRank.getLevel());
-//        return fetchGitHubApi;
-//
-//    }
+
     @Override
     public DevelopeVo fetchUserStats(String username) throws IOException {
         String fetchGitHubApi= null;
@@ -399,7 +184,6 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             stats.addAll(nodes);
         }
 
-
         // 计算总星标数
 //        totalStars = stats.stream()
 //                .mapToInt(node -> ((JSONObject) node).getJSONObject("stargazers").getIntValue("totalCount"))
@@ -434,7 +218,6 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 //            log.error("调用 ChatGLM API 错误: {}", e.getMessage());
 //            throw new RuntimeException(e);
 //        }
-
 
 
         RankResult talentRank = calculateRank(false, totalCommits, totalPRs, totalIssues, totalReviews, totalStars, totalFollowers);
@@ -545,68 +328,14 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
         return talentRank;
     }
-    public static String buildSearchQuery(String topic) {
-        return "query{" +
-                "search(query:\"topic:" + topic + "\", type: REPOSITORY, first: 10) {" +
-                "edges {" +
-                "node {" +
-                "... on Repository {" +
-                "id," + // 添加逗号
-                "name," + // 添加逗号
-                "owner {" +
-                "login" +
-                "}," + // 添加逗号
-                "languages(first: 10){" +
-                "nodes{" +
-                "name" +
-                "}" +
-                "}," + // 添加逗号
-                "repositoryTopics(first: 10) {" +
-                "nodes {" +
-                "topic {" +
-                "name" +
-                "}" +
-                "}" +
-                "}" +
-                "}" +
-                "}" +
-                "}" +
-                "}" +
-                "}";
-    }
-
-    @Override
-    public void fetchTopLanguages(String username) {
-        Map<String, Object> variables = new HashMap<>();
-//        variables.put("login", username);
-//        variables.put("repo", "CuppaCorner");
-        variables.put("topic", "javaweb");
-        variables.put("$description", "java");
-        String query = buildSearchQuery("java");
-        String searchRepositoriesByTopicAndDescriptionQuery = readFile("searchRepositoriesByTopicAndDescriptionQuery.graphql");
-        String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", "java");
-        Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("query", searchRepositoriesByTopicAndDescriptionQuery);
-        requestMap.put("variables", variables);
-        String fetchGitHubApi = null;
-
-        try {
-            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", Collections.singletonMap("query", modifiedQuery));
-        } catch (IOException e) {
-            log.error("获取用户{}的语言分布时发生错误: {}", username, e.getMessage());
-            throw new RuntimeException(e);
-        }
-        log.info("用户{}的语言分布信息为: {}", username, fetchGitHubApi);
-    }
 
     @Override
     public boolean fetchUserByRepoTopic(String topic) {
-
         boolean hasNextPage = true;
         String after=null;
         String fetchGitHubApi = null;
         JSONObject userInfo=new JSONObject();
-        Set<String> uniqueLogins = new HashSet<>(); // 用于存储唯一的login
+//        Set<String> uniqueLogins = new HashSet<>(); // 用于存储唯一的login
         List<Developer> developers = new ArrayList<>();
 //        boolean searchLock = githubUserRepository.getFieldSearchLock(topic);
 //        if (!searchLock){
@@ -914,39 +643,17 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         }
         return contentBuilder.toString();
     }
-    /**
-         * Calculates the exponential cdf.
-         *
-         * @param x The value.
-         * @return The exponential cdf.
-         */
+
     private static double exponentialCdf(double x) {
         return 1 - Math.pow(2, -x);
     }
 
-    /**
-     * Calculates the log normal cdf.
-     *
-     * @param x The value.
-     * @return The log normal cdf.
-     */
+
     private static double logNormalCdf(double x) {
         // approximation
         return x / (1 + x);
     }
 
-    /**
-     * Calculates the user's rank.
-     *
-     * @param allCommits Whether include_all_commits was used.
-     * @param commits Number of commits.
-     * @param prs The number of pull requests.
-     * @param issues The number of issues.
-     * @param reviews The number of reviews.
-     * @param stars The number of stars.
-     * @param followers The number of followers.
-     * @return A RankResult object containing the user's rank and percentile.
-     */
     public static RankResult calculateRank(boolean allCommits, int commits, int prs, int issues,
                                            int reviews, int stars, int followers) {
         final int COMMITS_MEDIAN = allCommits ? 1000 : 250;
@@ -989,3 +696,160 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+//        String query = String.format("{ user(login: \"%s\") { name, login, contributionsCollection { totalCommitContributions, totalPullRequestReviewContributions }, repositoriesContributedTo(first: 1, contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]) { totalCount }, pullRequests(first: 1) { totalCount }, mergedPullRequests: pullRequests(states: MERGED) { totalCount }, openIssues: issues(states: OPEN) { totalCount }, closedIssues: issues(states: CLOSED) { totalCount }, followers { totalCount }, repositoryDiscussions { totalCount }, repositoryDiscussionComments(onlyAnswers: true) { totalCount }, repositories(first: 100, orderBy: {direction: DESC, field: STARGAZERS}) { totalCount, nodes { name, stargazers { totalCount } }, pageInfo { hasNextPage, endCursor } } } }", username);
+//        try {
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put("query", query);
+//            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", map);
+//        } catch (IOException e) {
+//            log.error("获取用户{}信息时发生错误: {}", username, e.getMessage());
+//            throw new RuntimeException(e);
+//        }
+//    @Override
+//    public String fetchUserStats(String username) throws IOException {
+//        String fetchGitHubApi= null;
+//        Boolean includeMergedPullRequests = true;
+//        Boolean includeDiscussions = true;
+//        Boolean includeDiscussionsAnswers = true;
+//        boolean hasNextPage= false;
+//        Integer totalCommits = 0;
+//        Integer totalPRs = 0;
+//        String after = null;
+//        JSONArray stats = null;
+//        Integer totalIssues = 0;
+//        Integer totalStars= 0;
+//        Integer contributedTo = 0;
+//        Integer totalFollowers = 0;
+//        Integer totalReviews = 0;
+//        while (!hasNextPage){
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put("query", GRAPHQL_STATS_QUERY);
+//            Map<String, Object> variables = new HashMap<>();
+//            variables.put("login", username);
+//            variables.put("after", after);
+//            variables.put("includeMergedPullRequests", includeMergedPullRequests);
+//            variables.put("includeDiscussions", includeDiscussions);
+//            variables.put("includeDiscussionsAnswers", includeDiscussionsAnswers);
+//            map.put("variables", variables);
+//            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", map);
+//            JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+//            JSONObject data = jsonObject.getJSONObject("data");
+//            JSONArray errorsArray = jsonObject.getJSONArray("errors");
+//            if (errorsArray != null && errorsArray.size() > 0) {
+//                // 获取第一个错误对象
+//                JSONObject errorObject = errorsArray.getJSONObject(0);
+//
+//                // 从错误对象中获取type字段
+//                String type = errorObject.getString("type");
+//
+//                // 判断type是否为NOT_FOUND
+//                if ("NOT_FOUND".equals(type)) {
+//                    throw new AppException(404, "用户不存在,你输入的可能是组织");
+//                }
+//            }
+//            JSONObject user = data.getJSONObject("user");
+//            JSONObject followers = user.getJSONObject("followers");
+//            totalFollowers = followers.getIntValue("totalCount");
+//            JSONObject contributionsCollection = user.getJSONObject("contributionsCollection");
+//            totalReviews = contributionsCollection.getIntValue("totalPullRequestReviewContributions");
+//            totalCommits=contributionsCollection.getIntValue("totalCommitContributions");
+//            JSONObject pullRequests = user.getJSONObject("pullRequests");
+//            totalPRs = pullRequests.getIntValue("totalCount");
+//            JSONObject openIssues = user.getJSONObject("openIssues");
+//            openIssues.getIntValue("totalCount");
+//            JSONObject closedIssues = user.getJSONObject("closedIssues");
+//            closedIssues.getIntValue("totalCount");
+//            totalIssues = openIssues.getIntValue("totalCount")+closedIssues.getIntValue("totalCount");
+//            JSONObject repositoriesContributedTo = user.getJSONObject("repositoriesContributedTo");
+//            contributedTo = repositoriesContributedTo.getIntValue("totalCount");
+//            JSONObject repositories = user.getJSONObject("repositories");
+//            JSONObject pageInfo = repositories.getJSONObject("pageInfo");
+//            hasNextPage = pageInfo.getBoolean("hasNextPage");
+//            after = pageInfo.getString("endCursor");
+//            JSONArray nodes = repositories.getJSONArray("nodes");
+//            if (stats!=null){
+//                stats.addAll(nodes);
+//            }else {
+//                stats = nodes;
+//            }
+//        }
+//        for (Object item : stats) {
+//            JSONObject jsonObject = (JSONObject) item;
+//            String name = jsonObject.getString("name");
+//            JSONObject stargazers = jsonObject.getJSONObject("stargazers");
+//            int totalCount = stargazers.getIntValue("totalCount");
+//            totalStars += totalCount;
+//        }
+//
+//        log.info("用户{}的仓库总star数为：{}", username, totalStars);
+//
+//        RankResult talentRank = this.calculateRank(false, totalCommits, totalPRs, totalIssues, totalReviews, totalStars, totalFollowers);
+//
+//        log.info("用户{}的等级为：{}", username, talentRank.getLevel());
+//        return fetchGitHubApi;
+//
+//    }
+//    public static String buildSearchQuery(String topic) {
+//        return "query{" +
+//                "search(query:\"topic:" + topic + "\", type: REPOSITORY, first: 10) {" +
+//                "edges {" +
+//                "node {" +
+//                "... on Repository {" +
+//                "id," + // 添加逗号
+//                "name," + // 添加逗号
+//                "owner {" +
+//                "login" +
+//                "}," + // 添加逗号
+//                "languages(first: 10){" +
+//                "nodes{" +
+//                "name" +
+//                "}" +
+//                "}," + // 添加逗号
+//                "repositoryTopics(first: 10) {" +
+//                "nodes {" +
+//                "topic {" +
+//                "name" +
+//                "}" +
+//                "}" +
+//                "}" +
+//                "}" +
+//                "}" +
+//                "}" +
+//                "}" +
+//                "}";
+//    }
+//
+//    @Override
+//    public void fetchTopLanguages(String username) {
+//        Map<String, Object> variables = new HashMap<>();
+////        variables.put("login", username);
+////        variables.put("repo", "CuppaCorner");
+//        variables.put("topic", "javaweb");
+//        variables.put("$description", "java");
+//        String query = buildSearchQuery("java");
+//        String searchRepositoriesByTopicAndDescriptionQuery = readFile("searchRepositoriesByTopicAndDescriptionQuery.graphql");
+//        String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", "java");
+//        Map<String, Object> requestMap = new HashMap<>();
+//        requestMap.put("query", searchRepositoriesByTopicAndDescriptionQuery);
+//        requestMap.put("variables", variables);
+//        String fetchGitHubApi = null;
+//
+//        try {
+//            fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", Collections.singletonMap("query", modifiedQuery));
+//        } catch (IOException e) {
+//            log.error("获取用户{}的语言分布时发生错误: {}", username, e.getMessage());
+//            throw new RuntimeException(e);
+//        }
+//        log.info("用户{}的语言分布信息为: {}", username, fetchGitHubApi);
+//    }

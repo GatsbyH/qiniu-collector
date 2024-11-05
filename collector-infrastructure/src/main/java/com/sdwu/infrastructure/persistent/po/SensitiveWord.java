@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author gatsbyh
  * @description 敏感词
  * @create 2024-01-07 08:58
  */

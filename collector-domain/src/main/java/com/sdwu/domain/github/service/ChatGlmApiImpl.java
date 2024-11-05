@@ -29,11 +29,10 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 public class ChatGlmApiImpl implements IChatGlmApi{
-    @Resource
-    private DefaultLogicFactory defaultLogicFactory;
+
     @Resource
     private SensitiveWordBs sensitiveWordBs;
-    private static final String API_SECRET_KEY = System.getProperty("ZHIPUAI_API_KEY");
+//    private static final String API_SECRET_KEY = System.getProperty("ZHIPUAI_API_KEY");
 
     private static final ClientV4 client = new ClientV4.Builder("f65e53e96d908e7f9c26fb63b52b7ec7.dSI17rpHEY87vubp")
             .networkConfig(300, 100, 100, 100, TimeUnit.SECONDS)
@@ -321,7 +320,8 @@ public class ChatGlmApiImpl implements IChatGlmApi{
 
         String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
         log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
-        return message;    }
+        return message;
+    }
 
 
 }

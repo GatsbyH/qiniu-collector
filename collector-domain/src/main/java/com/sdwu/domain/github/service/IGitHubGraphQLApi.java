@@ -14,7 +14,7 @@ public interface IGitHubGraphQLApi {
 
     RankResult getTalentRankByUserName(String username) throws IOException;
 
-    void fetchTopLanguages(String username);
+//    void fetchTopLanguages(String username);
 
     boolean fetchUserByRepoTopic(String topic);
 

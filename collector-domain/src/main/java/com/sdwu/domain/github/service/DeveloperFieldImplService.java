@@ -23,8 +23,8 @@ import java.util.List;
 public class DeveloperFieldImplService implements IDeveloperFieldService {
     @Resource
     private IGitHubApi gitHubApi;
-    @Resource
-    private ITalentRankService talentRankService;
+//    @Resource
+//    private ITalentRankService talentRankService;
     @Resource
     private IDeveloperNationService developerNationService;
 
@@ -36,13 +36,14 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     @Resource
     private IScheduledTaskRepository scheduledTaskRepository;
 
-    @Resource
-    private IChatGlmApi chatGlmApi;
+//    @Resource
+//    private IChatGlmApi chatGlmApi;
 
 
     @Resource
     private ITalentRankGraphQLService talentRankGraphQLService;
 
+    //废弃
     @Override
     public List<Developer> getDeveloperByFieldAndNation(String field, String nation) throws IOException {
 //        String developerByFieldAndNation = gitHubApi.getDeveloperByFieldAndNation(field, nation);
