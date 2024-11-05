@@ -40,10 +40,10 @@ public class ScheduledTaskRepository implements IScheduledTaskRepository {
 
     @Override
     public Boolean insertScheduledTask(String field,String status) {
-        FieldSearchMessageEvent.FieldSearchMessage fieldSearchMessage = new FieldSearchMessageEvent.FieldSearchMessage();
-        fieldSearchMessage.setField(field);
-        eventPublisher.publish(fieldSearchMessageEvent.topic(),fieldSearchMessageEvent.buildEventMessage(fieldSearchMessage));
-        ScheduledTaskPO scheduledTaskPO = ScheduledTaskPO.builder()
+//        FieldSearchMessageEvent.FieldSearchMessage fieldSearchMessage = new FieldSearchMessageEvent.FieldSearchMessage();
+//        fieldSearchMessage.setField(field);
+//        eventPublisher.publish(fieldSearchMessageEvent.topic(),fieldSearchMessageEvent.buildEventMessage(fieldSearchMessage));
+          ScheduledTaskPO scheduledTaskPO = ScheduledTaskPO.builder()
                 .field(field)
                 .status(status)
                 .nextExecutionTime(null)

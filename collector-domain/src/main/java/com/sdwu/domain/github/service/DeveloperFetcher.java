@@ -122,10 +122,10 @@ import java.util.concurrent.*;
 @Slf4j
 public class DeveloperFetcher {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-//    private ScheduledFuture<?> scheduledFuture; // 用于跟踪定时任务
+    private ScheduledFuture<?> scheduledFutureTime; // 用于跟踪定时任务
 //    private String currentField;
 //    private String currentNation;
-//    private final ConcurrentHashMap<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ScheduledFuture<?>> scheduledFuturesTime = new ConcurrentHashMap<>();
 
 
     private ListeningExecutorService executorService;
@@ -155,38 +155,45 @@ public class DeveloperFetcher {
         // 初始化线程池，可以根据需要调整线程池的大小
         executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10)); // 使用Guava装饰线程池
     }
-//    public void startFetching(String field, String nation) {
-////        Boolean isFetching = githubUserRepository.getFetchFlag(field);
-//        if (!scheduledTaskRepository.checkScheduledTaskByField(field)){
-//            scheduledTaskRepository.insertScheduledTask(field,"RUNNING");
+    public void startFetchingTime(String field, String nation) {
+//        Boolean isFetching = githubUserRepository.getFetchFlag(field);
+        if (!scheduledTaskRepository.checkScheduledTaskByField(field)){
+            scheduledTaskRepository.insertScheduledTask(field,"RUNNING");
+        }
+        scheduledTaskRepository.updateScheduledTaskRUNNING(field,"RUNNING");
+        // 检查是否已经在获取中
+//        if (scheduledFutures.containsKey(field)) {
+//            return; // 已在获取中，返回
 //        }
-//        scheduledTaskRepository.updateScheduledTaskRUNNING(field,"RUNNING");
-//        // 检查是否已经在获取中
-////        if (scheduledFutures.containsKey(field)) {
-////            return; // 已在获取中，返回
-////        }
-//
-//        // 如果已经在获取中，则不再启动新任务
-////        if (isFetching) {
-////            return;
-////        }
-//        currentField = field;
-//        currentNation = nation;
-//        githubUserRepository.updateFetchFlag(field);
-//
-//        scheduledFuture = scheduler.scheduleAtFixedRate(() -> {
-//            try {
-//                getDeveloperByFieldAndNation(currentField, currentNation);
-//            } catch (IOException e) {
-//                log.error("获取用户信息时发生错误: {}", e.getMessage());
-//                String errorMessage = e.getMessage();
-//                scheduledTaskRepository.updateScheduledTask(field,"FAILED",errorMessage);
-//            }
-//        }, 0, 2, TimeUnit.SECONDS);
-//
-//        scheduledFutures.put(field, scheduledFuture); // 存储到 Map 中
-//
-//    }
+
+        // 如果已经在获取中，则不再启动新任务
+//        if (isFetching) {
+//            return;
+//        }
+        currentField = field;
+        currentNation = nation;
+        githubUserRepository.updateFetchFlag(field);
+
+        scheduledFutureTime = scheduler.scheduleAtFixedRate(() -> {
+            try {
+                log.info("开始获取用户信息");
+                boolean developerByFieldAndNation = getDeveloperByFieldAndNation(currentField, currentNation);
+                if (developerByFieldAndNation) {
+                    log.info("获取用户信息成功");
+                } else {
+                    log.info("获取用户信息完成");
+                    this.stopFetching(field);
+                }
+            } catch (IOException e) {
+                log.error("获取用户信息时发生错误: {}", e.getMessage());
+                String errorMessage = e.getMessage();
+                scheduledTaskRepository.updateScheduledTask(field,"FAILED",errorMessage);
+            }
+        }, 0, 30, TimeUnit.SECONDS);
+
+        scheduledFuturesTime.put(field, scheduledFutureTime); // 存储到 Map 中
+
+    }
 
     public void startFetching(String field, String nation) {
         if (!scheduledTaskRepository.checkScheduledTaskByField(field)) {
@@ -308,20 +315,20 @@ public class DeveloperFetcher {
 //    }
 
 
-    private void getDeveloperByFieldAndNation(String field, String nation) throws IOException {
-        talentRankGraphQLService.fetchUserByRepoTopic(field);
+    private boolean getDeveloperByFieldAndNation(String field, String nation) throws IOException {
+        return talentRankGraphQLService.fetchUserByRepoTopic(field);
     }
 
 
     public void stopFetching(String field) {
 //        ScheduledFuture<?> future = scheduledFutures.remove(field); // 从 Map 中获取并移除
         scheduledTaskRepository.endScheduledTask(field,"COMPLETED");
-//        if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
-//            future.cancel(true); // 取消定时任务
-////            scheduledFuture.cancel(true); // 取消定时任务
-////            githubUserRepository.updateFetchFlag(field);
-//            log.info("已停止对 {}领域开发者的获取", field);
-//        }
+        if (scheduledFutureTime != null && !scheduledFutureTime.isCancelled()) {
+            scheduledFutureTime.cancel(true); // 取消定时任务
+//            scheduledFuture.cancel(true); // 取消定时任务
+//            githubUserRepository.updateFetchFlag(field);
+            log.info("已停止对 {}领域开发者的获取", field);
+        }
     }
 
 

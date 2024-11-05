@@ -38,7 +38,7 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
     }
 
     @Override
-    public void fetchUserByRepoTopic(String topic) {
-      gitHubGraphQLApi.fetchUserByRepoTopic(topic);
+    public boolean fetchUserByRepoTopic(String topic) {
+      return gitHubGraphQLApi.fetchUserByRepoTopic(topic);
     }
 }

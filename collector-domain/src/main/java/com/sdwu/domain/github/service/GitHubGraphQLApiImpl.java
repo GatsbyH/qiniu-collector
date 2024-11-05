@@ -3,6 +3,7 @@ package com.sdwu.domain.github.service;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.eventbus.EventBus;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
@@ -26,16 +27,16 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     private GitHubClientService gitHubClientService;
     @Resource
     private IGithubUserRepository githubUserRepository;
-    @Resource
-    private IScheduledTaskRepository scheduledTaskRepository;
+
     @Resource
     private IGitHubApi gitHubApi;
 
-    @Resource
-    private IChatGlmApi chatGlmApi;
 
-    @Resource
-    private IDeveloperNationService developerNationService;
+
+//    @Resource
+//    private EventBus eventBus;
+
+
     final String GRAPHQL_REPOS_FIELD = "repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {\n" +
             "    totalCount\n" +
             "    nodes {\n" +
@@ -598,7 +599,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     }
 
     @Override
-    public void fetchUserByRepoTopic(String topic) {
+    public boolean fetchUserByRepoTopic(String topic) {
 
         boolean hasNextPage = true;
         String after=null;
@@ -606,14 +607,23 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         JSONObject userInfo=new JSONObject();
         Set<String> uniqueLogins = new HashSet<>(); // 用于存储唯一的login
         List<Developer> developers = new ArrayList<>();
+//        boolean searchLock = githubUserRepository.getFieldSearchLock(topic);
+//        if (!searchLock){
+//            return;
+//        }
         try {
-            while (hasNextPage){
-                String newTopic = topic.replaceAll("\\s+", "");
+//            while (hasNextPage){
+            after = this.getGitHubAfterPageByTopic(topic);
+
+            String quotedAfter = "\"" + after + "\"";
+
+            String newTopic = topic.replaceAll("\\s+", "");
                 String searchRepositoriesByTopicAndDescriptionQuery = readFile("searchRepositoriesByTopicAndDescriptionQuery.graphql");
-                String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", newTopic);;
+                String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace("$topic", newTopic);
                 if (after!=null){
-                    modifiedQuery = modifiedQuery.replace("null", ""+after+"");
+                    modifiedQuery = modifiedQuery.replace("null", quotedAfter);
                 }
+                log.info("游标为: {}", quotedAfter);
                 fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", Collections.singletonMap("query", modifiedQuery));
                 JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
 
@@ -621,12 +631,13 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
 //                JSONObject pageInfo = data.getJSONObject("search").getJSONObject("pageInfo");
 //                hasNextPage = pageInfo.getBoolean("hasNextPage");
-//                after = pageInfo.getString("endCursor");
                 JSONObject searchObject = data.getJSONObject("search");
                 if (searchObject != null) {
                     JSONObject pageInfo = searchObject.getJSONObject("pageInfo");
                     if (pageInfo != null) {
                         hasNextPage = pageInfo.getBoolean("hasNextPage");
+                        after = pageInfo.getString("endCursor");
+                        this.setGitHubAfterPageByTopic(topic,after);
                         // 继续处理 pageInfo
                     } else {
                         // 处理 pageInfo 为空的情况
@@ -639,12 +650,17 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                 JSONArray nodes = data.getJSONObject("search").getJSONArray("edges");
                 for (Object node : nodes) {
                     JSONObject jsonObject1 = (JSONObject) node;
-                    String login = jsonObject1.getJSONObject("node").getJSONObject("owner").getString("login");
-
-                    if (uniqueLogins.contains(login)) {
-                        continue; // 如果这个login已经处理过，跳过
+                    String login = jsonObject1.getJSONObject("node").getJSONObject("owner").getString("login").trim(); // Trim whitespace
+                    //去除login的空格
+                    boolean checkLoginExist = githubUserRepository.checkLoginExist(login,topic);
+                    if (checkLoginExist){
+                        continue;
                     }
-                    uniqueLogins.add(login); // 将这个login添加到集合中
+                    githubUserRepository.addLogin(login,topic);
+
+//                    if (!uniqueLogins.add(login)) { // Attempt to add and check for uniqueness
+//                        continue; // Skip if already processed
+//                    }
                     JSONObject owner= jsonObject1.getJSONObject("node").getJSONObject("owner");
                     String __typename =owner.getString("__typename");
                     if (__typename.equals("Organization")){
@@ -654,17 +670,17 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                     double talentRank = 0;
                     String level = null;
                     String developerNation = null;
-                    developerNation = developerNationService.getDeveloperNation(login);
+//                    developerNation = developerNationService.getDeveloperNation(login);
                     RankResult talentRankByUserName = this.getTalentRankByUserName(login);
                     if (talentRankByUserName!=null){
                         talentRank =100- talentRankByUserName.getPercentile();
                         level=talentRankByUserName.getLevel();
                     }
                     String assessment = null;
-                    if (userInfo.getString("blog")!=null){
-                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
-                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
-                    }
+//                    if (userInfo.getString("blog")!=null){
+//                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
+//                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
+//                    }
                     // 使用String.format()方法格式化为两位小数的字符串
                     String talentRankFormatted = String.format("%.2f", talentRank);
 
@@ -695,18 +711,30 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                             .avatarUrl(userInfo.getString("avatar_url"))
                             .build();
                     log.info("开发者: {}", developer.toString());
-//                    developers.add(developer);
-                    githubUserRepository.saveSingle(topic,developer);
+                    developers.add(developer);
+//                    githubUserRepository.saveSingle(topic,developer);
                 }
-            }
-            log.info("开发者们: {}", developers);
-//            if (!developers.isEmpty()) {
-//                githubUserRepository.save(topic, developers);
+//            githubUserRepository.removeFieldSearchLock(topic);
 //            }
+            log.info("开发者们: {}", developers);
+            if (!developers.isEmpty()) {
+                githubUserRepository.save(topic, developers);
+            }
+            if (!hasNextPage){
+                return false;
+            }
         } catch (IOException e) {
-
             throw new RuntimeException(e);
         }
+        return true;
+    }
+
+    private void setGitHubAfterPageByTopic(String topic, String after) {
+        githubUserRepository.setGitHubAfterPageByTopic(topic,after);
+    }
+
+    private String getGitHubAfterPageByTopic(String topic) {
+        return githubUserRepository.getGitHubAfterPageByTopic(topic);
     }
 
     // 辅助方法，用于读取文件内容

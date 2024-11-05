@@ -35,7 +35,7 @@ public class ChatGlmApiImpl implements IChatGlmApi{
     private SensitiveWordBs sensitiveWordBs;
     private static final String API_SECRET_KEY = System.getProperty("ZHIPUAI_API_KEY");
 
-    private static final ClientV4 client = new ClientV4.Builder("2589ec5698aa22ce677a261bb7bf5221.nCX8m9P7dfLKUBdp")
+    private static final ClientV4 client = new ClientV4.Builder("f65e53e96d908e7f9c26fb63b52b7ec7.dSI17rpHEY87vubp")
             .networkConfig(300, 100, 100, 100, TimeUnit.SECONDS)
             .connectionPool(new okhttp3.ConnectionPool(8, 1, TimeUnit.SECONDS))
             .build();

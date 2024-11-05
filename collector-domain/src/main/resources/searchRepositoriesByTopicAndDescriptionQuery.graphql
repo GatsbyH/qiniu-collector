@@ -1,5 +1,5 @@
 query{
-  search(query:"topic:$topic", type: REPOSITORY, first: 100,after: null) {
+  search(query:"topic:$topic", type: REPOSITORY, first: 20,after: null) {
     edges {
       node {
         ... on Repository {

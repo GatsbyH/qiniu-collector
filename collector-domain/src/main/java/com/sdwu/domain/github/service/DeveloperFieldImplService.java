@@ -105,7 +105,8 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
 //            throw new RuntimeException(e);
 //        }
         try {
-            developerFetcher.startFetching(field, nation);
+//            developerFetcher.startFetching(field, nation);
+            developerFetcher.startFetchingTime(field, nation);
         } catch (Exception e) {
             scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
             e.printStackTrace();

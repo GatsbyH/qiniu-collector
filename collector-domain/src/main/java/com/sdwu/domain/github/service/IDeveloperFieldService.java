@@ -15,4 +15,7 @@ public interface IDeveloperFieldService {
     Boolean stopGetDeveloperByField(String field);
 
     PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo);
+
+
+
 }

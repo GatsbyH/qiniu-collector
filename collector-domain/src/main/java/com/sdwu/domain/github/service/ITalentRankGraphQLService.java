@@ -15,5 +15,5 @@ public interface ITalentRankGraphQLService {
     DevelopeVo getDeveloperAssessment(String username) throws IOException;
 
 
-    void fetchUserByRepoTopic(String topic);
+    boolean fetchUserByRepoTopic(String topic);
 }

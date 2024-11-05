@@ -21,4 +21,16 @@ public interface IGithubUserRepository {
     void updateFetchFlag(String field);
 
     PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo);
+
+    String getGitHubAfterPageByTopic(String topic);
+
+    void setGitHubAfterPageByTopic(String topic, String after);
+
+    boolean getFieldSearchLock(String topic);
+
+    void removeFieldSearchLock(String topic);
+
+    boolean checkLoginExist(String login,String topic);
+
+    void addLogin(String login,String topic);
 }

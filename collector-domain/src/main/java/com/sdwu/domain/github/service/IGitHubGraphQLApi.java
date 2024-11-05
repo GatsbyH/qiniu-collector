@@ -16,5 +16,5 @@ public interface IGitHubGraphQLApi {
 
     void fetchTopLanguages(String username);
 
-    void fetchUserByRepoTopic(String topic);
+    boolean fetchUserByRepoTopic(String topic);
 }

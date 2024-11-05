@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static com.sdwu.types.common.CacheConstants.*;
@@ -69,4 +70,39 @@ public class GithubUserRepository implements IGithubUserRepository {
         PageResult<Developer> developerPageResult = new PageResult<>(developers.stream().map(DeveloperPO::toDeveloper).collect(Collectors.toList()), (long) size);
         return developerPageResult;
     }
+
+    @Override
+    public String getGitHubAfterPageByTopic(String topic) {
+        Object value = redisService.getValue(GITHUB_PAGE + topic);
+        if (value != null)
+            return value.toString();
+        return null;
+    }
+
+    @Override
+    public void setGitHubAfterPageByTopic(String topic, String after) {
+        redisService.setValue(GITHUB_PAGE + topic, after);
+    }
+
+    @Override
+    public boolean getFieldSearchLock(String topic) {
+        return redisService.setNx(GITHUB_NX+topic, 10, java.util.concurrent.TimeUnit.MINUTES);
+    }
+
+    @Override
+    public void removeFieldSearchLock(String topic) {
+        redisService.remove(GITHUB_NX+topic);
+    }
+
+    @Override
+    public boolean checkLoginExist(String login,String topic) {
+        return redisService.isExists(GITHUB_USER_LOGIN+topic+":"+login);
+    }
+
+
+    @Override
+    public void addLogin(String login,String topic) {
+        redisService.setValue(GITHUB_USER_LOGIN+topic+":"+login, login);
+    }
+
 }
