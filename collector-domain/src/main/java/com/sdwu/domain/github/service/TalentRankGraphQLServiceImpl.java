@@ -53,4 +53,11 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
     public List<LanguageCountRespVo> getDeveloperLanguage(String username) {
         return gitHubGraphQLApi.fetchTopLanguages(username);
     }
+
+    @Override
+    public String getDeveloperFiled(String username) {
+        return gitHubGraphQLApi.fetchDeveloperFiled(username);
+    }
+
+
 }

@@ -43,45 +43,6 @@ public class GitHubController {
         this.gitHubClientService = gitHubClientService;
     }
 
-    @GetMapping("/user")
-    public String getUser() throws IOException {
-        return gitHubClientService.fetchGitHubApi("/users/gatsbyh", null);
-    }
-
-    @GetMapping("getTalentRankByUserName")
-    @Loggable
-    public Response getTalentRankByUserName(String username) throws IOException, ExecutionException, InterruptedException {
-        double talentRankByUserName = talentRankService.getTalentRankByUserName(username);
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(talentRankByUserName)
-                .build();
-    }
-
-    //开发者的 Nation
-    @GetMapping("getDeveloperNation")
-    @Loggable
-    public Response getDeveloperNation(String username) throws IOException, ExecutionException, InterruptedException {
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerNationService.getDeveloperNation(username))
-                .build();
-    }
-
-
-    //开发者的领域。可根据领域搜索匹配，并按 TalentRank 排序。Nation 作为可选的筛选项，比如只需要显示所有位于中国的开发者。
-    @GetMapping("getDeveloperByFieldAndNation")
-    @Loggable
-    public Response getDeveloperByFieldAndNation(String field,String nation) throws IOException {
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerFieldService.getDeveloperByFieldAndNation(field,nation))
-                .build();
-    }
-
     //开启定时任务，根据领域搜索匹配开发者
     @GetMapping("startGetDeveloperByField")
     public Response startGetDeveloperByField(String field) throws IOException {
@@ -111,6 +72,78 @@ public class GitHubController {
                 .build();
     }
 
+
+
+    //根据账号评估开发者页面
+    @GetMapping("getDeveloperAssessment")
+    public Response getDeveloperAssessment(String username) throws JsonProcessingException {
+        DeveloperContributionVo developerAssessment= null;
+        try {
+            developerAssessment = talentRankService.getDeveloperAssessment(username);
+        } catch (IOException e) {
+            log.error("获取开发者{}的评估信息时发生错误: {}", username, e.getMessage());
+            return Response.fail(null);
+        }
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerAssessment)
+                .build();
+    }
+
+
+    //大模型技术能力评估
+    @GetMapping("getDeveloperTechnicalAbility")
+    public Response getDeveloperTechnicalAbility(String username) throws IOException {
+        String developerTechnicalAbility = talentRankService.getDeveloperTechnicalAbility(username);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerTechnicalAbility)
+                .build();
+    }
+
+
+
+
+    @GetMapping("/user")
+    public String getUser() throws IOException {
+        return gitHubClientService.fetchGitHubApi("/users/gatsbyh", null);
+    }
+
+    @GetMapping("getTalentRankByUserName")
+    @Loggable
+    public Response getTalentRankByUserName(String username) throws IOException, ExecutionException, InterruptedException {
+        double talentRankByUserName = talentRankService.getTalentRankByUserName(username);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(talentRankByUserName)
+                .build();
+    }
+    //开发者的 Nation
+    @GetMapping("getDeveloperNation")
+    @Loggable
+    public Response getDeveloperNation(String username) throws IOException, ExecutionException, InterruptedException {
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerNationService.getDeveloperNation(username))
+                .build();
+    }
+
+
+    //开发者的领域。可根据领域搜索匹配，并按 TalentRank 排序。Nation 作为可选的筛选项，比如只需要显示所有位于中国的开发者。
+    @GetMapping("getDeveloperByFieldAndNation")
+    @Loggable
+    public Response getDeveloperByFieldAndNation(String field,String nation) throws IOException {
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerFieldService.getDeveloperByFieldAndNation(field,nation))
+                .build();
+    }
+
     //测试ChatGlm
     @GetMapping("testChatGlm")
     public Response testChatGlm() throws JsonProcessingException {
@@ -133,22 +166,15 @@ public class GitHubController {
                 .build();
     }
 
-    //根据账号评估开发者页面
-    @GetMapping("getDeveloperAssessment")
-    public Response getDeveloperAssessment(String username) throws JsonProcessingException {
-        DeveloperContributionVo developerAssessment= null;
-        try {
-            developerAssessment = talentRankService.getDeveloperAssessment(username);
-        } catch (IOException e) {
-            log.error("获取开发者{}的评估信息时发生错误: {}", username, e.getMessage());
-            return Response.fail(null);
-        }
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerAssessment)
-                .build();
-    }
+
+
+
+
+
+
+
 
 
 }
+
+

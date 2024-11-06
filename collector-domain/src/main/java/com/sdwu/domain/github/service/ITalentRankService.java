@@ -9,4 +9,6 @@ public interface ITalentRankService {
     double getTalentRankByUserName(String username) throws IOException;
 
     DeveloperContributionVo getDeveloperAssessment(String username) throws IOException;
+
+    String getDeveloperTechnicalAbility(String username);
 }

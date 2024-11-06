@@ -22,4 +22,8 @@ public interface IGitHubGraphQLApi {
     boolean fetchUserByRepoDescription(String description);
 
     List<LanguageCountRespVo> fetchTopLanguages(String username);
+
+    String fetchDeveloperFiled(String username);
+
+
 }

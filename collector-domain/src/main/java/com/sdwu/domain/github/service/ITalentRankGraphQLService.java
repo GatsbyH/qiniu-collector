@@ -22,4 +22,8 @@ public interface ITalentRankGraphQLService {
     boolean fetchUserByRepoDescription(String field);
 
     List<LanguageCountRespVo> getDeveloperLanguage(String username);
+
+    String getDeveloperFiled(String username);
+
+
 }

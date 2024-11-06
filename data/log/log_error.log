@@ -653,3 +653,276 @@ java.lang.NullPointerException: null
 24-11-06.11:43:09.568 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
 24-11-06.11:43:09.599 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
 24-11-06.11:43:09.600 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.11:44:13.641 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.11:44:14.925 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.11:44:14.925 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.11:44:14.959 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.11:44:14.959 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:06:04.237 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:06:05.400 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:06:05.400 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:06:05.427 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:06:05.427 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:09:40.401 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:09:41.629 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:09:41.629 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:09:41.659 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:09:41.660 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:11:59.424 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:12:00.519 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:12:00.519 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:12:00.549 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:12:00.549 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:14:35.395 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:14:36.536 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:14:36.536 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:14:36.565 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:14:36.566 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:16:24.109 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:16:25.361 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:16:25.362 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:16:25.392 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:16:25.393 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:18:37.590 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:18:38.743 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:18:38.743 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:18:38.767 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:18:38.768 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:47:17.619 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:47:18.786 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:47:18.787 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:47:18.819 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:47:18.819 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:49:00.372 [http-nio-8080-exec-1] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+java.lang.NullPointerException: null
+	at com.sdwu.domain.github.service.GitHubGraphQLApiImpl.fetchDeveloperFiled(GitHubGraphQLApiImpl.java:840)
+	at com.sdwu.domain.github.service.TalentRankGraphQLServiceImpl.getDeveloperFiled(TalentRankGraphQLServiceImpl.java:59)
+	at com.sdwu.trigger.http.GitHubGraphQLController.getDeveloperFiled(GitHubGraphQLController.java:89)
+	at com.sdwu.trigger.http.GitHubGraphQLController$$FastClassBySpringCGLIB$$494b4d44.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.sdwu.types.aop.LoggingAspect.logMethod(LoggingAspect.java:29)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.trigger.http.GitHubGraphQLController$$EnhancerBySpringCGLIB$$84f64b2a.getDeveloperFiled(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-06.13:49:41.056 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:49:42.292 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:49:42.292 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:49:42.317 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:49:42.317 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:50:46.116 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m1s662ms603µs200ns).
+24-11-06.13:52:18.314 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m32s198ms390µs100ns).
+24-11-06.13:52:30.744 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.13:52:32.020 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.13:52:32.020 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.13:52:32.052 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.13:52:32.052 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:02:09.036 [http-nio-8080-exec-4] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.sdwu.x.api.types.exception.XApiException{code='404', info='用户不存在, 你输入的可能是组织'}] with root cause
+com.sdwu.types.exception.AppException: null
+	at com.sdwu.domain.github.service.GitHubGraphQLApiImpl.fetchDeveloperFiled(GitHubGraphQLApiImpl.java:836)
+	at com.sdwu.domain.github.service.TalentRankGraphQLServiceImpl.getDeveloperFiled(TalentRankGraphQLServiceImpl.java:59)
+	at com.sdwu.trigger.http.GitHubGraphQLController.getDeveloperFiled(GitHubGraphQLController.java:89)
+	at com.sdwu.trigger.http.GitHubGraphQLController$$FastClassBySpringCGLIB$$494b4d44.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.sdwu.types.aop.LoggingAspect.logMethod(LoggingAspect.java:29)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.trigger.http.GitHubGraphQLController$$EnhancerBySpringCGLIB$$b2f2603c.getDeveloperFiled(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-06.14:17:04.829 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:17:05.897 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:17:05.897 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:17:05.922 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:17:05.922 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:19:36.209 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:19:37.244 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:19:37.244 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:19:37.266 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:19:37.266 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:29:07.471 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:29:08.506 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:29:08.506 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:29:08.529 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:29:08.529 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:32:13.109 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:32:14.143 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:32:14.143 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:32:14.173 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:32:14.173 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:33:37.181 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:33:38.211 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:33:38.211 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:33:38.234 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:33:38.234 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:35:26.811 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:35:27.878 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:35:27.878 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:35:27.904 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:35:27.904 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:36:50.471 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:36:51.507 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:36:51.508 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:36:51.541 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:36:51.541 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:40:21.809 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:40:22.953 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:40:22.953 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:40:22.979 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:40:22.979 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:41:21.812 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:41:22.863 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:41:22.863 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:41:22.887 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:41:22.888 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:42:32.730 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:42:33.870 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:42:33.870 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:42:33.896 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:42:33.896 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:59:46.686 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:59:47.820 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:59:47.820 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:59:47.844 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:59:47.844 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.

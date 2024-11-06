@@ -61,6 +61,29 @@ public class TalentRankServiceImpl implements ITalentRankService{
         return developerContributionVo;
     }
 
+    @Override
+    public String getDeveloperTechnicalAbility(String username) {
+        JSONObject userInfo=null;
+        String assessment = null;
+        try {
+            userInfo = gitHubApi.getUserInfo(username);
+        } catch (Exception e) {
+            log.error("获取用户{}的信息时发生错误: {}", username, e.getMessage());
+        }
+        if (userInfo!=null){
+            String bio = userInfo.getString("bio");
+            String blog = userInfo.getString("blog");
+            if (blog!=null||bio!=null){
+                try {
+                    assessment = chatGlmApi.doDevelopmentAssessment(blog, bio);
+                } catch (Exception e) {
+                    log.error("获取用户{}的所在地信息时发生错误: {}", username, e.getMessage());
+                }
+            }
+        }
+        return assessment;
+    }
+
 
 //    private void calculateDeveloperGithubContributions(String username, String repos) {
 //        JSONArray jsonArray = JSON.parseArray(repos);

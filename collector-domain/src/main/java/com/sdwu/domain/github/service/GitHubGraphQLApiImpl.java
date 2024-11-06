@@ -2,6 +2,7 @@ package com.sdwu.domain.github.service;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
@@ -30,6 +31,9 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     private IDeveloperNationService developerNationService;
     @Resource
     private IGitHubApi gitHubApi;
+
+    @Resource
+    private IChatGlmApi chatGlmApi;
 //    @Resource
 //    private EventBus eventBus;
 
@@ -761,6 +765,156 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
         return languageCountRespVos;
     }
+
+
+    final String GRAPHQL_REPOS_TOPIC_FIELD = "repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {\n" +
+            "    totalCount\n" +
+            "    nodes {\n" +
+            "      name\n" +
+            "      description"+
+            "        repositoryTopics(first: 10) {\n" +
+            "          nodes {\n" +
+            "            topic {\n" +
+            "              name\n" +
+            "            }\n" +
+            "          }\n" +
+            "        }\n" +
+            "      }"+
+            "    pageInfo {\n" +
+            "      hasNextPage\n" +
+            "      endCursor\n" +
+            "    }\n" +
+            "  }";
+    final String GRAPHQL_TOPIC_QUERY = "query userInfo($login: String!, $after: String, $includeMergedPullRequests: Boolean!, $includeDiscussions: Boolean!, $includeDiscussionsAnswers: Boolean!) {\n" +
+            "    user(login: $login) {\n" +
+            "      name\n" +
+            "      login\n" +
+            "      mergedPullRequests: pullRequests(states: MERGED) @include(if: $includeMergedPullRequests) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      repositoryDiscussions @include(if: $includeDiscussions) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      repositoryDiscussionComments(onlyAnswers: true) @include(if: $includeDiscussionsAnswers) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      " + GRAPHQL_REPOS_TOPIC_FIELD + "\n" +
+            "    }\n" +
+            "  }";
+    @Override
+    public String fetchDeveloperFiled(String username) {
+        String fetchGitHubApi= null;
+        Boolean includeMergedPullRequests = true;
+        Boolean includeDiscussions = true;
+        Boolean includeDiscussionsAnswers = true;
+
+        JSONArray stats = new JSONArray();
+        String after = null;
+        boolean hasNextPage = true;
+
+        while (hasNextPage) {
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("login", username);
+            variables.put("after", after);
+            variables.put("includeMergedPullRequests", includeMergedPullRequests);
+            variables.put("includeDiscussions", includeDiscussions);
+            variables.put("includeDiscussionsAnswers", includeDiscussionsAnswers);
+
+            Map<String, Object> requestMap = new HashMap<>();
+            requestMap.put("query", GRAPHQL_TOPIC_QUERY);
+            requestMap.put("variables", variables);
+
+            try {
+                fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", requestMap);
+            } catch (Exception e) {
+                log.error("获取用户{}的语言数值时发生错误: {}", username, e.getMessage());
+            //                throw new RuntimeException(e);
+            }
+            JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+            JSONObject data = jsonObject.getJSONObject("data");
+
+            // 处理错误
+            JSONArray errorsArray = jsonObject.getJSONArray("errors");
+            if (errorsArray != null && !errorsArray.isEmpty()) {
+                JSONObject errorObject = errorsArray.getJSONObject(0);
+                if ("NOT_FOUND".equals(errorObject.getString("type"))) {
+                    throw new AppException(404, "用户不存在, 你输入的可能是组织");
+                }
+            }
+
+            // 获取用户数据
+            JSONObject user = data.getJSONObject("user");
+
+
+            JSONObject repositories = user.getJSONObject("repositories");
+            hasNextPage = repositories.getJSONObject("pageInfo").getBoolean("hasNextPage");
+            after = repositories.getJSONObject("pageInfo").getString("endCursor");
+
+            // 合并当前页的仓库数据
+            JSONArray nodes = repositories.getJSONArray("nodes");
+
+            stats.addAll(nodes);
+        }
+
+        JSONArray repositoryTopics = new JSONArray();
+        List<String> descriptions = new ArrayList<>();
+        for (Object item : stats) {
+            JSONObject jsonObject = (JSONObject) item;
+            JSONArray languagesNode = jsonObject.getJSONObject("repositoryTopics").getJSONArray("nodes");
+            String description = jsonObject.getString("description");
+            descriptions.add(description);
+            if (languagesNode.size()>0){
+                repositoryTopics.addAll(languagesNode);
+            }
+        }
+        if (username.equals("xushiwei")){
+            // 使用 Map 来统计 topic 出现的次数
+            Map<String, Integer> topicCount = new HashMap<>();
+            for (int i = 0; i < repositoryTopics.size(); i++) {
+                JSONObject topicNode = repositoryTopics.getJSONObject(i);
+                JSONObject topicObject = topicNode.getJSONObject("topic");
+                String topicName = topicObject.getString("name");
+                topicCount.put(topicName, topicCount.getOrDefault(topicName, 0) + 1);
+            }
+
+            // 找到数量最多的 topic
+            Optional<Map.Entry<String, Integer>> mostPopularTopic = topicCount.entrySet().stream()
+                    .max(Map.Entry.comparingByValue());
+
+
+            if (mostPopularTopic.isPresent()) {
+                String mostPopularTopicName = mostPopularTopic.get().getKey();
+                return mostPopularTopicName;
+            }
+        }
+
+        List<String> topics = new ArrayList<>();
+        for (int i = 0; i < repositoryTopics.size(); i++) {
+            JSONObject topicNode = repositoryTopics.getJSONObject(i);
+            JSONObject topicObject = topicNode.getJSONObject("topic");
+            String topicName = topicObject.getString("name");
+            topics.add(topicName);
+        }
+        String joinTopics = String.join(",", topics);
+        if (!joinTopics.isEmpty()){
+            String guessedFieldBasedOnTopic=null;
+            try {
+                guessedFieldBasedOnTopic = chatGlmApi.guessTheFieldBasedOnTheTopic(joinTopics);
+            } catch (Exception e) {
+                log.error("调用 ChatGLM API 错误: {}", e.getMessage());
+            }
+            return guessedFieldBasedOnTopic;
+        }
+        String guessedFieldBaseOnDescrip=null;
+        try {
+            guessedFieldBaseOnDescrip = chatGlmApi.guessTheFieldBasedOnTheDescriptions(descriptions);
+        } catch (Exception e) {
+            log.error("调用 ChatGLM API 错误: {}", e.getMessage());
+        }
+        return guessedFieldBaseOnDescrip;
+    }
+
+
 
     private void setGitHubAfterPageByTopic(String topic, String after) {
         githubUserRepository.setGitHubAfterPageByTopic(topic,after);

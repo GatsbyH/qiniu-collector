@@ -26,17 +26,6 @@ public class GitHubGraphQLController {
     private ITalentRankGraphQLService talentRankGraphQLService;
 
 
-    //测试GraphQL
-    @GetMapping("testGraphQL")
-    public Response testGraphQL() throws JsonProcessingException {
-        String testGraphQL = talentRankGraphQLService.testGraphQL();
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(testGraphQL)
-                .build();
-    }
-
     //GraphQL获得talentRank
     @GetMapping("getTalentRankByUserName")
     @Loggable
@@ -48,6 +37,36 @@ public class GitHubGraphQLController {
                 .data(talentRank)
                 .build();
     }
+
+
+    //根据账号搜索用户使用的语言
+    @GetMapping("getDeveloperLanguage")
+    @Loggable
+    public Response getDeveloperLanguage(String username)  {
+        List<LanguageCountRespVo> developerLanguage = talentRankGraphQLService.getDeveloperLanguage(username);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerLanguage)
+                .build();
+    }
+
+
+    //根据账号搜索用户的领域
+    @GetMapping("getDeveloperFiled")
+    @Loggable
+    public Response getDeveloperFiled(String username)  {
+        String developerFiled = talentRankGraphQLService.getDeveloperFiled(username);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerFiled)
+                .build();
+    }
+
+
+
+
 
     //根据账号评估开发者页面
     @GetMapping("getDeveloperAssessment")
@@ -69,15 +88,14 @@ public class GitHubGraphQLController {
                 .data(null)
                 .build();
     }
-    //根据账号搜索用户使用的语言
-    @GetMapping("getDeveloperLanguage")
-    @Loggable
-    public Response getDeveloperLanguage(String username)  {
-        List<LanguageCountRespVo> developerLanguage = talentRankGraphQLService.getDeveloperLanguage(username);
+    //测试GraphQL
+    @GetMapping("testGraphQL")
+    public Response testGraphQL() throws JsonProcessingException {
+        String testGraphQL = talentRankGraphQLService.testGraphQL();
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerLanguage)
+                .data(testGraphQL)
                 .build();
     }
 }
