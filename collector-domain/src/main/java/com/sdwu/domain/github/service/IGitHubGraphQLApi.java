@@ -10,10 +10,10 @@ import java.util.List;
 public interface IGitHubGraphQLApi {
     String fetchUserByUsername(String username);
 
-    DevelopeVo fetchUserStats(String username) throws IOException;
+    DevelopeVo fetchUserStats(String username);
 
 
-    RankResult getTalentRankByUserName(String username) throws IOException;
+    RankResult getTalentRankByUserName(String username);
 
 //    void fetchTopLanguages(String username);
 

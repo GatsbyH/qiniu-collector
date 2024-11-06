@@ -46,7 +46,7 @@ public class TalentRankServiceImpl implements ITalentRankService{
     public TalentRankServiceImpl(GitHubClientService gitHubClientService) {
         this.gitHubClientService = gitHubClientService;
     }
-
+    //废弃
     @Override
     public double getTalentRankByUserName(String username) throws IOException {
         String reposByUserName = gitHubApi.getReposByUserName(username);
@@ -54,6 +54,7 @@ public class TalentRankServiceImpl implements ITalentRankService{
         return talentRank;
     }
 
+    //废弃
     @Override
     public DeveloperContributionVo getDeveloperAssessment(String username) throws IOException {
         String repos = gitHubApi.getReposByUserName(username);
@@ -140,6 +141,7 @@ public class TalentRankServiceImpl implements ITalentRankService{
 //
 //    }
 
+    //废弃
     public DeveloperContributionVo calculateDeveloperGithubContributions(String username, String repos) {
         double talentRank=0;
         try {
@@ -333,6 +335,7 @@ public class TalentRankServiceImpl implements ITalentRankService{
 //    }
 
 
+    //废弃
     public double calculateOverallTalentRank(String username, String repos) throws IOException {
         List<CompletableFuture<Double>> futureList = new ArrayList<>();
 

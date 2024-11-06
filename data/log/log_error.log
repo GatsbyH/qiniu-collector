@@ -926,3 +926,187 @@ com.sdwu.types.exception.AppException: null
 24-11-06.14:59:47.820 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
 24-11-06.14:59:47.844 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
 24-11-06.14:59:47.844 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.15:09:07.594 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.15:09:08.713 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.15:09:08.713 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.15:09:08.738 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.15:09:08.739 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:05.498 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:26:06.716 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:26:06.716 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:06.748 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:26:06.748 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:07.692 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'captchaController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sysUserServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+24-11-06.16:26:07.728 [main            ] ERROR SpringApplication      - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'captchaController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sysUserServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.sdwu.Application.main(Application.java:15)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sysUserServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:544)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:550)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:550)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:658)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:638)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:550)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 77 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$1(ConnectionPool.java:150)
+	at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)
+	at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:1990)
+	at org.redisson.connection.pool.ConnectionPool.promiseFailure(ConnectionPool.java:307)
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$6(ConnectionPool.java:273)
+	at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)
+	at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:1990)
+	at org.redisson.client.RedisClient$1$2.run(RedisClient.java:235)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.util.concurrent.CompletionException: io.netty.channel.AbstractChannel$AnnotatedNoRouteToHostException: No route to host: no further information: 106.54.234.202/106.54.234.202:6379
+	at java.util.concurrent.CompletableFuture.encodeRelay(CompletableFuture.java:326)
+	at java.util.concurrent.CompletableFuture.completeRelay(CompletableFuture.java:338)
+	at java.util.concurrent.CompletableFuture.uniRelay(CompletableFuture.java:925)
+	at java.util.concurrent.CompletableFuture$UniRelay.tryFire(CompletableFuture.java:913)
+	... 11 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedNoRouteToHostException: No route to host: no further information: 106.54.234.202/106.54.234.202:6379
+Caused by: java.net.NoRouteToHostException: No route to host: no further information
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:716)
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-06.16:26:42.935 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:26:44.213 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:26:44.213 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:44.241 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:26:44.241 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:37:42.738 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:37:44.012 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:37:44.012 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:37:44.038 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:37:44.038 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:49:50.070 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m33s269ms278µs700ns).
+24-11-06.16:54:09.008 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:54:10.089 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:54:10.089 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:54:10.114 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:54:10.114 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:59:11.957 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:59:12.992 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:59:12.992 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:59:13.014 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:59:13.015 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:03:20.119 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.17:03:21.208 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.17:03:21.208 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:03:21.241 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.17:03:21.241 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:06:53.798 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.17:06:54.874 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.17:06:54.874 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:06:54.898 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.17:06:54.899 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:09:07.580 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.17:09:08.811 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.17:09:08.811 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:09:08.839 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.17:09:08.839 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.

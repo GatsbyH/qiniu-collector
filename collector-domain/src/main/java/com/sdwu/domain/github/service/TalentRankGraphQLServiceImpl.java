@@ -21,13 +21,13 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
     }
 
     @Override
-    public RankResult getTalentRankByUserName(String username) throws IOException {
+    public RankResult getTalentRankByUserName(String username){
         RankResult talentRankByUserName = gitHubGraphQLApi.getTalentRankByUserName(username);
         return talentRankByUserName;
     }
 
     @Override
-    public DevelopeVo getDeveloperStatsByUserName(String username) throws IOException {
+    public DevelopeVo getDeveloperStatsByUserName(String username){
         DevelopeVo userStats = gitHubGraphQLApi.fetchUserStats(username);
         return userStats;
     }

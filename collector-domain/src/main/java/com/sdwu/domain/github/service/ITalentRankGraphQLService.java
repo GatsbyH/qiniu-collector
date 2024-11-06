@@ -11,8 +11,12 @@ import java.util.Map;
 public interface ITalentRankGraphQLService {
     String testGraphQL();
 
-    RankResult getTalentRankByUserName(String username) throws IOException;
-    DevelopeVo getDeveloperStatsByUserName(String username) throws IOException;
+
+    RankResult getTalentRankByUserName(String username);
+
+
+
+    DevelopeVo getDeveloperStatsByUserName(String username);
 
     DevelopeVo getDeveloperAssessment(String username) throws IOException;
 

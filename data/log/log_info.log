@@ -2255,3 +2255,486 @@ com.sdwu.types.exception.AppException: null
 24-11-06.14:42:50.291 [http-nio-8080-exec-1] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperFiled(..)执行时间为8.835秒
 24-11-06.14:43:06.218 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
 24-11-06.14:43:06.473 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.14:59:45.454 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 22320 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.14:59:45.457 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.14:59:45.457 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.14:59:46.571 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.14:59:46.573 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.14:59:46.614 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 0 Redis repository interfaces.
+24-11-06.14:59:46.686 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.14:59:47.208 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.14:59:47.216 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.14:59:47.216 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.14:59:47.216 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.14:59:47.356 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.14:59:47.357 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1841 ms
+24-11-06.14:59:47.621 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.14:59:47.631 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.14:59:47.820 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.14:59:47.820 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:59:47.844 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.14:59:47.844 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.14:59:48.402 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.14:59:48.809 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.14:59:48.885 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.14:59:49.471 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.14:59:49.925 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.14:59:50.181 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.14:59:51.010 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.14:59:51.088 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.14:59:51.097 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.14:59:51.109 [main            ] INFO  Application            - Started Application in 6.159 seconds (JVM running for 8.053)
+24-11-06.14:59:51.422 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.14:59:51.424 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.14:59:51.425 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.14:59:51.426 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 1 ms
+24-11-06.14:59:51.470 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#5323999f:0/SimpleConnection@23955771 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 10664]
+24-11-06.15:00:47.618 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - blog:https://qiniu.com/,bio:x@goplus.org
+24-11-06.15:00:56.965 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - jsonNodes: {"id":"20241106150047b9cb7f6571d949b1","search_intent":null,"search_result":[{"content":"视联网\n为视联网提供集音视频云管理、计算引擎、场景感知分析、云编解码及存储等服务的一站式解决方案。","index":0,"link":"https://qiniu.com/","refer":"ref_1","title":"七牛云 | 一站式场景化智能音视频 APaaS"}],"search_recommend":null,"type":"search_result"}
+24-11-06.15:00:56.968 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - model output: {"code":200,"msg":"调用成功","success":true,"data":{"created":1730876456,"choices":[{"finish_reason":"stop","index":0,"message":{"role":"tool","tool_calls":[{"id":"20241106150047b9cb7f6571d949b1","search_intent":[{"category":"","index":0,"intent":"SEARCH_URL","keywords":"https://qiniu.com/","query":"读取网页并总结：https://qiniu.com/"}],"type":"search_intent"},{"id":"20241106150047b9cb7f6571d949b1","search_result":[{"content":"视联网\n为视联网提供集音视频云管理、计算引擎、场景感知分析、云编解码及存储等服务的一站式解决方案。","index":0,"link":"https://qiniu.com/","refer":"ref_1","title":"七牛云 | 一站式场景化智能音视频 APaaS"}],"type":"search_result"}]}}],"request_id":"mycompany-1730876447625","id":"20241106150047b9cb7f6571d949b1","model":"web-search-pro","usage":{"completion_tokens":72,"prompt_tokens":18,"total_tokens":90}}}
+24-11-06.15:00:56.977 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - request: {"request_id":"mycompany-1730876456969","extra_json":{"temperature":0.5},"model":"GLM-4-AirX","messages":[{"role":"user","content":"根据开发者的作品：{\"id\":\"20241106150047b9cb7f6571d949b1\",\"search_intent\":null,\"search_result\":[{\"content\":\"视联网\\n为视联网提供集音视频云管理、计算引擎、场景感知分析、云编解码及存储等服务的一站式解决方案。\",\"index\":0,\"link\":\"https://qiniu.com/\",\"refer\":\"ref_1\",\"title\":\"七牛云 | 一站式场景化智能音视频 APaaS\"}],\"search_recommend\":null,\"type\":\"search_result\"}和他的个人简介x@goplus.org整理出开发者评估信息，只输出对开发者的评价"}],"stream":false,"invoke_method":"invoke"}
+24-11-06.15:00:58.098 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - model output: {"code":200,"msg":"调用成功","success":true,"data":{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"该开发者展示了在音视频领域的技术实力和专业能力，能够提供一站式解决方案，包括音视频云管理、计算引擎、场景感知分析等技术服务。此外，其作品链接指向了七牛云，表明其与知名企业有合作经验。综合来看，该开发者具有较高的技术水平和项目实施能力。","role":"assistant"}}],"usage":{"completion_tokens":67,"prompt_tokens":144,"total_tokens":211},"request_id":"mycompany-1730876456969","task_status":null,"created":1730876457,"model":"GLM-4-AirX","id":"2024110615005615c4a418659540ee"}}
+24-11-06.15:04:36.795 [http-nio-8080-exec-3] INFO  ChatGlmApiImpl         - blog:http://evanyou.me,bio:Husband, father of two, independent OSS dev. @vuejs, @vitejs, @rolldown, and more. Connoisseur of sushi.
+24-11-06.15:04:52.628 [http-nio-8080-exec-3] INFO  ChatGlmApiImpl         - jsonNodes: {"id":"202411061504361b74dc10bb7641ab","search_intent":null,"search_result":[{"content":"You can follow me on X / Twitter where I mostly post about Vue and frontend technologies. If you happen to speak Chinese, my Chinese name is 尤雨溪 (yóu yǔ xī) and I have a Chinese-only X / Twitter alt for non-tech-focused musings.\nOutside of programming and helping my wife take care of our two kids, I enjoy video games (soulsborne & roguelikes are my favorite), karaoke, Japanese food, UFC/NBA/F1, and collecting watches.","index":0,"link":"http://evanyou.me","refer":"ref_1","title":"Evan You"}],"search_recommend":null,"type":"search_result"}
+24-11-06.15:04:52.628 [http-nio-8080-exec-3] INFO  ChatGlmApiImpl         - model output: {"code":200,"msg":"调用成功","success":true,"data":{"created":1730876692,"choices":[{"finish_reason":"stop","index":0,"message":{"role":"tool","tool_calls":[{"id":"202411061504361b74dc10bb7641ab","search_intent":[{"category":"","index":0,"intent":"SEARCH_URL","keywords":"http://evanyou.me","query":"读取网页并总结：http://evanyou.me"}],"type":"search_intent"},{"id":"202411061504361b74dc10bb7641ab","search_result":[{"content":"You can follow me on X / Twitter where I mostly post about Vue and frontend technologies. If you happen to speak Chinese, my Chinese name is 尤雨溪 (yóu yǔ xī) and I have a Chinese-only X / Twitter alt for non-tech-focused musings.\nOutside of programming and helping my wife take care of our two kids, I enjoy video games (soulsborne & roguelikes are my favorite), karaoke, Japanese food, UFC/NBA/F1, and collecting watches.","index":0,"link":"http://evanyou.me","refer":"ref_1","title":"Evan You"}],"type":"search_result"}]}}],"request_id":"mycompany-1730876676796","id":"202411061504361b74dc10bb7641ab","model":"web-search-pro","usage":{"completion_tokens":429,"prompt_tokens":17,"total_tokens":446}}}
+24-11-06.15:04:52.629 [http-nio-8080-exec-3] INFO  ChatGlmApiImpl         - request: {"request_id":"mycompany-1730876692628","extra_json":{"temperature":0.5},"model":"GLM-4-AirX","messages":[{"role":"user","content":"根据开发者的作品：{\"id\":\"202411061504361b74dc10bb7641ab\",\"search_intent\":null,\"search_result\":[{\"content\":\"You can follow me on X / Twitter where I mostly post about Vue and frontend technologies. If you happen to speak Chinese, my Chinese name is 尤雨溪 (yóu yǔ xī) and I have a Chinese-only X / Twitter alt for non-tech-focused musings.\\nOutside of programming and helping my wife take care of our two kids, I enjoy video games (soulsborne & roguelikes are my favorite), karaoke, Japanese food, UFC/NBA/F1, and collecting watches.\",\"index\":0,\"link\":\"http://evanyou.me\",\"refer\":\"ref_1\",\"title\":\"Evan You\"}],\"search_recommend\":null,\"type\":\"search_result\"}和他的个人简介Husband, father of two, independent OSS dev. @vuejs, @vitejs, @rolldown, and more. Connoisseur of sushi.整理出开发者评估信息，只输出对开发者的评价"}],"stream":false,"invoke_method":"invoke"}
+24-11-06.15:04:55.083 [http-nio-8080-exec-3] INFO  ChatGlmApiImpl         - model output: {"code":200,"msg":"调用成功","success":true,"data":{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"开发者尤雨溪是一位才华横溢的独立开源软件开发者，同时也是Vue.js和Vite.js等项目的核心贡献者。他在前端技术领域有着深厚的专业知识，并且对技术热情洋溢。此外，他还是一位充满生活情趣的人，热爱家庭，热衷于游戏、音乐、美食和体育等多种兴趣爱好。以下是对开发者的评价：\n\n尤雨溪是一位多才多艺、富有激情和创造力的开发者，他在前端技术领域有着卓越的贡献，同时也是一位充满生活情趣的丈夫和父亲。他的专业素养和丰富的生活经验使他成为一个值得尊敬和学习的榜样。","role":"assistant"}}],"usage":{"completion_tokens":123,"prompt_tokens":233,"total_tokens":356},"request_id":"mycompany-1730876692628","task_status":null,"created":1730876694,"model":"GLM-4-AirX","id":"202411061504526a646448cbf94ffd"}}
+24-11-06.15:08:59.661 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.15:08:59.916 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.15:09:06.645 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 19936 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.15:09:06.646 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.15:09:06.647 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.15:09:07.487 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.15:09:07.489 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.15:09:07.532 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 0 Redis repository interfaces.
+24-11-06.15:09:07.594 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.15:09:08.067 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.15:09:08.075 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.15:09:08.076 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.15:09:08.077 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.15:09:08.249 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.15:09:08.249 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1564 ms
+24-11-06.15:09:08.528 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.15:09:08.538 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.15:09:08.713 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.15:09:08.713 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.15:09:08.738 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.15:09:08.739 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.15:09:09.284 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.15:09:09.674 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.15:09:09.757 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.15:09:10.303 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.15:09:10.990 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.15:09:11.225 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.15:09:11.982 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.15:09:12.061 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.15:09:12.069 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.15:09:12.081 [main            ] INFO  Application            - Started Application in 5.749 seconds (JVM running for 6.563)
+24-11-06.15:09:12.592 [RMI TCP Connection(1)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.15:09:12.593 [RMI TCP Connection(2)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.15:09:12.594 [RMI TCP Connection(2)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.15:09:12.595 [RMI TCP Connection(2)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 1 ms
+24-11-06.15:09:12.628 [RMI TCP Connection(1)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#6fb22ae3:0/SimpleConnection@47be7021 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 11033]
+24-11-06.15:09:21.519 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - blog:http://ruoyi.vip,bio:RuoYi
+24-11-06.15:09:24.607 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - jsonNodes: {"id":"202411061509219626a911e1d24469","search_intent":null,"search_result":[{"content":"2024-06-06更新 版本：v4.7.9\n完全响应式布局（支持电脑、平板、手机等所有主流设备）更新日志\n立即下载\n2024-06-30更新 版本：v3.8.8\n前后端分离模式（支持电脑、平板、手机等所有主流设备）更新日志\n立即下载\n2024-04-01更新 版本：v3.6.4\n基于Spring Cloud & Alibaba构建微服务架构更新日志\n立即下载","index":0,"link":"http://ruoyi.vip","refer":"ref_1","title":"RuoYi 若依官方网站 |后台管理系统|权限管理系统|快速开发框架|企业管理系统|开源框架|微服务框架|前后端分离框架|开源后台系统|RuoYi|RuoYi-Vue|RuoYi-Cloud|RuoYi框架|RuoYi开源|RuoYi视频|若依视频|RuoYi开发文档|若依开发文档|Java开源框架|Java|SpringBoot|SrpingBoot2.0|SrpingCloud|Alibaba|MyBatis|Shiro|OAuth2.0|Thymeleaf|BootStrap|Vue|Element-UI||www.ruoyi.vip"}],"search_recommend":null,"type":"search_result"}
+24-11-06.15:09:24.609 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - model output: {"code":200,"msg":"调用成功","success":true,"data":{"created":1730876964,"choices":[{"finish_reason":"stop","index":0,"message":{"role":"tool","tool_calls":[{"id":"202411061509219626a911e1d24469","search_intent":[{"category":"","index":0,"intent":"SEARCH_URL","keywords":"http://ruoyi.vip","query":"读取网页并总结：http://ruoyi.vip"}],"type":"search_intent"},{"id":"202411061509219626a911e1d24469","search_result":[{"content":"2024-06-06更新 版本：v4.7.9\n完全响应式布局（支持电脑、平板、手机等所有主流设备）更新日志\n立即下载\n2024-06-30更新 版本：v3.8.8\n前后端分离模式（支持电脑、平板、手机等所有主流设备）更新日志\n立即下载\n2024-04-01更新 版本：v3.6.4\n基于Spring Cloud & Alibaba构建微服务架构更新日志\n立即下载","index":0,"link":"http://ruoyi.vip","refer":"ref_1","title":"RuoYi 若依官方网站 |后台管理系统|权限管理系统|快速开发框架|企业管理系统|开源框架|微服务框架|前后端分离框架|开源后台系统|RuoYi|RuoYi-Vue|RuoYi-Cloud|RuoYi框架|RuoYi开源|RuoYi视频|若依视频|RuoYi开发文档|若依开发文档|Java开源框架|Java|SpringBoot|SrpingBoot2.0|SrpingCloud|Alibaba|MyBatis|Shiro|OAuth2.0|Thymeleaf|BootStrap|Vue|Element-UI||www.ruoyi.vip"}],"type":"search_result"}]}}],"request_id":"mycompany-1730876961524","id":"202411061509219626a911e1d24469","model":"web-search-pro","usage":{"completion_tokens":454,"prompt_tokens":16,"total_tokens":470}}}
+24-11-06.15:09:24.616 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - request: {"request_id":"mycompany-1730876964610","extra_json":{"temperature":0.5},"model":"GLM-4-AirX","messages":[{"role":"user","content":"根据开发者的作品：{\"id\":\"202411061509219626a911e1d24469\",\"search_intent\":null,\"search_result\":[{\"content\":\"2024-06-06更新 版本：v4.7.9\\n完全响应式布局（支持电脑、平板、手机等所有主流设备）更新日志\\n立即下载\\n2024-06-30更新 版本：v3.8.8\\n前后端分离模式（支持电脑、平板、手机等所有主流设备）更新日志\\n立即下载\\n2024-04-01更新 版本：v3.6.4\\n基于Spring Cloud & Alibaba构建微服务架构更新日志\\n立即下载\",\"index\":0,\"link\":\"http://ruoyi.vip\",\"refer\":\"ref_1\",\"title\":\"RuoYi 若依官方网站 |后台管理系统|权限管理系统|快速开发框架|企业管理系统|开源框架|微服务框架|前后端分离框架|开源后台系统|RuoYi|RuoYi-Vue|RuoYi-Cloud|RuoYi框架|RuoYi开源|RuoYi视频|若依视频|RuoYi开发文档|若依开发文档|Java开源框架|Java|SpringBoot|SrpingBoot2.0|SrpingCloud|Alibaba|MyBatis|Shiro|OAuth2.0|Thymeleaf|BootStrap|Vue|Element-UI||www.ruoyi.vip\"}],\"search_recommend\":null,\"type\":\"search_result\"}和他的个人简介RuoYi整理出开发者评估信息，只输出对开发者的评价"}],"stream":false,"invoke_method":"invoke"}
+24-11-06.15:09:27.820 [http-nio-8080-exec-1] INFO  ChatGlmApiImpl         - model output: {"code":200,"msg":"调用成功","success":true,"data":{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"开发者通过其作品RuoYi展示了对现代软件开发趋势的深刻理解和实践能力。以下是对该开发者的评估信息：\n\n- **技术能力**：开发者具备使用Spring Cloud & Alibaba构建微服务架构的能力，同时掌握了前后端分离模式，这表明其技术栈广泛，能够适应复杂项目的开发需求。\n- **响应式设计**：作品支持完全响应式布局，兼容多种设备，说明开发者注重用户体验和界面的美观性。\n- **持续更新**：定期更新版本，持续优化产品，显示出开发者对作品的持续关注和改进。\n- **开源贡献**：将RuoYi作为开源框架发布，体现了开发者的共享精神和社区参与度。\n- **文档支持**：提供开发文档和视频教程，有助于用户更好地理解和使用框架，显示出开发者对用户支持的关注。\n\n总体来说，该开发者具备较高的技术能力和持续改进的精神，是值得信赖和合作的软件开发者。","role":"assistant"}}],"usage":{"completion_tokens":194,"prompt_tokens":346,"total_tokens":540},"request_id":"mycompany-1730876964610","task_status":null,"created":1730876967,"model":"GLM-4-AirX","id":"20241106150924c06004c465484d8e"}}
+24-11-06.15:09:34.588 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.15:09:34.841 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.16:26:04.474 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 26600 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.16:26:04.477 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.16:26:04.478 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.16:26:05.389 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.16:26:05.391 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.16:26:05.428 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 0 Redis repository interfaces.
+24-11-06.16:26:05.498 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:26:06.033 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.16:26:06.039 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.16:26:06.040 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.16:26:06.040 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.16:26:06.204 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.16:26:06.205 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1683 ms
+24-11-06.16:26:06.471 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.16:26:06.484 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.16:26:06.716 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:26:06.716 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:06.748 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:26:06.748 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:07.351 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.16:26:07.692 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'captchaController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sysUserServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+24-11-06.16:26:07.694 [main            ] INFO  StandardService        - Stopping service [Tomcat]
+24-11-06.16:26:07.708 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+24-11-06.16:26:07.728 [main            ] ERROR SpringApplication      - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'captchaController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sysUserServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at com.sdwu.Application.main(Application.java:15)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sysUserServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:544)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemUserRepository': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:550)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:332)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:550)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redissonClient' defined in class path resource [com/sdwu/config/RedisClientConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:658)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:638)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:550)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:520)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:673)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:329)
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redissonClient' threw exception; nested exception is org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 77 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: 106.54.234.202/106.54.234.202:6379
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$1(ConnectionPool.java:150)
+	at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)
+	at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:1990)
+	at org.redisson.connection.pool.ConnectionPool.promiseFailure(ConnectionPool.java:307)
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$6(ConnectionPool.java:273)
+	at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)
+	at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:1990)
+	at org.redisson.client.RedisClient$1$2.run(RedisClient.java:235)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.util.concurrent.CompletionException: io.netty.channel.AbstractChannel$AnnotatedNoRouteToHostException: No route to host: no further information: 106.54.234.202/106.54.234.202:6379
+	at java.util.concurrent.CompletableFuture.encodeRelay(CompletableFuture.java:326)
+	at java.util.concurrent.CompletableFuture.completeRelay(CompletableFuture.java:338)
+	at java.util.concurrent.CompletableFuture.uniRelay(CompletableFuture.java:925)
+	at java.util.concurrent.CompletableFuture$UniRelay.tryFire(CompletableFuture.java:913)
+	... 11 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedNoRouteToHostException: No route to host: no further information: 106.54.234.202/106.54.234.202:6379
+Caused by: java.net.NoRouteToHostException: No route to host: no further information
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:716)
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-06.16:26:41.963 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 21748 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.16:26:41.965 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.16:26:41.966 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.16:26:42.821 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.16:26:42.822 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.16:26:42.863 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 0 Redis repository interfaces.
+24-11-06.16:26:42.935 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:26:43.532 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.16:26:43.540 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.16:26:43.541 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.16:26:43.541 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.16:26:43.694 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.16:26:43.695 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1686 ms
+24-11-06.16:26:43.964 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.16:26:43.977 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.16:26:44.213 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:26:44.213 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:44.241 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:26:44.241 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:26:44.794 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.16:26:45.176 [redisson-netty-2-7] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:26:45.429 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:26:45.974 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.16:26:46.383 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.16:26:48.409 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.16:26:49.180 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.16:26:49.259 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.16:26:49.268 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.16:26:49.279 [main            ] INFO  Application            - Started Application in 7.718 seconds (JVM running for 8.893)
+24-11-06.16:26:49.679 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.16:26:49.694 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.16:26:49.694 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.16:26:49.696 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 2 ms
+24-11-06.16:26:49.735 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#3bc20984:0/SimpleConnection@590b9c2e [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 7499]
+24-11-06.16:27:40.459 [http-nio-8080-exec-1] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.16:27:40.461 [http-nio-8080-exec-1] INFO  GitHubGraphQLApiImpl   - languageCount: []
+24-11-06.16:27:40.463 [http-nio-8080-exec-1] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为2.09秒
+24-11-06.16:28:35.723 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.16:28:35.966 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.16:37:41.320 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 24060 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.16:37:41.319 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.16:37:41.322 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.16:37:42.569 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.16:37:42.572 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.16:37:42.631 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 0 Redis repository interfaces.
+24-11-06.16:37:42.738 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:37:43.355 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.16:37:43.363 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.16:37:43.364 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.16:37:43.364 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.16:37:43.510 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.16:37:43.510 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2135 ms
+24-11-06.16:37:43.801 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.16:37:43.813 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.16:37:44.012 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:37:44.012 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:37:44.038 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:37:44.038 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:37:44.632 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.16:37:45.050 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:37:45.120 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:37:45.914 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.16:37:46.689 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.16:37:46.994 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.16:37:47.933 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.16:37:48.015 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.16:37:48.024 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.16:37:48.035 [main            ] INFO  Application            - Started Application in 7.288 seconds (JVM running for 8.888)
+24-11-06.16:37:48.280 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.16:37:48.280 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.16:37:48.282 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 2 ms
+24-11-06.16:37:49.385 [RMI TCP Connection(3)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.16:37:49.468 [RMI TCP Connection(3)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#44641d6c:0/SimpleConnection@1b7c4aee [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 8357]
+24-11-06.16:37:57.709 [http-nio-8080-exec-1] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.16:37:57.714 [http-nio-8080-exec-1] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为1.481秒
+24-11-06.16:49:50.070 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m33s269ms278µs700ns).
+24-11-06.16:53:58.508 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.16:53:58.809 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.16:54:08.069 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.16:54:08.068 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 21788 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.16:54:08.070 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.16:54:08.901 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.16:54:08.902 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.16:54:08.941 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 0 Redis repository interfaces.
+24-11-06.16:54:09.008 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:54:09.492 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.16:54:09.499 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.16:54:09.499 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.16:54:09.499 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.16:54:09.644 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.16:54:09.644 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1537 ms
+24-11-06.16:54:09.890 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.16:54:09.900 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.16:54:10.089 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:54:10.089 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:54:10.114 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:54:10.114 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:54:10.672 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.16:54:11.064 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:54:11.143 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:54:11.771 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.16:54:12.209 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.16:54:12.448 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.16:54:13.236 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.16:54:13.314 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.16:54:13.323 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.16:54:13.334 [main            ] INFO  Application            - Started Application in 5.667 seconds (JVM running for 6.682)
+24-11-06.16:54:13.883 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.16:54:13.917 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.16:54:13.917 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.16:54:13.921 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 2 ms
+24-11-06.16:54:13.995 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#aca3c85:0/SimpleConnection@3312f763 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 13096]
+24-11-06.16:59:01.121 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.16:59:01.361 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.16:59:11.115 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 26148 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.16:59:11.116 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.16:59:11.117 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.16:59:11.857 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.16:59:11.859 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.16:59:11.893 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
+24-11-06.16:59:11.957 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.16:59:12.408 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.16:59:12.415 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.16:59:12.415 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.16:59:12.415 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.16:59:12.560 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.16:59:12.561 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1411 ms
+24-11-06.16:59:12.799 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.16:59:12.809 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.16:59:12.992 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.16:59:12.992 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:59:13.014 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.16:59:13.015 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.16:59:13.546 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.16:59:13.923 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:59:13.996 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.16:59:14.523 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.16:59:14.922 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.16:59:15.148 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.16:59:15.854 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.16:59:15.930 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.16:59:15.939 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.16:59:15.951 [main            ] INFO  Application            - Started Application in 5.145 seconds (JVM running for 6.199)
+24-11-06.16:59:16.253 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.16:59:16.255 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.16:59:16.255 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.16:59:16.257 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 1 ms
+24-11-06.16:59:16.296 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#2fbd390:0/SimpleConnection@6b6f02c8 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 13307]
+24-11-06.17:03:12.173 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.17:03:12.407 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.17:03:19.243 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 14260 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.17:03:19.245 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.17:03:19.245 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.17:03:20.015 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.17:03:20.017 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.17:03:20.052 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 26 ms. Found 0 Redis repository interfaces.
+24-11-06.17:03:20.119 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.17:03:20.585 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.17:03:20.592 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.17:03:20.592 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.17:03:20.592 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.17:03:20.725 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.17:03:20.725 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1445 ms
+24-11-06.17:03:20.964 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.17:03:20.976 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.17:03:21.208 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.17:03:21.208 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:03:21.241 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.17:03:21.241 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:03:21.796 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.17:03:22.183 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.17:03:22.257 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.17:03:22.790 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.17:03:23.228 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.17:03:23.463 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.17:03:24.213 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.17:03:24.291 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.17:03:24.299 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.17:03:24.311 [main            ] INFO  Application            - Started Application in 5.376 seconds (JVM running for 6.353)
+24-11-06.17:03:24.358 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.17:03:24.358 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.17:03:24.360 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 2 ms
+24-11-06.17:03:25.050 [RMI TCP Connection(3)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.17:03:25.075 [RMI TCP Connection(3)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#1e734eee:0/SimpleConnection@f106b08 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 13611]
+24-11-06.17:03:37.786 [http-nio-8080-exec-3] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.17:03:37.790 [http-nio-8080-exec-3] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为1.445秒
+24-11-06.17:03:44.521 [http-nio-8080-exec-1] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.17:03:44.521 [http-nio-8080-exec-1] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为0.448秒
+24-11-06.17:03:50.662 [http-nio-8080-exec-2] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.17:03:50.662 [http-nio-8080-exec-2] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为0.472秒
+24-11-06.17:03:56.480 [http-nio-8080-exec-4] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.17:03:56.481 [http-nio-8080-exec-4] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为0.455秒
+24-11-06.17:06:45.545 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.17:06:45.783 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-06.17:06:52.854 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 22016 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-06.17:06:52.856 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-06.17:06:52.856 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-06.17:06:53.695 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-06.17:06:53.696 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-06.17:06:53.732 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 26 ms. Found 0 Redis repository interfaces.
+24-11-06.17:06:53.798 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-06.17:06:54.278 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-06.17:06:54.284 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-06.17:06:54.285 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-06.17:06:54.285 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-06.17:06:54.423 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-06.17:06:54.423 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1531 ms
+24-11-06.17:06:54.675 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-06.17:06:54.686 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-06.17:06:54.874 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-06.17:06:54.874 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:06:54.898 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-06.17:06:54.899 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-06.17:06:55.465 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-06.17:06:55.856 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.17:06:55.929 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-06.17:06:56.503 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-06.17:06:56.927 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-06.17:06:57.172 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-06.17:06:58.099 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-06.17:06:58.206 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-06.17:06:58.217 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-06.17:06:58.231 [main            ] INFO  Application            - Started Application in 5.713 seconds (JVM running for 6.762)
+24-11-06.17:06:58.996 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-06.17:06:59.071 [RMI TCP Connection(3)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-06.17:06:59.071 [RMI TCP Connection(3)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-06.17:06:59.074 [RMI TCP Connection(3)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 3 ms
+24-11-06.17:06:59.116 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#5e68be2:0/SimpleConnection@3d5e3aa3 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 13803]
+24-11-06.17:07:09.561 [http-nio-8080-exec-1] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.17:07:09.568 [http-nio-8080-exec-1] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为1.509秒
+24-11-06.17:08:00.941 [http-nio-8080-exec-2] INFO  GitHubGraphQLApiImpl   - languagesNodes: []
+24-11-06.17:08:00.941 [http-nio-8080-exec-2] INFO  LoggingAspect          - 方法GitHubGraphQLController.getDeveloperLanguage(..)执行时间为1.454秒
+24-11-06.17:08:57.036 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-06.17:08:57.277 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.

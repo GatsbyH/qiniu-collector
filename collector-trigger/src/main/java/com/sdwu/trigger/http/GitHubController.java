@@ -45,16 +45,27 @@ public class GitHubController {
 
     //开启定时任务，根据领域搜索匹配开发者
     @GetMapping("startGetDeveloperByField")
-    public Response startGetDeveloperByField(String field) throws IOException {
+    public Response startGetDeveloperByField(String field){
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
                 .data(developerFieldService.startGetDeveloperByField(field))
                 .build();
     }
+
+
+    //关闭定时任务，根据领域搜索匹配开发者
+    @GetMapping("stopGetDeveloperByField")
+    public Response stopGetDeveloperByField(String field){
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerFieldService.stopGetDeveloperByField(field))
+                .build();
+    }
     //分页查询开发者
     @GetMapping("getDevelopersByFields")
-    public Response getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo) throws IOException {
+    public Response getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo){
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
@@ -62,21 +73,27 @@ public class GitHubController {
                 .build();
     }
 
-    //关闭定时任务，根据领域搜索匹配开发者
-    @GetMapping("stopGetDeveloperByField")
-    public Response stopGetDeveloperByField(String field) throws IOException {
+
+
+    //大模型技术能力评估
+    @GetMapping("getDeveloperTechnicalAbility")
+    public Response getDeveloperTechnicalAbility(String username){
+        String developerTechnicalAbility = talentRankService.getDeveloperTechnicalAbility(username);
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerFieldService.stopGetDeveloperByField(field))
+                .data(developerTechnicalAbility)
                 .build();
     }
 
 
 
+
+
+
     //根据账号评估开发者页面
     @GetMapping("getDeveloperAssessment")
-    public Response getDeveloperAssessment(String username) throws JsonProcessingException {
+    public Response getDeveloperAssessment(String username){
         DeveloperContributionVo developerAssessment= null;
         try {
             developerAssessment = talentRankService.getDeveloperAssessment(username);
@@ -91,17 +108,6 @@ public class GitHubController {
                 .build();
     }
 
-
-    //大模型技术能力评估
-    @GetMapping("getDeveloperTechnicalAbility")
-    public Response getDeveloperTechnicalAbility(String username) throws IOException {
-        String developerTechnicalAbility = talentRankService.getDeveloperTechnicalAbility(username);
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerTechnicalAbility)
-                .build();
-    }
 
 
 

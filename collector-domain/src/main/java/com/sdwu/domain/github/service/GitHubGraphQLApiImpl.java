@@ -110,7 +110,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
     }
 
     @Override
-    public DevelopeVo fetchUserStats(String username) throws IOException {
+    public DevelopeVo fetchUserStats(String username) {
         String fetchGitHubApi= null;
         Boolean includeMergedPullRequests = true;
         Boolean includeDiscussions = true;
@@ -244,7 +244,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
 
 
-    public RankResult getTalentRankByUserName(String username) throws IOException {
+    public RankResult getTalentRankByUserName(String username){
         String fetchGitHubApi= null;
         Boolean includeMergedPullRequests = true;
         Boolean includeDiscussions = true;
@@ -276,9 +276,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
             try {
                 fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", requestMap);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 log.error("获取用户{}的贡献数值时发生错误: {}", username, e.getMessage());
-                throw new RuntimeException(e);
             }
             JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
             JSONObject data = jsonObject.getJSONObject("data");
@@ -760,6 +759,34 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         });
         // 将 ConcurrentHashMap 中的结果转换为 List<LanguageCountRespVo>
         List<LanguageCountRespVo> languageCountRespVos = new ArrayList<>(languageMap.values());
+
+        // 如果languageMap为空，则创建一个包含预定义语言的列表
+        if (languageMap.isEmpty()) {
+            List<LanguageCountRespVo> languageCountRespVosFake = new ArrayList<>();
+            // 注意：这里应该为每个LanguageCountRespVo对象创建新的实例
+            LanguageCountRespVo languageCountRespVoJava = new LanguageCountRespVo();
+            languageCountRespVoJava.setItem("java");
+            languageCountRespVoJava.setA(0);
+            languageCountRespVosFake.add(languageCountRespVoJava);
+
+            LanguageCountRespVo languageCountRespVoPython = new LanguageCountRespVo();
+            languageCountRespVoPython.setItem("python");
+            languageCountRespVoPython.setA(0);
+            languageCountRespVosFake.add(languageCountRespVoPython);
+
+            LanguageCountRespVo languageCountRespVoGo = new LanguageCountRespVo();
+            languageCountRespVoGo.setItem("go");
+            languageCountRespVoGo.setA(0);
+            languageCountRespVosFake.add(languageCountRespVoGo);
+
+            LanguageCountRespVo languageCountRespVoJavaScript = new LanguageCountRespVo();
+            languageCountRespVoJavaScript.setItem("javascript");
+            languageCountRespVoJavaScript.setA(0);
+            languageCountRespVosFake.add(languageCountRespVoJavaScript);
+
+            return languageCountRespVosFake;
+        }
+
         // 现在 languageCount 包含了每个语言和其对应的代码量
         log.info("languageCount: {}", languageCountRespVos);
 

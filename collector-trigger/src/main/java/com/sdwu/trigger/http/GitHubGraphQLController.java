@@ -29,7 +29,7 @@ public class GitHubGraphQLController {
     //GraphQL获得talentRank
     @GetMapping("getTalentRankByUserName")
     @Loggable
-    public Response getTalentRankByUserName(String username) throws IOException {
+    public Response getTalentRankByUserName(String username){
         DevelopeVo talentRank = talentRankGraphQLService.getDeveloperStatsByUserName(username);
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
@@ -90,7 +90,7 @@ public class GitHubGraphQLController {
     }
     //测试GraphQL
     @GetMapping("testGraphQL")
-    public Response testGraphQL() throws JsonProcessingException {
+    public Response testGraphQL() {
         String testGraphQL = talentRankGraphQLService.testGraphQL();
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
