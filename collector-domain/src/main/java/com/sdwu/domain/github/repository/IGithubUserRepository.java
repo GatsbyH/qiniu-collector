@@ -37,4 +37,6 @@ public interface IGithubUserRepository {
     void countDeveloperEmptyCount(String topic);
 
     int getDeveloperEmptyCount(String topic);
+
+    List<String> getDeveloperNationOptionsByField(String field);
 }

@@ -68,8 +68,8 @@ public class GithubUserRepository implements IGithubUserRepository {
 
     @Override
     public PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo) {
-        List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
-        Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField());
+
+
 //        List<Developer> filteredDevelopers = developers.stream()
 //                .filter(po -> po.getNation() != null && po.getNation().matches(".*" + Pattern.quote(developersByFieldReqVo.getNation()) + ".*"))
 //                .map(DeveloperPO::toDeveloper)
@@ -79,8 +79,10 @@ public class GithubUserRepository implements IGithubUserRepository {
 //        return developerPageResult;
 
 
-        // 确保developersByFieldReqVo.getNation()不为空
+
         if (developersByFieldReqVo.getNation() == null || developersByFieldReqVo.getNation().isEmpty()) {
+            List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+            Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField());
             // 如果nation为空，则不进行过滤，直接映射并返回结果
             List<Developer> filteredDevelopers = developers.stream()
                     .map(DeveloperPO::toDeveloper)
@@ -89,13 +91,16 @@ public class GithubUserRepository implements IGithubUserRepository {
             return developerPageResult;
         }
 
-        List<Developer> filteredDevelopersByNation = developers.stream()
-                // 确保po.getNation()不为空
-                .filter(po -> po.getNation() != null && po.getNation().matches(".*" + Pattern.quote(developersByFieldReqVo.getNation()) + ".*"))
-                .map(DeveloperPO::toDeveloper)
-                .collect(Collectors.toList());
-        PageResult<Developer> developerPageResultByNation = new PageResult<>(filteredDevelopersByNation, (long) size);
-        return developerPageResultByNation;
+
+        Integer usersSizeByNation = redisService.getUsersSizeByRankAndNation(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getField(), developersByFieldReqVo.getNation());
+
+        List<DeveloperPO> filteredDevelopersByNation = redisService.getUsersByRankDescAndNation(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getField(), developersByFieldReqVo.getNation(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+        List<Developer> filteredDevelopers = filteredDevelopersByNation.stream()
+                    .map(DeveloperPO::toDeveloper)
+                    .collect(Collectors.toList());
+        PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) usersSizeByNation);
+        return developerPageResult;
+
     }
 
     @Override
@@ -152,6 +157,11 @@ public class GithubUserRepository implements IGithubUserRepository {
             return 0;
         }
 
+    }
+
+    @Override
+    public List<String> getDeveloperNationOptionsByField(String field) {
+        return redisService.getDeveloperNationOptionsByField(GITHUB_USER_INFO_KEY+field);
     }
 
 }

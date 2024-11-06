@@ -18,4 +18,6 @@ public interface IDeveloperFieldService {
 
 
     List<String> getDeveloperFields();
+
+    List<String> getDeveloperNationOptionsByField(String field);
 }

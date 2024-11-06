@@ -73,6 +73,16 @@ public class GitHubController {
                 .build();
     }
 
+    //获取国家筛选项
+    @GetMapping("getDeveloperNationOptionsByField")
+    public Response getDeveloperNationOptionsByField(String field){
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerFieldService.getDeveloperNationOptionsByField(field))
+                .build();
+    }
+
 
 
     //大模型技术能力评估

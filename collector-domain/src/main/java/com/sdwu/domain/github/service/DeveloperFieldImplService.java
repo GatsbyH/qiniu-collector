@@ -139,4 +139,9 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     public List<String> getDeveloperFields() {
         return scheduledTaskRepository.getDeveloperFields();
     }
+
+    @Override
+    public List<String> getDeveloperNationOptionsByField(String field) {
+        return githubUserRepository.getDeveloperNationOptionsByField(field);
+    }
 }

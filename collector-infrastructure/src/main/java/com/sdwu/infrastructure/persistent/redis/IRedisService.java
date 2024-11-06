@@ -59,7 +59,7 @@ public interface IRedisService {
 
 
     void addUser(String key, DeveloperPO user, double talentRank);
-    List<DeveloperPO> getUsersByRankDesc(String key, int pageNumber, int pageSize);
+    List<DeveloperPO> getUsersByRankDesc(String key,int pageNumber, int pageSize);
 
     void removeUser(String key, DeveloperPO user);
     /**
@@ -276,4 +276,10 @@ public interface IRedisService {
     Boolean setNx(String key, long expired, TimeUnit timeUnit);
 
     Integer getUsersByRankSize(String s);
+
+    List<String> getDeveloperNationOptionsByField(String key);
+
+    List<DeveloperPO> getUsersByRankDescAndNation(String key, String field, String nation, Integer pageNum, Integer pageSize);
+
+    Integer getUsersSizeByRankAndNation(String s, String field, String nation);
 }
