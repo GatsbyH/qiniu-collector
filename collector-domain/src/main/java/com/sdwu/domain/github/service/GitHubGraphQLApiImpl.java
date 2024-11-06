@@ -2,13 +2,10 @@ package com.sdwu.domain.github.service;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.eventbus.EventBus;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
-import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -613,6 +610,162 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             throw new RuntimeException(e);
         }
         return true;
+    }
+
+
+//    final String GRAPHQL_REPOS_LANGUAGE_FIELD = "repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {\n" +
+//            "    nodes {\n" +
+//            "      name\n" +
+//            "  languages(first: 10){\n" +
+//            "          nodes{\n" +
+//            "            name\n" +
+//            "          }\n" +
+//            "        }        "+
+//            "    }\n" +
+//            "    pageInfo {\n" +
+//            "      hasNextPage\n" +
+//            "      endCursor\n" +
+//            "    }\n" +
+//            "  }";
+//    final String GRAPHQL_LANGUAGES_QUERY = "query userInfo($login: String!, $after: String) {\n" +
+//            "    user(login: $login) {\n" +
+//            "      name\n" +
+//            "      login\n" +
+//            "      }\n" +
+//            "      " + GRAPHQL_REPOS_LANGUAGE_FIELD + "\n" +
+//            "    }\n" +
+//            "  }";
+
+
+    final String GRAPHQL_REPOS_LANGUAGE_FIELD = "repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {\n" +
+            "    totalCount\n" +
+            "    nodes {\n" +
+            "      name\n" +
+            "  languages(first: 5){\n" +
+            "          nodes{\n" +
+            "            name\n" +
+            "          }\n" +
+            "        }        "+
+            "    }\n" +
+            "    pageInfo {\n" +
+            "      hasNextPage\n" +
+            "      endCursor\n" +
+            "    }\n" +
+            "  }";
+    final String GRAPHQL_LANGUAGES_QUERY = "query userInfo($login: String!, $after: String, $includeMergedPullRequests: Boolean!, $includeDiscussions: Boolean!, $includeDiscussionsAnswers: Boolean!) {\n" +
+            "    user(login: $login) {\n" +
+            "      name\n" +
+            "      login\n" +
+            "      contributionsCollection {\n" +
+            "        totalCommitContributions,\n" +
+            "        totalPullRequestReviewContributions\n" +
+            "      }\n" +
+            "      repositoriesContributedTo(first: 1, contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      pullRequests(first: 1) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      mergedPullRequests: pullRequests(states: MERGED) @include(if: $includeMergedPullRequests) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      openIssues: issues(states: OPEN) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      closedIssues: issues(states: CLOSED) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      followers {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      repositoryDiscussions @include(if: $includeDiscussions) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      repositoryDiscussionComments(onlyAnswers: true) @include(if: $includeDiscussionsAnswers) {\n" +
+            "        totalCount\n" +
+            "      }\n" +
+            "      " + GRAPHQL_REPOS_LANGUAGE_FIELD + "\n" +
+            "    }\n" +
+            "  }";
+
+    @Override
+    public Map<String, Integer> fetchTopLanguages(String username) {
+        String fetchGitHubApi= null;
+        Boolean includeMergedPullRequests = true;
+        Boolean includeDiscussions = true;
+        Boolean includeDiscussionsAnswers = true;
+
+        JSONArray stats = new JSONArray();
+        String after = null;
+        boolean hasNextPage = true;
+
+        while (hasNextPage) {
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("login", username);
+            variables.put("after", after);
+            variables.put("includeMergedPullRequests", includeMergedPullRequests);
+            variables.put("includeDiscussions", includeDiscussions);
+            variables.put("includeDiscussionsAnswers", includeDiscussionsAnswers);
+
+            Map<String, Object> requestMap = new HashMap<>();
+            requestMap.put("query", GRAPHQL_LANGUAGES_QUERY);
+            requestMap.put("variables", variables);
+
+            try {
+                fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", requestMap);
+            } catch (Exception e) {
+                log.error("获取用户{}的语言数值时发生错误: {}", username, e.getMessage());
+//                throw new RuntimeException(e);
+            }
+            JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+            JSONObject data = jsonObject.getJSONObject("data");
+
+            // 处理错误
+            JSONArray errorsArray = jsonObject.getJSONArray("errors");
+            if (errorsArray != null && !errorsArray.isEmpty()) {
+                JSONObject errorObject = errorsArray.getJSONObject(0);
+                if ("NOT_FOUND".equals(errorObject.getString("type"))) {
+                    throw new AppException(404, "用户不存在, 你输入的可能是组织");
+                }
+            }
+
+            // 获取用户数据
+            JSONObject user = data.getJSONObject("user");
+
+
+            JSONObject repositories = user.getJSONObject("repositories");
+            hasNextPage = repositories.getJSONObject("pageInfo").getBoolean("hasNextPage");
+            after = repositories.getJSONObject("pageInfo").getString("endCursor");
+
+            // 合并当前页的仓库数据
+            JSONArray nodes = repositories.getJSONArray("nodes");
+
+            stats.addAll(nodes);
+        }
+
+        JSONArray languagesNodes = new JSONArray();
+        for (Object item : stats) {
+            JSONObject jsonObject = (JSONObject) item;
+            JSONArray languagesNode = jsonObject.getJSONObject("languages").getJSONArray("nodes");
+            if (languagesNode.size()>0){
+                languagesNodes.addAll(languagesNode);
+            }
+        }
+
+        log.info("languagesNodes: {}", languagesNodes);
+
+
+        Map<String, Integer> languageCount = new HashMap<>();
+        for (int i = 0; i < languagesNodes.size(); i++) { // 使用 size() 代替 length()
+            JSONObject languageNode = languagesNodes.getJSONObject(i);
+            String language = languageNode.getString("name");
+            languageCount.put(language, languageCount.getOrDefault(language, 0) + 1);
+        }
+
+        // 现在 languageCount 包含了每个语言和其对应的代码量
+        log.info("languageCount: {}", languageCount);
+
+        return languageCount;
     }
 
     private void setGitHubAfterPageByTopic(String topic, String after) {

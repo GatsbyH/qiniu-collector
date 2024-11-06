@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Map;
 
 
 @Slf4j
@@ -64,6 +65,16 @@ public class GitHubGraphQLController {
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
                 .data(null)
+                .build();
+    }
+    //根据账号搜索用户使用的语言
+    @GetMapping("getDeveloperLanguage")
+    public Response getDeveloperLanguage(String username)  {
+        Map<String, Integer> developerLanguage = talentRankGraphQLService.getDeveloperLanguage(username);
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerLanguage)
                 .build();
     }
 }
