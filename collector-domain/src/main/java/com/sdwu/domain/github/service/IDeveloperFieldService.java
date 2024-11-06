@@ -17,5 +17,5 @@ public interface IDeveloperFieldService {
     PageResult<Developer> getDevelopersByFieldsPage(DevelopersByFieldReqVo developersByFieldReqVo);
 
 
-
+    List<String> getDeveloperFields();
 }

@@ -150,6 +150,15 @@ public class GitHubController {
                 .build();
     }
 
+    //获得领域
+    @GetMapping("getDeveloperFields")
+    public Response getDeveloperFields(){
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(developerFieldService.getDeveloperFields())
+                .build();
+    }
     //测试ChatGlm
     @GetMapping("testChatGlm")
     public Response testChatGlm() throws JsonProcessingException {

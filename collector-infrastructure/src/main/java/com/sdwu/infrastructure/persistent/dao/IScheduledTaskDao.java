@@ -9,6 +9,7 @@ import com.sdwu.types.model.PageResult;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public interface IScheduledTaskDao extends BaseMapperX<ScheduledTaskPO> {
 
@@ -40,5 +41,14 @@ public interface IScheduledTaskDao extends BaseMapperX<ScheduledTaskPO> {
     default List<ScheduledTaskPO> findAllByStatusIn(List<String> list){
         return selectList(new LambdaQueryWrapperX<ScheduledTaskPO>()
                 .in(ScheduledTaskPO::getStatus, list));
+    };
+
+    default List<String> getDeveloperFields(){
+        List<ScheduledTaskPO> scheduledTaskPOS = selectList(new LambdaQueryWrapperX<ScheduledTaskPO>()
+                .eq(ScheduledTaskPO::getStatus, "COMPLETED"));
+        return scheduledTaskPOS.stream()
+                .map(ScheduledTaskPO::getField)
+                .distinct()
+                .collect(Collectors.toList());
     };
 }

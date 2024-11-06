@@ -123,4 +123,9 @@ public class ScheduledTaskRepository implements IScheduledTaskRepository {
                     .collect(Collectors.toList());
 
     }
+
+    @Override
+    public List<String> getDeveloperFields() {
+        return scheduledTaskDao.getDeveloperFields();
+    }
 }

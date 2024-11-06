@@ -93,7 +93,7 @@ public class ChatGlmApiImpl implements IChatGlmApi{
                 "对地理位置有一定了解的用户。\n" +
                 "\n" +
                 "## 响应（Response）\n" +
-                "以文本形式返回国家，格式为“国家”。\n" +
+                "以文本形式返回国家，格式为“国家+置信度”。\n" +
                 "\n" +
                 "## 工作流程（Workflow）\n" +
                 "1. 确定用户询问的地理位置。\n" +
@@ -112,6 +112,7 @@ public class ChatGlmApiImpl implements IChatGlmApi{
                 "## 注意事项\n" +
                 "- 保持回答的简洁性，不涉及任何政治立场。\n" +
                 "- 回复国家的中文。\n" +
+                "只需回答置信度最高的国家和它置信度，置信度为1-100%的数值，置信度低的数据为 N/A 值"+
                 "- 若用户询问的地理位置存在争议，按照国际普遍认知回答。");
         messages.add(chatMessage);
         String requestId = String.format(requestIdTemplate, System.currentTimeMillis());

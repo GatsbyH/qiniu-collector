@@ -19,4 +19,6 @@ public interface IScheduledTaskRepository {
     boolean updateScheduledTaskRUNNING(String field, String running);
 
     List<ScheduledTask> findAllByStatusIn(List<String> list);
+
+    List<String> getDeveloperFields();
 }

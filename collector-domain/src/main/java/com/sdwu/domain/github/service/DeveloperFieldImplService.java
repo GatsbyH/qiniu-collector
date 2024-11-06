@@ -134,4 +134,9 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
         PageResult<Developer> developersByFields = githubUserRepository.getDevelopersByFieldsPage(developersByFieldReqVo);
         return developersByFields;
     }
+
+    @Override
+    public List<String> getDeveloperFields() {
+        return scheduledTaskRepository.getDeveloperFields();
+    }
 }

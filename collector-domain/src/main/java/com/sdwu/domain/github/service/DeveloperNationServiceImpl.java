@@ -25,6 +25,9 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
         if (userInfo.get("location") != null){
 //            String country = moonShotApi.getCountry(userInfo.getString("location"));
             String country = chatGlmApi.getCountry(userInfo.getString("location"));
+            if (country != null && country.contains("N/A")) {
+                return "N/A";
+            }
             return country;
 //            return userInfo.getString("location");
         }
@@ -37,6 +40,9 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
 //        String country = moonShotApi.getCountryByUserRelations(followersLocations);
         String country = chatGlmApi.getCountryByUserRelations(followersLocations);
 //        log.info("followersLocations: " + followersLocations);
+        if (country != null && country.contains("N/A")) {
+            return "N/A";
+        }
         return country;
     }
 }

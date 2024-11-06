@@ -1011,16 +1011,29 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         return new RankResult(level, rank * 100);
     }
 
-    private static String determineLevel(double rank) {
-        double[] thresholds = {1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100};
-        String[] levels = {"S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"};
+//    private static String determineLevel(double rank) {
+//        double[] thresholds = {1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100};
+//        String[] levels = {"S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"};
+//
+//        for (int i = 0; i < thresholds.length; i++) {
+//            if (rank * 100 <= thresholds[i]) {
+//                return levels[i];
+//            }
+//        }
+//        return "Unknown"; // fallback in case of no match
+//    }
 
-        for (int i = 0; i < thresholds.length; i++) {
-            if (rank * 100 <= thresholds[i]) {
+    private static String determineLevel(double rank) {
+        // 阈值和等级名称，分数越高等级越低
+        double[] thresholds = {0, 33.33, 66.66};
+        String[] levels = {"高级工程师", "中级工程师", "初级工程师"};
+
+        for (int i = thresholds.length - 1; i >= 0; i--) {
+            if (rank * 100 >= thresholds[i]) {
                 return levels[i];
             }
         }
-        return "Unknown"; // fallback in case of no match
+        return "未知"; // fallback in case of no match
     }
 
 }
