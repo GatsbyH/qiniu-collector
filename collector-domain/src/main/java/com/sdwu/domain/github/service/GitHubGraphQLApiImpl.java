@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.types.exception.AppException;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Slf4j
@@ -656,26 +658,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             "    user(login: $login) {\n" +
             "      name\n" +
             "      login\n" +
-            "      contributionsCollection {\n" +
-            "        totalCommitContributions,\n" +
-            "        totalPullRequestReviewContributions\n" +
-            "      }\n" +
-            "      repositoriesContributedTo(first: 1, contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]) {\n" +
-            "        totalCount\n" +
-            "      }\n" +
-            "      pullRequests(first: 1) {\n" +
-            "        totalCount\n" +
-            "      }\n" +
             "      mergedPullRequests: pullRequests(states: MERGED) @include(if: $includeMergedPullRequests) {\n" +
-            "        totalCount\n" +
-            "      }\n" +
-            "      openIssues: issues(states: OPEN) {\n" +
-            "        totalCount\n" +
-            "      }\n" +
-            "      closedIssues: issues(states: CLOSED) {\n" +
-            "        totalCount\n" +
-            "      }\n" +
-            "      followers {\n" +
             "        totalCount\n" +
             "      }\n" +
             "      repositoryDiscussions @include(if: $includeDiscussions) {\n" +
@@ -689,7 +672,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             "  }";
 
     @Override
-    public Map<String, Integer> fetchTopLanguages(String username) {
+    public List<LanguageCountRespVo> fetchTopLanguages(String username) {
         String fetchGitHubApi= null;
         Boolean includeMergedPullRequests = true;
         Boolean includeDiscussions = true;
@@ -755,17 +738,28 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         log.info("languagesNodes: {}", languagesNodes);
 
 
-        Map<String, Integer> languageCount = new HashMap<>();
-        for (int i = 0; i < languagesNodes.size(); i++) { // 使用 size() 代替 length()
-            JSONObject languageNode = languagesNodes.getJSONObject(i);
-            String language = languageNode.getString("name");
-            languageCount.put(language, languageCount.getOrDefault(language, 0) + 1);
-        }
+        // 使用 ConcurrentHashMap 来存储中间结果，因为它是线程安全的
+        ConcurrentHashMap<String, LanguageCountRespVo> languageMap = new ConcurrentHashMap<>();
 
+        // 使用并行流处理 languagesNodes
+        languagesNodes.parallelStream().forEach(languageNode -> {
+            JSONObject node = (JSONObject) languageNode;
+            String language = node.getString("name");
+            languageMap.compute(language, (key, existingValue) -> {
+                if (existingValue == null) {
+                    return new LanguageCountRespVo(key, 1); // 创建新的 LanguageCountRespVo 对象
+                } else {
+                    existingValue.setA(existingValue.getA() + 1); // 增加计数
+                    return existingValue;
+                }
+            });
+        });
+        // 将 ConcurrentHashMap 中的结果转换为 List<LanguageCountRespVo>
+        List<LanguageCountRespVo> languageCountRespVos = new ArrayList<>(languageMap.values());
         // 现在 languageCount 包含了每个语言和其对应的代码量
-        log.info("languageCount: {}", languageCount);
+        log.info("languageCount: {}", languageCountRespVos);
 
-        return languageCount;
+        return languageCountRespVos;
     }
 
     private void setGitHubAfterPageByTopic(String topic, String after) {

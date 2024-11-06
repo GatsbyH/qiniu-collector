@@ -1,11 +1,13 @@
 package com.sdwu.domain.github.service;
 
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -48,7 +50,7 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
     }
 
     @Override
-    public Map<String, Integer> getDeveloperLanguage(String username) {
+    public List<LanguageCountRespVo> getDeveloperLanguage(String username) {
         return gitHubGraphQLApi.fetchTopLanguages(username);
     }
 }

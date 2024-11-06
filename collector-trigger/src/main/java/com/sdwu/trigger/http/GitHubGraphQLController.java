@@ -2,6 +2,7 @@ package com.sdwu.trigger.http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.service.ITalentRankGraphQLService;
 import com.sdwu.types.annotation.Loggable;
 import com.sdwu.types.enums.ResponseCode;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -69,8 +71,9 @@ public class GitHubGraphQLController {
     }
     //根据账号搜索用户使用的语言
     @GetMapping("getDeveloperLanguage")
+    @Loggable
     public Response getDeveloperLanguage(String username)  {
-        Map<String, Integer> developerLanguage = talentRankGraphQLService.getDeveloperLanguage(username);
+        List<LanguageCountRespVo> developerLanguage = talentRankGraphQLService.getDeveloperLanguage(username);
         return Response.builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())

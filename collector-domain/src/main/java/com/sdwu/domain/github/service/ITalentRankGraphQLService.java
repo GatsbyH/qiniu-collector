@@ -1,9 +1,11 @@
 package com.sdwu.domain.github.service;
 
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public interface ITalentRankGraphQLService {
@@ -19,5 +21,5 @@ public interface ITalentRankGraphQLService {
 
     boolean fetchUserByRepoDescription(String field);
 
-    Map<String, Integer> getDeveloperLanguage(String username);
+    List<LanguageCountRespVo> getDeveloperLanguage(String username);
 }

@@ -1,10 +1,11 @@
 package com.sdwu.domain.github.service;
 
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 public interface IGitHubGraphQLApi {
     String fetchUserByUsername(String username);
@@ -20,5 +21,5 @@ public interface IGitHubGraphQLApi {
 
     boolean fetchUserByRepoDescription(String description);
 
-    Map<String, Integer> fetchTopLanguages(String username);
+    List<LanguageCountRespVo> fetchTopLanguages(String username);
 }
