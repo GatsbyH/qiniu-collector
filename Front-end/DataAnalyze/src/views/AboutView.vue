@@ -28,7 +28,7 @@
              </el-icon> 
            </button>
            </div>
-           <div class="sd-spacing">
+           <!-- <div class="sd-spacing">
              <span>
                已选
                <span></span>
@@ -39,7 +39,7 @@
               <span></span>
               结果
              </span>
-           </div>
+           </div> -->
            <div class="search-result">
              <div class="item-label">开发者搜索</div>
              <label class="sd-label">
@@ -208,11 +208,14 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .title-prefix{
   width: 4px;
   height: 16px;
+  font-weight: 900;
   display:inline-block;
   border-radius: 100px;
   background-color:#0068FF ;
 }
 .item-label{
+  display: flex;
+  align-items: center;
   font-size: 18px;
   color:#141933;
   font-weight: 500;
@@ -240,7 +243,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 }
 .sd-input{
     width: 100%;
-    height: 27px;
+    height: 40px;
    
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -261,7 +264,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .sd-input-addon{
     width: 16px;
     height: 100%;
-    line-height: 27px;
+    line-height: 40px;
     position:absolute;
     top: 0;
     right: 8px;
