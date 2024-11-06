@@ -40,19 +40,24 @@
               结果
              </span>
            </div> -->
-           <div class="search-result">
-             <div class="item-label">开发者搜索</div>
-             <label class="sd-label">
-             <input placeholder="搜索开发者" class="sd-input"/>
-             <span class="sd-input-addon">
+          <div class="search-result">
+            <div class="item-label">开发者搜索</div>
+            <label class="sd-label">
+              <input
+                v-model="searchQuery"
+                placeholder="搜索开发者"
+                class="sd-input"
+                @keyup.enter="handleSearch"
+              />
+              <span class="sd-input-addon" @click="handleSearch">
               <el-icon>
-                <search />
+                <Search />
               </el-icon>
-             </span>
-             </label>
-           </div>
+              </span>
+            </label>
+          </div>
           <div class="search-type">
-            <div class="item-label">开发者类型</div>
+            <div class="item-label">开发者领域</div>
             <el-checkbox
               v-for="item in fields"
               :key="item"
@@ -71,6 +76,7 @@
              <div class="item-label">开发者国家</div>
              <el-checkbox v-model="selectedNation.value[item]" :label="item" v-for="item in nationArrs" class="checkbox"></el-checkbox>
            </div>
+
         </div>
 
         <div class="right">
@@ -116,7 +122,13 @@ let userData = reactive({
 })
 
 const selectedFields = ref([]) // 用于存储选中的值
-
+// 查询参数对象
+const queryParams = reactive({
+  field: '',
+  nation: '',
+  pageNum: 1,
+  pageSize: 10
+})
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
 const nationArrs = [
   '新加坡',
@@ -129,6 +141,27 @@ const nationArrs = [
 let selectedNation = reactive({
   value:{}
 })
+const searchQuery = ref('') // 添加搜索关键词
+// 监听选择变化，确保只能选中一个
+watch(selectedFields, (newVal) => {
+  if (newVal.length > 1) {
+    // 只保留最后选中的值
+    selectedFields.value = [newVal[newVal.length - 1]]
+  }
+})
+const handleSearch = () => {
+  // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
+  console.log('搜索关键词:', searchQuery.value)
+  console.log('选中的开发者类型:', selectedFields.value[0])
+
+  // 示例 API 调用
+  // searchDevelopers({
+  //   keyword: searchQuery.value,
+  //   fields: selectedFields.value
+  // })
+}
+
+
 
 const fields = ref('')
 let number = ref(0)

@@ -19,7 +19,7 @@
             <img src="../assets/favicon.svg">
             <span>github数据</span>
           </div>
- 
+
             <div class="flex-s-between">
                 <div>
                     Total Stars
@@ -61,7 +61,7 @@
                 <div>
                   {{ RankData.data.contributeTo }}
                 </div>
-              
+
             </div>
         </div>
     </el-card>
@@ -96,6 +96,7 @@ let imgUrl = ref('')
 const RankData = reactive({
   data:{}
 })
+
 const userLang = reactive({
   data:{}
 })
