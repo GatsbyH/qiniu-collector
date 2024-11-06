@@ -229,7 +229,7 @@ chart.render();
     background-color: #49c123;
 }
 .rank,.nation{
-    width: 20px;
+    width: 40px;
     height: 20px;
     /* text-align: center; */
     border-radius: 20%;
