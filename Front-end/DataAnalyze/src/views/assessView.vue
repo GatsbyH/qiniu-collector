@@ -72,7 +72,7 @@
            <span style="font-size:18px;margin-left: 10px;">能力维度</span>
         </div>
         <div>
-          <img :src="`https://github-readme-activity-graph.vercel.app/graph?username=${userName}&theme=dracula`">
+          <img width="500" height="340" :src="`https://github-readme-activity-graph.vercel.app/graph?username=${userName}&theme=dracula`">
         </div>
     </div>
 </div>
