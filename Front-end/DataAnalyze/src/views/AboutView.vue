@@ -4,7 +4,7 @@
       <div class="icon">
         <el-icon>
          <fold />
-        </el-icon>   
+        </el-icon>
       </div>
         <div class="searchBar">
         <div class="icon">
@@ -14,7 +14,7 @@
       </div>
       </div> -->
       <div class="contain flex-a-center">
-        
+
         <div class="left">
            <div class="search-head flex-a-center">
             <div class="head-title item-label">
@@ -25,7 +25,7 @@
              <span style="margin-right:5px;">清除</span>
              <el-icon>
                <circle-close-filled />
-             </el-icon> 
+             </el-icon>
            </button>
            </div>
            <!-- <div class="sd-spacing">
@@ -51,12 +51,22 @@
              </span>
              </label>
            </div>
-           <div class="search-type">
-               <div class="item-label">语言</div>
-                <ul>
-                  <li v-for="item in languages" :key="item" class="list-lang-item">{{ item }}</li>
-                </ul>
-           </div>
+          <div class="search-type">
+            <div class="item-label">开发者类型</div>
+            <el-checkbox
+              v-for="item in fields"
+              :key="item"
+              v-model="selectedFields"
+              :label="item"
+              class="checkbox"
+            ></el-checkbox>
+          </div>
+<!--           <div class="search-type">-->
+<!--               <div class="item-label">语言</div>-->
+<!--                <ul>-->
+<!--                  <li v-for="item in languages" :key="item" class="list-lang-item">{{ item }}</li>-->
+<!--                </ul>-->
+<!--           </div>-->
            <div class="search-nation">
              <div class="item-label">开发者国家</div>
              <el-checkbox v-model="selectedNation.value[item]" :label="item" v-for="item in nationArrs" class="checkbox"></el-checkbox>
@@ -92,15 +102,21 @@
 
 
 <script setup>
-import { shallowReactive,reactive,ref,getCurrentInstance } from 'vue';
+import { shallowReactive, reactive, ref, getCurrentInstance, onMounted } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
-import { fuzzySearch } from '../Utils/request'
+import { fuzzySearch, getDeveloperFields } from '../Utils/request'
+
+
+
 import { watch } from 'vue';
 const router = useRouter()
 const queryName = useRoute().query.username
 let userData = reactive({
   data:[]
 })
+
+const selectedFields = ref([]) // 用于存储选中的值
+
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
 const nationArrs = [
   '新加坡',
@@ -113,6 +129,8 @@ const nationArrs = [
 let selectedNation = reactive({
   value:{}
 })
+
+const fields = ref('')
 let number = ref(0)
 const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   console.log("context",globalProperties.$api)
@@ -152,6 +170,13 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   const changeAssessView = (user)=>{
      router.push({path:'/assess',query:{username:user}})
   }
+  onMounted(()=>{
+    getDeveloperFields().then(res=>{
+      console.log("res",res.data.data)
+      fields.value = res.data.data
+      console.log("fields",fields.value[1])
+    })
+  })
 
 </script>
 <style scoped>
@@ -185,7 +210,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .icon{
   display: inline;
   margin-left: 10px;
- 
+
 }
 .searchBar input{
   height: 48px;
@@ -244,7 +269,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .sd-input{
     width: 100%;
     height: 40px;
-   
+
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -285,7 +310,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .item-label li:nth-of-type(odd){
    background:#00ccff;
   }
-.item-label li:nth-of-type(even){ 
+.item-label li:nth-of-type(even){
   background:#ffcc00;
  }
  .list-item:hover{

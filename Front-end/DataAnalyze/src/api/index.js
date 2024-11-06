@@ -3,14 +3,19 @@
  */
 import { request } from '../Utils/request'
 export default {
- 
-    getRank(params) {
+
+
+
+
+
+getRank(params) {
         return request({
             url: '/GraphQL/getTalentRankByUserName',
             data: {username:params},
             method: 'get'
         })
     },
+
     getDevelopers(page){
         return request({
             url: '/getDevelopersByFields',
@@ -38,6 +43,6 @@ export default {
         })
     }
 
-    
+
 
 }

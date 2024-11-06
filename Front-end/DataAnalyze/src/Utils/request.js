@@ -9,16 +9,23 @@ const TOKEN_INVALID  = 'Token认证失败,请重新登录'
 const NETWORK_ERROR = '网络请求异常,请稍后重试'
 //创建 axios 实例对象 ，添加全局配置
 const service = axios.create({
-       
- baseURL: "http://106.54.234.202:8080",
+
+ // baseURL: "http://106.54.234.202:8080",
+ baseURL: "http://127.0.0.1:8080",
  timeout: 8000
 })
+
+export const getDeveloperFields=function(){
+  return request({
+    url: '/getDeveloperFields'
+  })
+}
 
 export const fuzzySearch = function (userName){
    return axios({
       method: 'get',
       url: `https://api.github.com/search/users?q=${userName}`
-   }) 
+   })
 }
 export const getDeveloperAurl = function(userName){
    return axios({
