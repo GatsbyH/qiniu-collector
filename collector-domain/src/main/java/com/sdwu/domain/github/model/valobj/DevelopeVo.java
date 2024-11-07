@@ -20,4 +20,6 @@ public class DevelopeVo {
     private RankResult rankResult;
     private String assessment;
     private String field;
+    private String nation;
+    private String avatarUrl;
 }

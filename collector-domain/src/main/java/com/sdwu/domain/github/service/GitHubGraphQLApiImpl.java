@@ -61,6 +61,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             "    user(login: $login) {\n" +
             "      name\n" +
             "      login\n" +
+            "      avatarUrl\n" +
 //            "      websiteUrl\n" +
 //            "      bio\n" +
             "      contributionsCollection {\n" +
@@ -131,6 +132,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         String blog=null;
         String bio=null;
 
+        String avatarUrl=null;
         JSONArray topics=new JSONArray();
         while (hasNextPage) {
             Map<String, Object> variables = new HashMap<>();
@@ -166,6 +168,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             JSONObject user = data.getJSONObject("user");
 //            blog=user.getString("websiteUrl");
 //            bio=user.getString("bio");
+            avatarUrl=user.getString("avatarUrl");
             totalFollowers = user.getJSONObject("followers").getIntValue("totalCount");
             totalReviews = user.getJSONObject("contributionsCollection").getIntValue("totalPullRequestReviewContributions");
             totalCommits = user.getJSONObject("contributionsCollection").getIntValue("totalCommitContributions");
@@ -229,6 +232,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         DevelopeVo developeVo = new DevelopeVo().builder()
                 .totalCommits(totalCommits)
                 .totalPRs(totalPRs)
+                .avatarUrl(avatarUrl)
 //                .field(field)
 //                .assessment(assessment)
                 .totalIssues(totalIssues)
