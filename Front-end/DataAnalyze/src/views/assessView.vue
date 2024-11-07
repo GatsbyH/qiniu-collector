@@ -1,5 +1,8 @@
 <template>
-<div class="user-assess">
+<!--<div class="user-assess">-->
+<div class="user-assess" v-loading="loading"
+     element-loading-text="加载中..."
+     element-loading-background="rgba(255, 255, 255, 0.8)">
     <div class="assess-center">
     <div class="left">
     <el-card>
@@ -85,6 +88,9 @@ import { getDeveloperAurl } from '../Utils/request'
 import { ref,getCurrentInstance ,onMounted} from 'vue'
 import { useRoute }  from 'vue-router'
 import { reactive } from 'vue';
+
+const loading = ref(false)
+
 const route = useRoute()
 const { appContext : { config: { globalProperties} } } = getCurrentInstance();
   const getRank = globalProperties.$api.getRank
@@ -114,10 +120,15 @@ let data = [
 
 ];
 const getDeveloperInfo = async ()=>{
+  loading.value = true
   let result = await getRank(userName.value)
   data = await getDeveloperLanguages(userName.value)
   const imgResult = await getDeveloperAurl(userName.value)
-  const field = await getDeveloperField(userName.value)
+  const field = await getDeveloperField(userName.value).finally(
+    () => {
+      loading.value = false
+    }
+  )
   imgUrl.value = imgResult.data.avatar_url
   RankData.data = result.data.data
   userLang.data = data.data.data
