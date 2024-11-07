@@ -5,3 +5,9 @@
 - 项目地址：https://github.com/GatsbyH/qiniu-collector
 - 管理端前端项目地址：https://github.com/GatsbyH/qiniu-collector-ui
 ![架构图](docs/Snipaste_2024-10-31_14-52-25.png)
+![用户端首页](docs/Snipaste_2024-11-07_01-01-21.png)
+![筛选页](docs/Snipaste_2024-11-07_18-56-01.png)
+![个人评估页](docs/Snipaste_2024-11-07_18-55-46.png)
+![管理端首页](docs/Snipaste_2024-11-07_18-56-15.png)
+![定时任务](docs/Snipaste_2024-11-07_00-59-33.png)
+![领域搜索](docs/Snipaste_2024-11-07_18-56-09.png)
