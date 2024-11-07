@@ -6,8 +6,6 @@ export default {
 
 
 
-
-
 getRank(params) {
         return request({
             url: '/GraphQL/getTalentRankByUserName',

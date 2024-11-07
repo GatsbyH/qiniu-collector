@@ -89,9 +89,11 @@
            </div>
            <ul>
             <li v-for="item in userData.data" :key="item.login" class="list-item flex-a-center" @click="changeAssessView(item.login)">
-              <img :src="item.avatar_url" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
-              <a :href="item.html_url" class="list-item-a">{{ item.login }}</a>
-            </li>
+              <img v-if="item.avatar_url" :src="item.avatar_url" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
+              <img v-if="item.avatarUrl" :src="item.avatarUrl" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
+              <a v-if="item.htmlUrl" :href="item.htmlUrl" class="list-item-a">{{ item.login }}</a>
+              <a v-if="item.html_url"  :href="item.html_url" class="list-item-a">{{ item.login }}</a>
+              <span v-if="item.talentRank" class="list-item-a">{{ item.talentRank }}</span></li>
            </ul>
            <div class="block">
     <el-pagination
@@ -110,7 +112,7 @@
 <script setup>
 import { shallowReactive, reactive, ref, getCurrentInstance, onMounted } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
-import { fuzzySearch, getDeveloperFields } from '../Utils/request'
+import { fuzzySearch, getDeveloperFields, getDevelopersPage } from '../Utils/request'
 
 
 
@@ -147,13 +149,23 @@ watch(selectedFields, (newVal) => {
   if (newVal.length > 1) {
     // 只保留最后选中的值
     selectedFields.value = [newVal[newVal.length - 1]]
+    handleSearch()
   }
 })
 const handleSearch = () => {
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
   console.log('搜索关键词:', searchQuery.value)
   console.log('选中的开发者类型:', selectedFields.value[0])
-
+  queryParams.field = selectedFields.value[0]
+  queryParams.nation = selectedNation.value
+  queryParams.pageNum = 1
+  console.log("queryParams",queryParams)
+  console.log("queryParams",queryParams)
+  getDevelopersPage(queryParams).then(res => {
+    userData.data = res.data.data.list
+    number.value = res.data.data.total
+    console.log("res",res)
+  })
   // 示例 API 调用
   // searchDevelopers({
   //   keyword: searchQuery.value,

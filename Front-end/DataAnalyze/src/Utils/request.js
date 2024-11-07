@@ -10,14 +10,28 @@ const NETWORK_ERROR = '网络请求异常,请稍后重试'
 //创建 axios 实例对象 ，添加全局配置
 const service = axios.create({
 
- // baseURL: "http://106.54.234.202:8080",
- baseURL: "http://127.0.0.1:8080",
+ baseURL: "http://106.54.234.202:8080",
+ // baseURL: "http://127.0.0.1:8080",
+ // baseURL: "/prod-api",
  timeout: 8000
 })
 
 export const getDeveloperFields=function(){
   return request({
     url: '/getDeveloperFields'
+  })
+}
+
+
+export const getDevelopersPage=function(params){
+  return request({
+    url: '/getDevelopersByFields',
+    data:{
+      nation:params.nation,
+      field:params.field,
+      page: params.page,
+      pageSize: params.pageSize
+    }
   })
 }
 
