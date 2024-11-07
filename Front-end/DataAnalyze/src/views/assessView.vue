@@ -425,10 +425,10 @@ const getDeveloperInfo = async () => {
     // const imgPromise = getDeveloperAurl(userName.value);
     const assessPromise = getDeveloperTechnicalAbility(userName.value);
     const fieldPromise = getDeveloperField(userName.value);
-
+    const nationPromise = getDeveloperNation(userName.value)
     // 等待所有请求完成
-    const [rankResult, languageResult, assessResult, fieldResult] = await Promise.all([
-      rankPromise, languagePromise, assessPromise, fieldPromise
+    const [rankResult, languageResult, assessResult, fieldResult, nationResult] = await Promise.all([
+      rankPromise, languagePromise, assessPromise, fieldPromise,nationPromise
     ]);
 
     // 更新状态
@@ -439,6 +439,7 @@ const getDeveloperInfo = async () => {
     content.value = assessResult.data.data;
     fieldRef.value = fieldResult.data.data;
     loading.value = false;
+    nation.value = nationResult.data.data;
 
     // 准备渲染雷达图
     chartReady.value = true;
