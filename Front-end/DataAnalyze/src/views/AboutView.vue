@@ -21,7 +21,7 @@
              <span class="title-prefix"></span>
              开发者筛选
            </div>
-           <button class="sd-button-text flex-a-center">
+           <button class="sd-button-text flex-a-center" @click="clearFilters">
              <span style="margin-right:5px;">清除</span>
              <el-icon>
                <circle-close-filled />
@@ -73,17 +73,29 @@
 <!--                  <li v-for="item in languages" :key="item" class="list-lang-item">{{ item }}</li>-->
 <!--                </ul>-->
 <!--           </div>-->
-           <div class="search-nation">
-             <div class="item-label">开发者国家</div>
-             <el-checkbox
-               v-for="item in selectedNation.value"
-               :key="item"
-               v-model="selectedNations[item]"
-               :label="item"
-               class="checkbox"
-               @change="handleNationChange"
-             ></el-checkbox>
-           </div>
+<!--           <div class="search-nation">-->
+<!--             <div class="item-label">开发者国家</div>-->
+<!--             <el-checkbox-->
+<!--               v-for="item in selectedNation.value"-->
+<!--               :key="item"-->
+<!--               v-model="selectedNations[item]"-->
+<!--               :label="item"-->
+<!--               class="checkbox"-->
+<!--               @change="handleNationChange"-->
+<!--             ></el-checkbox>-->
+<!--           </div>-->
+
+          <div class="search-nation">
+            <div class="item-label">开发者国家</div>
+            <el-checkbox
+              v-for="item in nationArrs"
+              :key="item"
+              v-model="selectedNations"
+              :label="item"
+              class="checkbox"
+              @change="handleNationChange"
+            ></el-checkbox>
+          </div>
 
         </div>
 
@@ -144,14 +156,29 @@ const nationArrs = [
 
 // 处理国家选择变化
 const handleNationChange = () => {
-  const selectedNationList = Object.entries(selectedNations)
-    .filter(([_, value]) => value)
-    .map(([key]) => key)
+  // 先将所有选项设置为 false
+  Object.keys(selectedNations).forEach(key => {
+    if (key !== currentNation) {
+      selectedNations[key] = false
+    }
+  })
 
-  queryParams.nation = selectedNationList.join(',')
+  // 直接使用当前选中的国家
+  queryParams.nation = selectedNations[currentNation] ? currentNation : ''
   handleSearch()
 }
-
+// 清除功能
+const clearFilters = () => {
+  // 清除所有选中状态
+  Object.keys(selectedNations).forEach(key => {
+    selectedNations[key] = false
+  })
+  selectedFields.value = []
+  searchQuery.value = ''
+  queryParams.nation = ''
+  queryParams.field = ''
+  handleSearch()
+}
 
 
 let selectedNation = reactive({
@@ -166,6 +193,7 @@ watch(selectedFields, (newVal) => {
     handleSearch()
   }
 })
+
 
 let queryParams = {
   field: '',

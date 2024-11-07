@@ -13,7 +13,7 @@ const service = axios.create({
  baseURL: "http://106.54.234.202:8080",
  // baseURL: "http://127.0.0.1:8080",
  // baseURL: "/prod-api",
- timeout: 8000
+ timeout: 30000
 })
 
 
