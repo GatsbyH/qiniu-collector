@@ -124,13 +124,6 @@ let userData = reactive({
 })
 
 const selectedFields = ref([]) // 用于存储选中的值
-// 查询参数对象
-const queryParams = reactive({
-  field: '',
-  nation: '',
-  pageNum: 1,
-  pageSize: 10
-})
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
 const nationArrs = [
   '新加坡',
@@ -152,25 +145,40 @@ watch(selectedFields, (newVal) => {
     handleSearch()
   }
 })
+
+let queryParams = {
+  field: '',
+  nation: '',
+  pageNum: 1,
+  pageSize: 10
+}
+
+
 const handleSearch = () => {
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
   console.log('搜索关键词:', searchQuery.value)
   console.log('选中的开发者类型:', selectedFields.value[0])
   queryParams.field = selectedFields.value[0]
   queryParams.nation = selectedNation.value
-  queryParams.pageNum = 1
-  console.log("queryParams",queryParams)
   console.log("queryParams",queryParams)
   getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
     console.log("res",res)
   })
-  // 示例 API 调用
-  // searchDevelopers({
-  //   keyword: searchQuery.value,
-  //   fields: selectedFields.value
-  // })
+}
+const reset = () => {
+  // Reset search query and selected fields/nation
+  searchQuery.value = '';
+  selectedFields.value = [];
+  selectedNation.value = { value: {} };
+
+  // Clear the developer data and number of results
+  userData.data = [];
+  number.value = 0;
+
+  // Optionally, reset any other values
+  console.log("数据已清空");
 }
 
 
@@ -201,6 +209,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     console.log(userData)
   }
   const handleNextClick = async (page)=>{
+    reset()
     const result = await getDevelopers(page+1)
     userData.data =[...result.data.data.list]
     console.log('page',result)
