@@ -39,6 +39,23 @@ export const getDevelopersPage=function(params){
   })
 }
 
+export const getDeveloperTechnicalAbility=function(username){
+  return request({
+    url: '/getDeveloperTechnicalAbility',
+    data:{
+      username:username
+    }
+  })
+}
+
+export const getDeveloperNation=function(username){
+  return request({
+    url: '/getDeveloperNation',
+    data:{
+      username:username
+    }
+  })
+}
 
 export const getDeveloperNationOptionsByField=function(params){
   return request({
