@@ -120,9 +120,11 @@
     <el-pagination
      layout="prev, pager, next"
      @current-change="handleCurrentClick"
-     @prevClick="handlePrevClick"
-     @next-click="handleNextClick"
-    :total="number"> </el-pagination>
+    :total="number">
+    </el-pagination>
+
+<!--             @prevClick="handlePrevClick"-->
+<!--             @next-click="handleNextClick"-->
   </div>
         </div>
       </div>
@@ -158,7 +160,8 @@ const nationArrs = [
 const currentNation = ref('')
 
 // 修改处理国家选择变化的函数
-const handleNationChange = async (nation) => {
+const handleNationChange =  (nation) => {
+  queryParams.pageNum = 1
   // // 更新当前选中的国家
   // currentNation.value = nation
   // console.log('当前选中的国家：', currentNation.value)
@@ -171,20 +174,15 @@ const handleNationChange = async (nation) => {
   // // 更新查询参数
   // queryParams.nation = currentNation.value
   // handleSearch()
-  loading.value = true
   try {
-
     // 更新当前选中的国家
     currentNation.value = nation
     // 更新查询参数
     queryParams.nation = nation
-
     // 执行搜索
-    await handleSearch()
+    handleSearch()
   } catch (error) {
     console.error('处理国家变化出错:', error)
-  } finally {
-    loading.value = false
   }
 }
 
@@ -234,8 +232,8 @@ const handleFieldChange = async () => {
   // queryParams.nation = ''
   // currentNation.value = '' // 清除当前选中的国家
   // handleSearch();
-  loading.value = true
   try {
+    loading.value = true
     // 清除国家选择
     currentNation.value = ''
     selectedNation.value = {} // 如果没有选择领域，清空国家选项
@@ -244,9 +242,15 @@ const handleFieldChange = async () => {
     // 更新领域
     queryParams.field = selectedFields.value[0]
 
+
     // 先获取新的国家选项
     if (queryParams.field) {
-      const nationRes = await getDeveloperNationOptionsByField(queryParams)
+      const nationRes = await getDeveloperNationOptionsByField(queryParams).finally(
+        () => {
+          // 清除过滤器
+          loading.value = false
+        }
+      )
       selectedNation.value = nationRes.data.data
     } else {
       selectedNation.value = {} // 如果没有选择领域，清空国家选项
@@ -312,8 +316,23 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     console.log("prevClick",page)
   }
   const handleCurrentClick = async (page)=>{
-    const result = await getDevelopers(page)
-    userData.data =[...result.data.data.list]
+    // const result = await getDevelopers(page)
+    queryParams.pageNum = null
+    queryParams.pageNum = page
+    console.log("changePage queryParams.pageNum",queryParams.pageNum)
+    loading.value = true
+    getDevelopersPage(queryParams).then(res => {
+      console.log("queryParams changePage",queryParams)
+      userData.data = res.data.data.list
+      number.value = res.data.data.total
+      console.log("res",res)
+    }).finally(
+      () => {
+        loading.value = false
+      }
+    )
+    // userData.data =[...result.data.data.list]
+    // number.value = result.data.data.total
     console.log('page',result)
     console.log("changePage",page)
     console.log(userData)

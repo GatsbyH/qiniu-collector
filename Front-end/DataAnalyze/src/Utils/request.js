@@ -33,7 +33,8 @@ export const getDevelopersPage=function(params){
       nation:params.nation,
       field:params.field,
       page: params.page,
-      pageSize: params.pageSize
+      pageSize: params.pageSize,
+      pageNum: params.pageNum
     }
   })
 }
