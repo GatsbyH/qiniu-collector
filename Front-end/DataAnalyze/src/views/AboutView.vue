@@ -63,6 +63,7 @@
               :key="item"
               v-model="selectedFields"
               :label="item"
+              @change="handleFieldChange"
               class="checkbox"
             ></el-checkbox>
           </div>
@@ -74,7 +75,14 @@
 <!--           </div>-->
            <div class="search-nation">
              <div class="item-label">开发者国家</div>
-             <el-checkbox v-model="selectedNation.value[item]" :label="item" v-for="item in nationArrs" class="checkbox"></el-checkbox>
+             <el-checkbox
+               v-for="item in selectedNation.value"
+               :key="item"
+               v-model="selectedNations[item]"
+               :label="item"
+               class="checkbox"
+               @change="handleNationChange"
+             ></el-checkbox>
            </div>
 
         </div>
@@ -112,7 +120,7 @@
 <script setup>
 import { shallowReactive, reactive, ref, getCurrentInstance, onMounted } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
-import { fuzzySearch, getDeveloperFields, getDevelopersPage } from '../Utils/request'
+import { fuzzySearch, getDeveloperFields, getDeveloperNationOptionsByField, getDevelopersPage } from '../Utils/request'
 
 
 
@@ -133,6 +141,19 @@ const nationArrs = [
   '澳大利亚',
   '德国'
 ]
+
+// 处理国家选择变化
+const handleNationChange = () => {
+  const selectedNationList = Object.entries(selectedNations)
+    .filter(([_, value]) => value)
+    .map(([key]) => key)
+
+  queryParams.nation = selectedNationList.join(',')
+  handleSearch()
+}
+
+
+
 let selectedNation = reactive({
   value:{}
 })
@@ -154,31 +175,33 @@ let queryParams = {
 }
 
 
+const handleFieldChange = () => {
+  handleSearch();
+};
+const selectedNations = reactive({}) // 用于存储选中状态
+
 const handleSearch = () => {
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
   console.log('搜索关键词:', searchQuery.value)
   console.log('选中的开发者类型:', selectedFields.value[0])
   queryParams.field = selectedFields.value[0]
-  queryParams.nation = selectedNation.value
+  // queryParams.nation = selectedNation.value
   console.log("queryParams",queryParams)
   getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
+    getDeveloperNationOptionsByField(queryParams).then(
+      res => {
+        console.log("nation",res.data.data)
+        selectedNation.value = res.data.data
+        // 重置选中状态
+        Object.keys(selectedNations).forEach(key => {
+          selectedNations[key] = false
+        })
+      }
+    )
     console.log("res",res)
   })
-}
-const reset = () => {
-  // Reset search query and selected fields/nation
-  searchQuery.value = '';
-  selectedFields.value = [];
-  selectedNation.value = { value: {} };
-
-  // Clear the developer data and number of results
-  userData.data = [];
-  number.value = 0;
-
-  // Optionally, reset any other values
-  console.log("数据已清空");
 }
 
 
@@ -209,9 +232,11 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     console.log(userData)
   }
   const handleNextClick = async (page)=>{
-    reset()
-    const result = await getDevelopers(page+1)
-    userData.data =[...result.data.data.list]
+    // reset()
+    // const result = await getDevelopers(page+1)
+    queryParams.pageNum += 1;
+    handleSearch()
+    // userData.data =[...result.data.data.list]
     console.log('page',result)
     console.log("changePage",page)
     console.log(userData)

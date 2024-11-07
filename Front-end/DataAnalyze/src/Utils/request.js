@@ -16,6 +16,9 @@ const service = axios.create({
  timeout: 8000
 })
 
+
+
+
 export const getDeveloperFields=function(){
   return request({
     url: '/getDeveloperFields'
@@ -34,6 +37,17 @@ export const getDevelopersPage=function(params){
     }
   })
 }
+
+
+export const getDeveloperNationOptionsByField=function(params){
+  return request({
+    url: '/getDeveloperNationOptionsByField',
+    data:{
+      field:params.field,
+    }
+  })
+}
+
 
 
 
