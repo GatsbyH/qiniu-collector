@@ -1,5 +1,9 @@
 <template>
-  <div class="main">
+<!--  <div class="main"  >-->
+  <div class="main" v-loading="loading"
+       element-loading-text="加载中..."
+       element-loading-background="rgba(255, 255, 255, 0.8)">
+
     <!-- <div class="nav flex-a-center">
       <div class="icon">
         <el-icon>
@@ -73,7 +77,7 @@
 <!--                  <li v-for="item in languages" :key="item" class="list-lang-item">{{ item }}</li>-->
 <!--                </ul>-->
 <!--           </div>-->
-<!--           <div class="search-nation">-->
+           <div class="search-nation">
 <!--             <div class="item-label">开发者国家</div>-->
 <!--             <el-checkbox-->
 <!--               v-for="item in selectedNation.value"-->
@@ -83,19 +87,16 @@
 <!--               class="checkbox"-->
 <!--               @change="handleNationChange"-->
 <!--             ></el-checkbox>-->
-<!--           </div>-->
-
-          <div class="search-nation">
-            <div class="item-label">开发者国家</div>
-            <el-checkbox
-              v-for="item in nationArrs"
-              :key="item"
-              v-model="selectedNations"
-              :label="item"
-              class="checkbox"
-              @change="handleNationChange"
-            ></el-checkbox>
-          </div>
+             <div class="item-label">开发者国家</div>
+             <el-radio-group v-model="currentNation" @change="handleNationChange">
+               <el-radio
+                 v-for="item in selectedNation.value"
+                 :key="item"
+                 :label="item"
+                 class="radio"
+               >{{ item }}</el-radio>
+             </el-radio-group>
+           </div>
 
         </div>
 
@@ -133,6 +134,7 @@
 import { shallowReactive, reactive, ref, getCurrentInstance, onMounted } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
 import { fuzzySearch, getDeveloperFields, getDeveloperNationOptionsByField, getDevelopersPage } from '../Utils/request'
+const loading = ref(false)
 
 
 
@@ -153,26 +155,46 @@ const nationArrs = [
   '澳大利亚',
   '德国'
 ]
+const currentNation = ref('')
 
-// 处理国家选择变化
-const handleNationChange = () => {
-  // 先将所有选项设置为 false
-  Object.keys(selectedNations).forEach(key => {
-    if (key !== currentNation) {
-      selectedNations[key] = false
-    }
-  })
+// 修改处理国家选择变化的函数
+const handleNationChange = async (nation) => {
+  // // 更新当前选中的国家
+  // currentNation.value = nation
+  // console.log('当前选中的国家：', currentNation.value)
+  // // 重置其他国家的选中状态
+  // Object.keys(selectedNations).forEach(key => {
+  //   if (key !== nation) {
+  //     selectedNations[key] = false
+  //   }
+  // })
+  // // 更新查询参数
+  // queryParams.nation = currentNation.value
+  // handleSearch()
+  loading.value = true
+  try {
 
-  // 直接使用当前选中的国家
-  queryParams.nation = selectedNations[currentNation] ? currentNation : ''
-  handleSearch()
+    // 更新当前选中的国家
+    currentNation.value = nation
+    // 更新查询参数
+    queryParams.nation = nation
+
+    // 执行搜索
+    await handleSearch()
+  } catch (error) {
+    console.error('处理国家变化出错:', error)
+  } finally {
+    loading.value = false
+  }
 }
-// 清除功能
+
+// 修改清除过滤器的函数
 const clearFilters = () => {
   // 清除所有选中状态
   Object.keys(selectedNations).forEach(key => {
     selectedNations[key] = false
   })
+  currentNation.value = '' // 清除当前选中的国家
   selectedFields.value = []
   searchQuery.value = ''
   queryParams.nation = ''
@@ -203,8 +225,40 @@ let queryParams = {
 }
 
 
-const handleFieldChange = () => {
-  handleSearch();
+const handleFieldChange = async () => {
+  // // 清除所有选中状态
+  // Object.keys(selectedNations).forEach(key => {
+  //   selectedNations[key] = false
+  // })
+  // selectedNation.value = {}
+  // queryParams.nation = ''
+  // currentNation.value = '' // 清除当前选中的国家
+  // handleSearch();
+  loading.value = true
+  try {
+    // 清除国家选择
+    currentNation.value = ''
+    selectedNation.value = {} // 如果没有选择领域，清空国家选项
+
+    queryParams.nation = ''
+    // 更新领域
+    queryParams.field = selectedFields.value[0]
+
+    // 先获取新的国家选项
+    if (queryParams.field) {
+      const nationRes = await getDeveloperNationOptionsByField(queryParams)
+      selectedNation.value = nationRes.data.data
+    } else {
+      selectedNation.value = {} // 如果没有选择领域，清空国家选项
+    }
+
+    // 然后搜索开发者
+    await handleSearch()
+  } catch (error) {
+    console.error('处理领域变化出错:', error)
+  } finally {
+    loading.value = false
+  }
 };
 const selectedNations = reactive({}) // 用于存储选中状态
 
@@ -215,21 +269,26 @@ const handleSearch = () => {
   queryParams.field = selectedFields.value[0]
   // queryParams.nation = selectedNation.value
   console.log("queryParams",queryParams)
+  loading.value = true
   getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
-    getDeveloperNationOptionsByField(queryParams).then(
-      res => {
-        console.log("nation",res.data.data)
-        selectedNation.value = res.data.data
-        // 重置选中状态
-        Object.keys(selectedNations).forEach(key => {
-          selectedNations[key] = false
-        })
-      }
-    )
+    // getDeveloperNationOptionsByField(queryParams).then(
+    //   res => {
+    //     console.log("nation",res.data.data)
+    //     selectedNation.value = res.data.data
+    //     // 重置选中状态
+    //     Object.keys(selectedNations).forEach(key => {
+    //       selectedNations[key] = false
+    //     })
+    //   }
+    // )
     console.log("res",res)
-  })
+  }).finally(
+    () => {
+      loading.value = false
+    }
+  )
 }
 
 
@@ -287,6 +346,21 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 
 </script>
 <style scoped>
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;  /* 控制选项之间的间距 */
+}
+
+.radio-item {
+  height: 32px;  /* 控制每个选项的高度 */
+  margin: 0;     /* 清除默认边距 */
+}
+
+/* 可选：鼠标悬停效果 */
+.radio-item:hover {
+  color: #0068FF;
+}
 .main{
   height: 100%;
 }
