@@ -363,7 +363,7 @@ import java.util.concurrent.TimeUnit;
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
     private final String token;
-    private static final int MAX_RETRIES = 3;
+    private static final int MAX_RETRIES = 10;
     private static final long RETRY_DELAY_MS = 2000;
 
     @Autowired
@@ -374,7 +374,9 @@ public class GitHubClientService {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
                 .build();
-        this.token = "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";
+
+//        this.token = "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";
+        this.token = "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";
 //        this.token = "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";
         // this.token = "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";
     }
