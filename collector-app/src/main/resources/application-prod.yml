@@ -151,3 +151,12 @@ openai:
         api-host: https://open.bigmodel.cn/
         api-key: 2589ec5698aa22ce677a261bb7bf5221.nCX8m9P7dfLKUBdp
         enabled: true
+# zookeeper 自定义链接配置
+zookeeper:
+  sdk:
+    config:
+      connect-string: 10.34.34.73:2181
+      base-sleep-time-ms: 1000
+      max-retries: 3
+      session-timeout-ms: 18000
+      connection-timeout-ms: 30000

@@ -351,36 +351,80 @@ package com.sdwu.domain.github.service;//package com.sdwu.domain.github.service;
 //
 //}
 import com.google.gson.Gson;
+import com.sdwu.types.annotation.DCCValue;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import org.apache.curator.framework.CuratorFramework;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 @Service
+@Slf4j
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
-    private final String token;
+    private String token;
     private static final int MAX_RETRIES = 10;
     private static final long RETRY_DELAY_MS = 2000;
 
+    private final CuratorFramework curatorFramework;
+
     @Autowired
-    public GitHubClientService(OkHttpClient okHttpClient) {
+    public GitHubClientService(OkHttpClient okHttpClient,CuratorFramework curatorFramework) {
         this.okHttpClient = okHttpClient.newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 7890))) // Ensure proxy is set correctly
                 .build();
+        this.curatorFramework = curatorFramework;
+
+        initializeTokenFromZookeeper();
 
 //        this.token = "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";
-        this.token = "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";
+//        this.token = "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";
+
+//        try {
+//            byte[] tokenBytes = curatorFramework.getData().forPath("/qiniu-collector/config/githubToken");
+//            String githubToken = new String(tokenBytes, StandardCharsets.UTF_8);
+//            log.info("获取GitHubToken: {}", githubToken);
+//            this.token = githubToken;
+//            log.info("获取GitHubToken: {}", this.token);
+//        } catch (Exception e) {
+//            log.error("获取GitHubToken失败", e);
+//        }
+
 //        this.token = "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";
         // this.token = "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";
     }
-
+    private void initializeTokenFromZookeeper() {
+        try {
+            byte[] tokenBytes = curatorFramework.getData().forPath("/qiniu-collector/config/githubToken");
+            if (tokenBytes != null) {
+                String githubToken = new String(tokenBytes, StandardCharsets.UTF_8);
+                log.info("从 Zookeeper 检索的 GitHub 令牌: {}", githubToken);
+                this.token = githubToken;
+            } else {
+                log.error("在 Zookeeper 路径 /qiniu-collector/config/githubToken 中找不到 GitHub Token");
+                this.token = null;
+            }
+        } catch (Exception e) {
+            log.error("无法从 Zookeeper 检索 GitHub 令牌", e);
+            this.token = null;
+        }
+    }
+    /**
+     * 更新 GitHub Token 从 Zookeeper。
+     */
+    public void updateTokenFromZookeeper() {
+        initializeTokenFromZookeeper(); // 重新初始化 token
+        log.info("更新 GitHub Token 成功");
+    }
 
     public String fetchGitHubApi(String endpoint, Object params) throws IOException {
         if (endpoint.startsWith("/graphql")) {

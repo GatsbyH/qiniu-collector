@@ -65,9 +65,6 @@ public class GitHubGraphQLController {
     }
 
 
-
-
-
     //根据账号评估开发者页面
     @GetMapping("getDeveloperAssessment")
     public Response getDeveloperAssessment(String username) throws IOException {
