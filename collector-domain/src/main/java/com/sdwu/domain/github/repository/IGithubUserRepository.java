@@ -1,6 +1,7 @@
 package com.sdwu.domain.github.repository;
 
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.types.model.PageResult;
 
@@ -39,4 +40,10 @@ public interface IGithubUserRepository {
     int getDeveloperEmptyCount(String topic);
 
     List<String> getDeveloperNationOptionsByField(String field);
+
+    // 获取用户统计信息缓存
+    DevelopeVo getUserStatsCache(String username);
+    
+    // 保存用户统计信息缓存
+    void saveUserStatsCache(String username, DevelopeVo stats);
 }

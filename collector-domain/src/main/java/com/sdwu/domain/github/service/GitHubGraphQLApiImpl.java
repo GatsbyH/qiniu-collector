@@ -112,6 +112,12 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
     @Override
     public DevelopeVo fetchUserStats(String username) {
+        // 尝试从缓存获取
+        DevelopeVo cachedStats = githubUserRepository.getUserStatsCache(username);
+        if (cachedStats != null) {
+            log.debug("Cache hit for user stats: {}", username);
+            return cachedStats;
+        }
         String fetchGitHubApi= null;
         Boolean includeMergedPullRequests = true;
         Boolean includeDiscussions = true;
@@ -242,7 +248,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                 .rankResult(talentRank)
                 .contributeTo(contributedTo)
                 .build();
-
+        // 缓存结果
+        githubUserRepository.saveUserStatsCache(username, developeVo);
         return developeVo;
     }
 

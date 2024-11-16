@@ -1,6 +1,7 @@
 package com.sdwu.infrastructure.persistent.repository;
 
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.infrastructure.persistent.po.DeveloperPO;
@@ -164,4 +165,23 @@ public class GithubUserRepository implements IGithubUserRepository {
         return redisService.getDeveloperNationOptionsByField(GITHUB_USER_INFO_KEY+field);
     }
 
+     @Override
+    public DevelopeVo getUserStatsCache(String username) {
+        try {
+            return redisService.getValue(USER_STATS_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("Failed to get user stats cache for {}: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveUserStatsCache(String username, DevelopeVo stats) {
+        try {
+            redisService.setValue(USER_STATS_CACHE_KEY + username, stats, USER_STATS_CACHE_TIME);
+            log.debug("Saved user stats cache for {}", username);
+        } catch (Exception e) {
+            log.warn("Failed to save user stats cache for {}: {}", username, e.getMessage());
+        }
+    }
 }

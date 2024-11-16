@@ -351,6 +351,9 @@ package com.sdwu.domain.github.service;//package com.sdwu.domain.github.service;
 //
 //}
 import com.google.gson.Gson;
+import com.sdwu.types.enums.ResponseCode;
+import com.sdwu.types.exception.AppException;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -360,6 +363,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 @Service
+@Slf4j
 public class GitHubClientService {
     private final OkHttpClient okHttpClient;
     private final String token;
@@ -401,7 +405,7 @@ public class GitHubClientService {
 
             try (Response response = okHttpClient.newCall(request).execute()) {
                 if (response.code() == 401 || response.code() == 403) {
-                    throw new IOException("Token失效，已超过Github规定请求次数");
+                    throw new AppException(ResponseCode.GITHUB_API_ERROR.getCode(),ResponseCode.GITHUB_API_ERROR.getInfo());
                 }
                 if (!response.isSuccessful()) {
                     handleRetries(retries);
@@ -414,7 +418,7 @@ public class GitHubClientService {
                 retries++;
             }
         }
-        throw new IOException("GitHub REST API 请求达到的最大重试次数");
+        throw new AppException(ResponseCode.GITHUB_API_ERROR.getCode(),ResponseCode.GITHUB_API_ERROR.getInfo());
     }
 
     private String fetchGraphQLApi(String endpoint, Object params) throws IOException {
@@ -435,7 +439,7 @@ public class GitHubClientService {
 
             try (Response response = okHttpClient.newCall(request).execute()) {
                 if (response.code() == 401 || response.code() == 403) {
-                    throw new IOException("Token失效，已超过Github规定请求次数");
+                    throw new AppException(ResponseCode.GITHUB_API_ERROR.getCode(),ResponseCode.GITHUB_API_ERROR.getInfo());
                 }
                 if (!response.isSuccessful()) {
                     handleRetries(retries);
@@ -448,16 +452,29 @@ public class GitHubClientService {
                 retries++;
             }
         }
-        throw new IOException("GitHub GraphQL API 请求达到的最大重试次数");
+        throw new AppException(ResponseCode.GITHUB_API_ERROR.getCode(),ResponseCode.GITHUB_API_ERROR.getInfo());
     }
 
-    private void handleRetries(int retries) throws IOException {
+//    private void handleRetries(int retries) throws IOException {
+//        if (retries < MAX_RETRIES - 1) {
+//            try {
+//                Thread.sleep(RETRY_DELAY_MS);
+//            } catch (InterruptedException e1) {
+//                Thread.currentThread().interrupt();
+//                throw new IOException("重试已中断", e1);
+//            }
+//        }
+//    }
+    private void handleRetries(int retries){
         if (retries < MAX_RETRIES - 1) {
             try {
-                Thread.sleep(RETRY_DELAY_MS);
+                // 使用指数退避策略
+                long delay = RETRY_DELAY_MS * (long) Math.pow(2, retries);
+                log.info("第{}次重试，等待时间：{}ms", retries + 1, delay);
+                Thread.sleep(delay);
             } catch (InterruptedException e1) {
                 Thread.currentThread().interrupt();
-                throw new IOException("重试已中断", e1);
+                log.warn("重试等待被中断，当前重试次数: {}", retries);
             }
         }
     }

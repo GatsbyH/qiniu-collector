@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
+import com.sdwu.domain.github.repository.IGithubLockRepository;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.types.model.PageResult;
@@ -98,6 +99,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     @Override
     public Boolean startGetDeveloperByField(String field) {
         String nation = "all";
+
 //        String fieldedOptimization="";
 //        try {
 //             fieldedOptimization = chatGlmApi.fieldOptimization(field);
@@ -106,6 +108,7 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
 //            throw new RuntimeException(e);
 //        }
         try {
+
 //            developerFetcher.startFetching(field, nation);
             developerFetcher.startFetchingTime(field, nation);
         } catch (Exception e) {

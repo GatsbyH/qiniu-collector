@@ -36,4 +36,15 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+
+    // 处理业务异常
+    @ExceptionHandler(AppException.class)
+    public Response<String> handleAppException(AppException e) {
+        log.error("业务异常: code={}, message={}", e.getCode(), e.getInfo());
+        return Response.<String>builder()
+                .code(e.getCode())
+                .info(e.getInfo())
+                .build();
+    }
+
 }

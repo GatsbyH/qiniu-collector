@@ -25,7 +25,9 @@ public enum ResponseCode {
     MENU_HAS_CHILD(10, "菜单存在子菜单，不允许删除"),
     Menu_EXIST_USER(11, "菜单已分配角色，不允许删除"),
     CAPTCHA_EXPIRED(12, "验证码已过期"),
-    CAPTCHA_ERROR(13, "验证码错误")
+    CAPTCHA_ERROR(13, "验证码错误"),
+    // GitHub API
+    GITHUB_API_ERROR(14, "GitHub API 请求达到的最大重试次数"),
     ;
     private Integer code;
     private String info;
