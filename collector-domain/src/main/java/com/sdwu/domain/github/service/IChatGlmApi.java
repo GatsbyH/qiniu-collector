@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zhipu.oapi.service.v4.model.ModelApiResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IChatGlmApi {
     ModelApiResponse testCharGlmInvoke() throws JsonProcessingException;
@@ -21,4 +22,8 @@ public interface IChatGlmApi {
     String guessTheFieldBasedOnTheTopic(String string) throws JsonProcessingException;
 
     String guessTheFieldBasedOnTheDescriptions(List<String> descriptions) throws JsonProcessingException;
+
+    String predictCountryWithNetworkContext(String location, Map<String, Integer> locationFrequency);
+
+    String detailedAnalysisPrediction(String location, List<String> followersLocations, String firstResult, String secondResult);
 }

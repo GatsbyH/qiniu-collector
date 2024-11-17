@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -63,6 +64,17 @@ public class ChatGlmApiImpl implements IChatGlmApi{
         log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
         return invokeModelApiResp;
     }
+    /**
+     * 构建位置提示词
+     */
+    /**
+     * 构建位置提示词
+     */
+    private String buildLocationPrompt(String location) {
+        return location + "#\n请判断此地理位置所属的国家，只需返回国家名称（使用中文）和置信度（1-100%），" +
+               "格式为：国家名 置信度%，示例：中国 90%。如果无法判断，返回N/A。";
+    }
+
 
     @Override
     public String getCountry(String location) throws JsonProcessingException {
@@ -75,45 +87,8 @@ public class ChatGlmApiImpl implements IChatGlmApi{
         if (replace.contains("香港")){
             return "中国";
         }
-        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), replace+"#\n" +
-                "\n" +
-                "## 上下文（Context）\n" +
-                "用户询问一个地理位置（replace+\"是哪个国家\"），并特别指出台湾是中国的一部分。\n" +
-                "\n" +
-                "## 目标（Objective）\n" +
-                "回答用户的问题，明确指出所询问的地理位置所属的国家。\n" +
-                "\n" +
-                "## 风格（Style）\n" +
-                "使用简洁明了的陈述句。\n" +
-                "\n" +
-                "## 语气（Tone）\n" +
-                "客观、中立。\n" +
-                "\n" +
-                "## 受众（Audience）\n" +
-                "对地理位置有一定了解的用户。\n" +
-                "\n" +
-                "## 响应（Response）\n" +
-                "以文本形式返回国家，格式为“国家+置信度”。\n" +
-                "\n" +
-                "## 工作流程（Workflow）\n" +
-                "1. 确定用户询问的地理位置。\n" +
-                "2. 查找该地理位置所属的国家。\n" +
-                "3. 直接回答所属国家。\n" +
-                "\n" +
-                "## 示例（Examples）\n" +
-                "- 用户输入：beijing是哪个国家？\"\n" +
-                "- AI回答：\"中国\"\n" +
-                "\n" +
-                "## 修改示例"+
-                "- 用户输入：Ireland是哪个国家？"+
-                "- AI回答：爱尔兰"+
-                "- 用户输入：BITS Pilani是哪个国家？"+
-                "- AI回答：印度"+
-                "## 注意事项\n" +
-                "- 保持回答的简洁性，不涉及任何政治立场。\n" +
-                "- 回复国家的中文。\n" +
-                "只需回答置信度最高的国家和它置信度，置信度为1-100%的数值，置信度低的数据为 N/A 值"+
-                "- 若用户询问的地理位置存在争议，按照国际普遍认知回答。");
+        String locationPrompt = this.buildLocationPrompt(location);
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(),locationPrompt);
         messages.add(chatMessage);
         String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
 
@@ -355,4 +330,137 @@ public class ChatGlmApiImpl implements IChatGlmApi{
     }
 
 
+    /**
+     * 构建社交网络提示词
+     */
+    private String buildNetworkContextPrompt(String location, Map<String, Integer> locationFrequency) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("用户位置: ").append(location).append("\n");
+        sb.append("社交网络位置分布:\n");
+        locationFrequency.forEach((loc, freq) ->
+            sb.append(loc).append(": ").append(freq).append("次\n"));
+
+        sb.append("根据以上信息判断用户最可能属于哪个国家，");
+        sb.append("只需返回国家名称（使用中文）和置信度（1-100%），");
+        sb.append("格式为：国家名 置信度%，示例：中国 90%。如果无法判断，返回N/A。");
+        return sb.toString();
+    }
+
+    @Override
+    public String predictCountryWithNetworkContext(String location, Map<String, Integer> locationFrequency) {
+       List<ChatMessage> messages = new ArrayList<>();
+        String NetworkContextPrompt = this.buildNetworkContextPrompt(location, locationFrequency);
+
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), NetworkContextPrompt);
+
+        messages.add(chatMessage);
+        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+
+        HashMap<String, Object> extraJson = new HashMap<>();
+        extraJson.put("temperature", 0.5);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("GLM-4-AirX")
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(messages)
+                .requestId(requestId)
+                .extraJson(extraJson)
+                .build();
+        ModelApiResponse invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+        String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
+        try {
+            log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
+        } catch (JsonProcessingException e) {
+            log.error("Failed to parse model output: {}", e.getMessage());
+        }
+        return message;
+    }
+    /**
+     * 构建最终分析提示词
+     */
+    private String buildDetailedAnalysisPrompt(String location, List<String> networkLocations,
+                                  String firstResult, String secondResult) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("综合分析以下信息:\n");
+        sb.append("1. 用户位置: ").append(location).append("\n");
+        sb.append("2. 第一轮预测: ").append(firstResult).append("\n");
+        sb.append("3. 第二轮预测: ").append(secondResult).append("\n");
+        sb.append("4. 社交网络位置: ").append(String.join(", ", networkLocations)).append("\n");
+
+        sb.append("请给出最终判断，只需返回国家名称（使用中文）和置信度（1-100%），");
+        sb.append("格式为：国家名 置信度%，示例：中国 90%。如果无法判断，返回N/A。");
+        return sb.toString();
+    }
+    @Override
+    public String detailedAnalysisPrediction(String location, List<String> networkLocations, String firstResult, String secondResult) {
+         List<ChatMessage> messages = new ArrayList<>();
+        String detailedAnalysisPrompt = buildDetailedAnalysisPrompt(location, networkLocations, firstResult, secondResult);
+
+        ChatMessage chatMessage = new ChatMessage(ChatMessageRole.USER.value(), detailedAnalysisPrompt);
+
+        messages.add(chatMessage);
+        String requestId = String.format(requestIdTemplate, System.currentTimeMillis());
+
+        HashMap<String, Object> extraJson = new HashMap<>();
+        extraJson.put("temperature", 0.5);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("GLM-4-AirX")
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(messages)
+                .requestId(requestId)
+                .extraJson(extraJson)
+                .build();
+        ModelApiResponse invokeModelApiResp = client.invokeModelApi(chatCompletionRequest);
+        String message = invokeModelApiResp.getData().getChoices().get(0).getMessage().getContent().toString();
+        try {
+            log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
+        } catch (JsonProcessingException e) {
+            log.error("Failed to parse model output: {}", e.getMessage());
+        }
+        return message;
+    }
+
+
 }
+//replace+"#\n" +
+//                "\n" +
+//                "## 上下文（Context）\n" +
+//                "用户询问一个地理位置（replace+\"是哪个国家\"），并特别指出台湾是中国的一部分。\n" +
+//                "\n" +
+//                "## 目标（Objective）\n" +
+//                "回答用户的问题，明确指出所询问的地理位置所属的国家。\n" +
+//                "\n" +
+//                "## 风格（Style）\n" +
+//                "使用简洁明了的陈述句。\n" +
+//                "\n" +
+//                "## 语气（Tone）\n" +
+//                "客观、中立。\n" +
+//                "\n" +
+//                "## 受众（Audience）\n" +
+//                "对地理位置有一定了解的用户。\n" +
+//                "\n" +
+//                "## 响应（Response）\n" +
+//                "以文本形式返回国家，格式为“国家+置信度”。\n" +
+//                "\n" +
+//                "## 工作流程（Workflow）\n" +
+//                "1. 确定用户询问的地理位置。\n" +
+//                "2. 查找该地理位置所属的国家。\n" +
+//                "3. 直接回答所属国家。\n" +
+//                "\n" +
+//                "## 示例（Examples）\n" +
+//                "- 用户输入：beijing是哪个国家？\"\n" +
+//                "- AI回答：\"中国\"\n" +
+//                "\n" +
+//                "## 修改示例"+
+//                "- 用户输入：Ireland是哪个国家？"+
+//                "- AI回答：爱尔兰"+
+//                "- 用户输入：BITS Pilani是哪个国家？"+
+//                "- AI回答：印度"+
+//                "## 注意事项\n" +
+//                "- 保持回答的简洁性，不涉及任何政治立场。\n" +
+//                "- 回复国家的中文。\n" +
+//                "只需回答置信度最高的国家和它置信度，置信度为1-100%的数值，置信度低的数据为 N/A 值"+
+//                "- 若用户询问的地理位置存在争议，按照国际普遍认知回答。"

@@ -54,5 +54,6 @@ public class CacheConstants
     public static final long USER_STATS_CACHE_TIME = 86400000; // 1天
 
     public static final String LOCK_PREFIX = "github:fetch:";
+    public static final String CHECK_TASKS_LOCK = "check-tasks-lock:";
 
 }

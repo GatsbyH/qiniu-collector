@@ -7,4 +7,10 @@ public interface IGithubLockRepository {
     boolean removeFieldSearchLock(String field);
 
     boolean isLockedByCurrentThread(String field);
+
+    boolean checkScheduledTasksLock();
+
+    boolean removeScheduledTasksLock();
+
+    boolean isLockedByCurrentThreadByTasks();
 }

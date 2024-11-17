@@ -525,14 +525,22 @@ public class DeveloperFetcher {
     @Scheduled(fixedDelay = 60000)
     public void checkScheduledTasks() {
         try {
+            if (!githubLockRepository.checkScheduledTasksLock()){
+                return;
+            }
             List<ScheduledTask> failedTasks = scheduledTaskRepository.findAllByStatusIn(
                     Collections.singletonList(TASK_STATUS_FAILED));
 
             for (ScheduledTask task : failedTasks) {
                 handleFatalTask(task);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("检查任务状态失败", e);
+        }finally {
+            if (githubLockRepository.isLockedByCurrentThreadByTasks()){
+                githubLockRepository.removeScheduledTasksLock();
+            }
         }
     }
 
