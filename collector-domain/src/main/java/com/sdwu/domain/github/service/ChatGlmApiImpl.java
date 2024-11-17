@@ -70,9 +70,10 @@ public class ChatGlmApiImpl implements IChatGlmApi{
     /**
      * 构建位置提示词
      */
-    private String buildLocationPrompt(String location) {
+      private String buildLocationPrompt(String location) {
         return location + "#\n请判断此地理位置所属的国家，只需返回国家名称（使用中文）和置信度（1-100%），" +
-               "格式为：国家名 置信度%，示例：中国 90%。如果无法判断，返回N/A。";
+               "格式为：如果置信度为100%则只返回国家名，否则返回'国家名 置信度%'，" +
+               "示例：中国 90% 或 中国。如果无法判断，返回N/A。";
     }
 
 

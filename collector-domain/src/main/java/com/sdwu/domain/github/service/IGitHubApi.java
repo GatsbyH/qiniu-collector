@@ -2,6 +2,9 @@ package com.sdwu.domain.github.service;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.GithubUserReqVo;
+import com.sdwu.domain.github.model.valobj.GithubUserRespVo;
+import com.sdwu.types.model.PageResult;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,4 +29,6 @@ public interface IGitHubApi {
     String getDeveloperByFieldAndNation(String field, String nation) throws IOException;
 
     String getDevelopersByFields(String field) throws IOException;
+
+    PageResult<GithubUserRespVo> getGithubDevelopers(GithubUserReqVo githubUserReqVo);
 }

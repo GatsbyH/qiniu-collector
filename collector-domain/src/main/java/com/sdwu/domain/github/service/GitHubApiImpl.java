@@ -4,15 +4,22 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.GithubUserReqVo;
+import com.sdwu.domain.github.model.valobj.GithubUserRespVo;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.repository.IScheduledTaskRepository;
+import com.sdwu.types.enums.ResponseCode;
+import com.sdwu.types.exception.AppException;
+import com.sdwu.types.model.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -251,6 +258,52 @@ public class GitHubApiImpl implements IGitHubApi{
             scheduledTaskRepository.updateScheduledTask(field,"FAILED",e.getMessage());
             log.error("为字段获取开发人员时发生意外错误: {} - {}", field, e.getMessage());
             throw new IOException("发生意外错误", e);
+        }
+    }
+
+    @Override
+    public PageResult<GithubUserRespVo> getGithubDevelopers(GithubUserReqVo githubUserReqVo) {
+        String response = null;
+        String endpoint = String.format("/search/users?q=%s&page=%d&per_page=%d",
+            githubUserReqVo.getUsername(), githubUserReqVo.getPageNum(), githubUserReqVo.getPageSize());
+
+        try {
+            // 1. API调用
+            response = gitHubClientService.fetchGitHubApi(endpoint, null);
+            if (response == null || response.isEmpty()) {
+                log.warn("API返回空响应，查询参数: {}", githubUserReqVo);
+                return PageResult.empty();
+            }
+
+            // 2. 解析响应
+            JSONObject jsonObject = JSON.parseObject(response);
+            Integer totalCount = jsonObject.getIntValue("total_count");
+            JSONArray items = jsonObject.getJSONArray("items");
+            if (items == null || items.isEmpty()) {
+                log.warn("未找到匹配的用户，查询参数: {}", githubUserReqVo);
+                return PageResult.empty();
+            }
+            PageResult<GithubUserRespVo> githubUserRespVoPageResult = new PageResult<>();
+            githubUserRespVoPageResult.setTotal(Long.valueOf(totalCount));
+            List<GithubUserRespVo> githubUserRespVos = items.stream()
+                    .map(item -> {
+                        JSONObject userJson = (JSONObject) item;
+                        return GithubUserRespVo.builder()
+                                .login(userJson.getString("login"))
+                                .avatarUrl(userJson.getString("avatar_url"))
+                                .htmlUrl(userJson.getString("html_url"))
+                                .build();
+                    })
+                    .collect(Collectors.toList());
+            githubUserRespVoPageResult.setList(githubUserRespVos);
+            return githubUserRespVoPageResult;
+
+        } catch (IOException e) {
+            log.error("获取用户列表时发生错误: {}", e.getMessage());
+            throw new AppException(ResponseCode.GITHUB_API_ERROR.getCode(), ResponseCode.GITHUB_API_ERROR.getInfo());
+        } catch (Exception e) {
+            log.error("处理用户数据时发生错误: {}", e.getMessage());
+            throw new AppException(ResponseCode.UN_ERROR.getCode(), ResponseCode.UN_ERROR.getInfo());
         }
     }
 }

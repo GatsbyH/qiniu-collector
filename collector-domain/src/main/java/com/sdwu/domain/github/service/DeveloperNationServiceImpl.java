@@ -30,9 +30,7 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
         if (StringUtils.isNotBlank(userLocation)){
             firstResult = chatGlmApi.getCountry(userLocation);
             if (isHighConfidence(firstResult)) {
-
                 return formatResult(firstResult);
-
             }
         }
 //            String country = moonShotApi.getCountry(userInfo.getString("location"));
@@ -114,11 +112,20 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
             if (lastSpaceIndex > 0) {
                 String country = result.substring(0, lastSpaceIndex).trim();
                 String confidence = result.substring(lastSpaceIndex + 1).trim();
-                // 确保置信度格式正确
-                if (!confidence.endsWith("%")) {
-                    confidence += "%";
+
+                // 移除置信度中的百分号
+                confidence = confidence.replace("%", "");
+
+                // 如果置信度为大于等于80，直接返回国家名
+                if (80<=(Integer.valueOf(confidence))) {
+                    return country;
                 }
-                return country + " " + confidence;
+
+                // 其他情况返回国家名和置信度
+                return country + " " + confidence + "%";
+            } else {
+                // 如果没有空格，说明可能是直接返回的国家名（100%确定的情况）
+                return result.trim();
             }
         } catch (Exception e) {
             log.warn("结果格式化失败: {}", result);
