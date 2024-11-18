@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdwu.infrastructure.persistent.dao.IFieldMappingDao">
+
+<!--    <insert id="insertBatch">-->
+<!--        INSERT INTO field_mapping (-->
+<!--            field_id, field_name, mapping_type,-->
+<!--            mapping_value, mapping_priority, create_time,-->
+<!--            update_time-->
+<!--        ) VALUES-->
+<!--        <foreach collection="list" item="item" separator=",">-->
+<!--            (-->
+<!--                #{item.fieldId}, #{item.fieldName}, #{item.mappingType},-->
+<!--                #{item.mappingValue}, #{item.mappingPriority}, NOW(),-->
+<!--                NOW()-->
+<!--            )-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+    <insert id="insertBatch">
+    INSERT IGNORE INTO field_mapping
+    (field_id, field_name, mapping_type, mapping_value, mapping_priority, create_time, update_time)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+        (#{item.fieldId}, #{item.fieldName}, #{item.mappingType},
+         #{item.mappingValue}, #{item.mappingPriority}, NOW(), NOW())
+    </foreach>
+</insert>
+</mapper>

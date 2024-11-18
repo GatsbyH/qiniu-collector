@@ -30,4 +30,5 @@ public interface ITalentRankGraphQLService {
     String getDeveloperFiled(String username);
 
 
+    boolean fetchUsersByStrategy(String field,String queryTemplate, String queryParamName, String formattedTerm);
 }

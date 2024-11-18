@@ -64,17 +64,21 @@ public class ChatGlmApiImpl implements IChatGlmApi{
         log.info("model output: {}", mapper.writeValueAsString(invokeModelApiResp));
         return invokeModelApiResp;
     }
+
     /**
      * 构建位置提示词
      */
-    /**
-     * 构建位置提示词
-     */
-      private String buildLocationPrompt(String location) {
-        return location + "#\n请判断此地理位置所属的国家，只需返回国家名称（使用中文）和置信度（1-100%），" +
-               "格式为：如果置信度为100%则只返回国家名，否则返回'国家名 置信度%'，" +
-               "示例：中国 90% 或 中国。如果无法判断，返回N/A。";
-    }
+    private String buildLocationPrompt(String location) {
+    return location + "#\n请判断此地理位置所属的国家。要求：\n" +
+           "1. 只分析第一个地理位置\n" +
+           "2. 只返回一个结果\n" +
+           "3. 使用中文表示国家名称\n" +
+           "4. 返回格式：\n" +
+           "   - 完全确定时直接返回国家名，如：中国\n" +
+           "   - 不完全确定时返回 '国家名 置信度%'，如：中国 90%\n" +
+           "   - 无法判断时返回：N/A";
+}
+
 
 
     @Override

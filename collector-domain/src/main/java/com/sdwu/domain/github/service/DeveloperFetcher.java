@@ -99,6 +99,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.entity.FieldMapping;
 import com.sdwu.domain.github.model.entity.ScheduledTask;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubLockRepository;
@@ -107,6 +108,8 @@ import com.sdwu.domain.github.repository.IScheduledTaskRepository;
 import com.sdwu.domain.github.service.IDeveloperNationService;
 import com.sdwu.domain.github.service.IGitHubApi;
 import com.sdwu.domain.github.service.ITalentRankService;
+import com.sdwu.domain.github.service.search.SearchContext;
+import com.sdwu.domain.github.service.search.SearchStrategy;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
@@ -407,6 +410,10 @@ public class DeveloperFetcher {
     private final ConcurrentHashMap<String, ScheduledFuture<?>> scheduledTasks = new ConcurrentHashMap<>();
 
     @Resource
+    private SearchContext searchContext;
+    @Resource
+    private IFieldMappingService fieldMappingService;
+    @Resource
     private IScheduledTaskRepository scheduledTaskRepository;
     @Resource
     private ITalentRankGraphQLService talentRankGraphQLService;
@@ -435,6 +442,7 @@ public class DeveloperFetcher {
             ScheduledFuture<?> future = scheduler.scheduleAtFixedRate(() -> {
                 try {
                     log.info("开始获取用户信息: {}", field);
+
                     boolean hasMore = getDeveloperByFieldAndNation(field, nation);
                     if (hasMore) {
                         log.info("获取用户信息成功: {}", field);
@@ -456,6 +464,53 @@ public class DeveloperFetcher {
         }
     }
 
+
+
+    private boolean getDeveloperByFieldAndNation(String field, String nation) throws IOException {
+        // 获取该领域的所有映射配置
+        List<FieldMapping> mappings = fieldMappingService.getFieldMappingsByFieldName(field);
+        if (mappings.isEmpty()) {
+            log.warn("未找到领域 {} 的映射配置", field);
+            return false;
+        }
+
+        boolean hasMoreResults = false;
+
+        // 按优先级排序(从高到低)
+        mappings.sort((m1, m2) -> m2.getMappingPriority().compareTo(m1.getMappingPriority()));
+
+        // 使用对应的策略处理每个映射
+        for (FieldMapping mapping : mappings) {
+            try {
+                SearchStrategy strategy = searchContext.getStrategy(mapping.getMappingType());
+                String formattedTerm = strategy.formatSearchTerm(mapping.getMappingValue());
+
+                log.info("正在执行搜索 - 策略: {}, 搜索词: {}",
+                        mapping.getMappingType(), formattedTerm);
+
+                // 使用GraphQL服务执行搜索
+                boolean currentResults = talentRankGraphQLService.fetchUsersByStrategy(
+                        field,
+                        strategy.getQueryTemplate(),
+                        strategy.getQueryParamName(),
+                        formattedTerm
+                );
+
+                // 如果任何策略找到更多结果,设置标志为true
+                hasMoreResults = hasMoreResults || currentResults;
+
+                log.info("映射搜索完成 - 类型: {}, 值: {}, 是否有更多: {}",
+                        mapping.getMappingType(), mapping.getMappingValue(), currentResults);
+
+            } catch (Exception e) {
+                log.error("执行搜索策略时发生错误, 映射配置: {}", mapping, e);
+            }
+        }
+
+        return hasMoreResults;
+    }
+
+
     // 5. 简化startFetching方法
     public void startFetching(String field, String nation) {
         try {
@@ -468,11 +523,11 @@ public class DeveloperFetcher {
         }
     }
 
-    private boolean getDeveloperByFieldAndNation(String field, String nation) throws IOException {
-        return field.matches(".*[\\u4e00-\\u9fa5].*")
-                ? talentRankGraphQLService.fetchUserByRepoDescription(field)
-                : talentRankGraphQLService.fetchUserByRepoTopic(field);
-    }
+//    private boolean getDeveloperByFieldAndNation(String field, String nation) throws IOException {
+//        return field.matches(".*[\\u4e00-\\u9fa5].*")
+//                ? talentRankGraphQLService.fetchUserByRepoDescription(field)
+//                : talentRankGraphQLService.fetchUserByRepoTopic(field);
+//    }
 
     // 6. 优化stopFetching方法
     public void stopFetching(String field) {

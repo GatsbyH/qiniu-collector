@@ -51,4 +51,8 @@ public interface IScheduledTaskDao extends BaseMapperX<ScheduledTaskPO> {
                 .distinct()
                 .collect(Collectors.toList());
     };
+
+    default int insertTask(ScheduledTaskPO scheduledTaskPO) {
+        return insert(scheduledTaskPO);
+    }
 }

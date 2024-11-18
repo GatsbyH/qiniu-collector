@@ -26,4 +26,5 @@ public interface IGitHubGraphQLApi {
     String fetchDeveloperFiled(String username);
 
 
+    boolean fetchUsersByStrategy(String field, String queryTemplate, String queryParamName, String formattedTerm);
 }

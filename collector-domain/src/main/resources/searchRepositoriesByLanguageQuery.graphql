@@ -1,0 +1,21 @@
+query {
+  search(query: "language:$language", type: REPOSITORY, first: 20, after: null) {
+    edges {
+      node {
+        ... on Repository {
+          id
+          name
+          url
+          owner {
+            login
+            __typename
+          }
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

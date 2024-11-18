@@ -952,6 +952,138 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         return guessedFieldBaseOnDescrip;
     }
 
+    @Override
+    public boolean fetchUsersByStrategy(String field, String queryTemplate, String queryParamName, String formattedTerm) {
+            boolean hasNextPage = true;
+            String after=null;
+            String fetchGitHubApi = null;
+            JSONObject userInfo=new JSONObject();
+            List<Developer> developers = new ArrayList<>();
+
+            try {
+                after = this.getGitHubAfterPageByTopic(formattedTerm);
+
+                String quotedAfter = "\"" + after + "\"";
+
+                String newTopic = formattedTerm.replaceAll("\\s+", "");
+                    String searchRepositoriesByTopicAndDescriptionQuery = readFile(queryTemplate);
+                    String modifiedQuery = searchRepositoriesByTopicAndDescriptionQuery.replace(queryParamName, newTopic);
+                    if (after!=null){
+                        modifiedQuery = modifiedQuery.replace("null", quotedAfter);
+                    }
+                    log.info("游标为: {}", quotedAfter);
+                    fetchGitHubApi = gitHubClientService.fetchGitHubApi("/graphql", Collections.singletonMap("query", modifiedQuery));
+                    JSONObject jsonObject = JSONObject.parseObject(fetchGitHubApi);
+
+                    JSONObject data = jsonObject.getJSONObject("data");
+
+                    JSONObject searchObject = data.getJSONObject("search");
+                    if (searchObject != null) {
+                        JSONObject pageInfo = searchObject.getJSONObject("pageInfo");
+                        if (pageInfo != null) {
+                            hasNextPage = pageInfo.getBoolean("hasNextPage");
+                            after = pageInfo.getString("endCursor");
+                            this.setGitHubAfterPageByTopic(formattedTerm,after);
+                            // 继续处理 pageInfo
+                        } else {
+                            // 处理 pageInfo 为空的情况
+                            hasNextPage = false; // 或其他适当的默认值
+                        }
+                    } else {
+                        // 处理 search 为空的情况
+                        hasNextPage = false; // 或其他适当的默认值
+                    }
+                    JSONArray nodes = data.getJSONObject("search").getJSONArray("edges");
+                    for (Object node : nodes) {
+                        JSONObject jsonObject1 = (JSONObject) node;
+                        String login = jsonObject1.getJSONObject("node").getJSONObject("owner").getString("login").trim(); // Trim whitespace
+                        //去除login的空格
+                        boolean checkLoginExist = githubUserRepository.checkLoginExist(login,formattedTerm);
+                        if (checkLoginExist){
+                            continue;
+                        }
+                        githubUserRepository.addLogin(login,formattedTerm);
+
+                        JSONObject owner= jsonObject1.getJSONObject("node").getJSONObject("owner");
+                        String __typename =owner.getString("__typename");
+                        if (__typename.equals("Organization")){
+                            continue;
+                        }
+                        userInfo = gitHubApi.getUserInfo(login);
+                        double talentRank = 0;
+                        String level = null;
+                        String developerNation = null;
+                        try {
+                            developerNation = developerNationService.getDeveloperNation(login);
+                        } catch (Exception e) {
+                            log.error("获取用户{}国籍时发生错误: {}", login, e.getMessage());
+                        }
+                        RankResult talentRankByUserName = this.getTalentRankByUserName(login);
+                        if (talentRankByUserName!=null){
+                            talentRank =100- talentRankByUserName.getPercentile();
+                            level=talentRankByUserName.getLevel();
+                        }
+                        String assessment = null;
+    //                    if (userInfo.getString("blog")!=null){
+    //                        log.info("用户{}的博客地址为：{}",login,userInfo.getString("blog"));
+    //                        assessment = chatGlmApi.doDevelopmentAssessment(userInfo.getString("blog"),userInfo.getString("bio"));
+    //                    }
+                        // 使用String.format()方法格式化为两位小数的字符串
+                        String talentRankFormatted = String.format("%.2f", talentRank);
+
+                        // 如果你需要talentRank仍然是double类型，可以这样做：
+                        talentRank = Double.parseDouble(talentRankFormatted);
+                        Developer developer = Developer.builder()
+                                .login(login)
+                                .bio(userInfo.getString("bio"))
+                                .company(userInfo.getString("company"))
+                                .field(field)
+                                .location(userInfo.getString("location"))
+                                .htmlUrl(userInfo.getString("html_url"))
+                                .name(userInfo.getString("name"))
+                                .blog(userInfo.getString("blog"))
+                                .email(userInfo.getString("email"))
+                                .hireable(userInfo.getBoolean("hireable"))
+                                .talentRank(talentRank)
+                                .level(level)
+                                .nation(developerNation)
+                                .assessment(assessment)
+                                .twitterUsername(userInfo.getString("twitter_username"))
+                                .publicRepos(userInfo.getIntValue("public_repos"))
+                                .publicGists(userInfo.getIntValue("public_gists"))
+                                .followers(userInfo.getIntValue("followers"))
+                                .following(userInfo.getIntValue("following"))
+                                .type(userInfo.getString("type"))
+                                .repositoryUrl(jsonObject1.getJSONObject("node").getString("url"))
+                                .avatarUrl(userInfo.getString("avatar_url"))
+                                .build();
+                        log.info("开发者: {}", developer.toString());
+                        developers.add(developer);
+    //                    githubUserRepository.saveSingle(topic,developer);
+                    }
+    //            githubUserRepository.removeFieldSearchLock(topic);
+    //            }
+                log.info("开发者们: {}", developers);
+                if (!developers.isEmpty()) {
+                    githubUserRepository.save(field, developers);
+                }else{
+                    //计数器
+                    githubUserRepository.countDeveloperEmptyCount(field);
+                    if (after==null){
+                        return false;
+                    }
+                    if (githubUserRepository.getDeveloperEmptyCount(field)>=8){
+                        return false;
+                    }
+                }
+                if (!hasNextPage){
+                    return false;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return true;
+    }
 
 
     private void setGitHubAfterPageByTopic(String topic, String after) {

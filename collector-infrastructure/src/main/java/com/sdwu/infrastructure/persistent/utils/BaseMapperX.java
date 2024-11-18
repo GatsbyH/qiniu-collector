@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.yulichang.base.MPJBaseMapper;
 import com.github.yulichang.interfaces.MPJBaseJoin;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
@@ -132,24 +133,6 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectList(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
 
-    /**
-     * 批量插入，适合大量数据插入
-     *
-     * @param entities 实体们
-     */
-//    default Boolean insertBatch(Collection<T> entities) {
-//        return this.insertBatch(entities);
-//    }
-
-    /**
-     * 批量插入，适合大量数据插入
-     *
-     * @param entities 实体们
-     * @param size     插入数量 Db.saveBatch 默认为 1000
-     */
-//    default Boolean insertBatch(Collection<T> entities, int size) {
-//        return Db.saveBatch(entities, size);
-//    }
 
     default int updateBatch(T update) {
         return update(update, new QueryWrapper<>());

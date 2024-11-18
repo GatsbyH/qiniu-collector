@@ -59,5 +59,10 @@ public class TalentRankGraphQLServiceImpl implements ITalentRankGraphQLService{
         return gitHubGraphQLApi.fetchDeveloperFiled(username);
     }
 
+    @Override
+    public boolean fetchUsersByStrategy(String field,String queryTemplate, String queryParamName, String formattedTerm) {
+        return gitHubGraphQLApi.fetchUsersByStrategy(field,queryTemplate,queryParamName,formattedTerm);
+    }
+
 
 }
