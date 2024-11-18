@@ -1,5 +1,6 @@
 package com.sdwu.domain.github.model.entity;
 
+import com.alibaba.fastjson2.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +33,40 @@ public class Developer {
     private String repositoryUrl;             // 项目URL
     private String assessment;
     private String level;
+
+    public static Developer fromGitHubData(
+            String login,
+            JSONObject userInfo,
+            String field,
+            String developerNation,
+            double talentRank,
+            String level,
+            String assessment,
+            String repositoryUrl) {
+
+        return Developer.builder()
+                .login(login)
+                .bio(userInfo.getString("bio"))
+                .company(userInfo.getString("company"))
+                .field(field)
+                .location(userInfo.getString("location"))
+                .htmlUrl(userInfo.getString("html_url"))
+                .name(userInfo.getString("name"))
+                .blog(userInfo.getString("blog"))
+                .email(userInfo.getString("email"))
+                .hireable(userInfo.getBoolean("hireable"))
+                .talentRank(talentRank)
+                .level(level)
+                .nation(developerNation)
+                .assessment(assessment)
+                .twitterUsername(userInfo.getString("twitter_username"))
+                .publicRepos(userInfo.getIntValue("public_repos"))
+                .publicGists(userInfo.getIntValue("public_gists"))
+                .followers(userInfo.getIntValue("followers"))
+                .following(userInfo.getIntValue("following"))
+                .type(userInfo.getString("type"))
+                .repositoryUrl(repositoryUrl)
+                .avatarUrl(userInfo.getString("avatar_url"))
+                .build();
+    }
 }

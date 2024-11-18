@@ -3,11 +3,13 @@ package com.sdwu.infrastructure.persistent.repository;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.infrastructure.persistent.po.DeveloperPO;
 import com.sdwu.infrastructure.persistent.redis.IRedisService;
 import com.sdwu.types.model.PageResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -82,25 +84,56 @@ public class GithubUserRepository implements IGithubUserRepository {
 
 
         if (developersByFieldReqVo.getNation() == null || developersByFieldReqVo.getNation().isEmpty()) {
-            List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
-            Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField());
-            // 如果nation为空，则不进行过滤，直接映射并返回结果
+            Pair<List<DeveloperPO>, Integer> usersByRankDescWithSize = redisService.getUsersByRankDescWithSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+            List<DeveloperPO> developers = usersByRankDescWithSize.getLeft();
+            Integer size = usersByRankDescWithSize.getRight();
             List<Developer> filteredDevelopers = developers.stream()
                     .map(DeveloperPO::toDeveloper)
                     .collect(Collectors.toList());
             PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) size);
+
             return developerPageResult;
+//            List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+//            Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField());
+//            // 如果nation为空，则不进行过滤，直接映射并返回结果
+//            List<Developer> filteredDevelopers = developers.stream()
+//                    .map(DeveloperPO::toDeveloper)
+//                    .collect(Collectors.toList());
+//            PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) size);
+//            return developerPageResult;
         }
 
 
-        Integer usersSizeByNation = redisService.getUsersSizeByRankAndNation(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getField(), developersByFieldReqVo.getNation());
 
-        List<DeveloperPO> filteredDevelopersByNation = redisService.getUsersByRankDescAndNation(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getField(), developersByFieldReqVo.getNation(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
-        List<Developer> filteredDevelopers = filteredDevelopersByNation.stream()
+//        List<DeveloperPO> developers = redisService.getUsersByRankDesc(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField()+":"+developersByFieldReqVo.getNation(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+//        Integer size = redisService.getUsersByRankSize(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField()+":"+developersByFieldReqVo.getNation());
+//        // 如果nation为空，则不进行过滤，直接映射并返回结果
+//        List<Developer> filteredDevelopers = developers.stream()
+//                    .map(DeveloperPO::toDeveloper)
+//                    .collect(Collectors.toList());
+//        PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) size);
+//        return developerPageResult;
+
+        Pair<List<DeveloperPO>, Integer> usersByRankDescWithSize = redisService.getUsersByRankDescWithSize(GITHUB_USER_INFO_KEY+developersByFieldReqVo.getField()+":"+developersByFieldReqVo.getNation(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+        List<DeveloperPO> developers = usersByRankDescWithSize.getLeft();
+        Integer size = usersByRankDescWithSize.getRight();
+        List<Developer> filteredDevelopers = developers.stream()
                     .map(DeveloperPO::toDeveloper)
                     .collect(Collectors.toList());
-        PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) usersSizeByNation);
+        PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) size);
+
         return developerPageResult;
+
+
+
+//        Integer usersSizeByNation = redisService.getUsersSizeByRankAndNation(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getField(), developersByFieldReqVo.getNation());
+//
+//        List<DeveloperPO> filteredDevelopersByNation = redisService.getUsersByRankDescAndNation(GITHUB_USER_INFO_KEY + developersByFieldReqVo.getField(), developersByFieldReqVo.getField(), developersByFieldReqVo.getNation(), developersByFieldReqVo.getPageNum(), developersByFieldReqVo.getPageSize());
+//        List<Developer> filteredDevelopers = filteredDevelopersByNation.stream()
+//                    .map(DeveloperPO::toDeveloper)
+//                    .collect(Collectors.toList());
+//        PageResult<Developer> developerPageResult = new PageResult<>(filteredDevelopers, (long) usersSizeByNation);
+//        return developerPageResult;
 
     }
 
@@ -179,9 +212,30 @@ public class GithubUserRepository implements IGithubUserRepository {
     public void saveUserStatsCache(String username, DevelopeVo stats) {
         try {
             redisService.setValue(USER_STATS_CACHE_KEY + username, stats, USER_STATS_CACHE_TIME);
-            log.debug("Saved user stats cache for {}", username);
+            log.debug("已保存的用户统计信息缓存 {}", username);
         } catch (Exception e) {
-            log.warn("Failed to save user stats cache for {}: {}", username, e.getMessage());
+            log.warn("无法保存的用户统计信息缓存 {}: {}", username, e.getMessage());
         }
+    }
+
+    @Override
+    public void saveSingleByNationAndField(String field, String developerNation, Developer developers) {
+        DeveloperPO developerPO = DeveloperPO.toPO(developers);
+        redisService.addUser(GITHUB_USER_INFO_KEY+field+":"+developerNation, developerPO, developerPO.getTalentRank());
+    }
+
+    @Override
+    public RankResult getTalentRankCacheByUserName(String username) {
+        return redisService.getValue(TALENT_RANK_CACHE_KEY+username);
+    }
+
+    @Override
+    public void setTalentRankCacheByUserName(String username, RankResult talentRank) {
+        redisService.setValue(TALENT_RANK_CACHE_KEY+username, talentRank);
+    }
+
+    @Override
+    public void saveBatchByNationAndField(String field, String nation, List<Developer> devs) {
+        devs.forEach(developer -> redisService.addUser(GITHUB_USER_INFO_KEY+field+":"+nation, DeveloperPO.toPO(developer), developer.getTalentRank()));
     }
 }

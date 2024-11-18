@@ -11,14 +11,14 @@ import java.util.List;
 
 @Mapper
 public interface IFieldMappingDao extends BaseMapperX<FieldMappingPO> {
-    
+
     /**
      * 批量插入字段映射
      * @param list 字段映射列表
      * @return 是否成功
      */
     Boolean insertBatch(@Param("list") List<FieldMappingPO> list);
-    
+
     /**
      * 分页查询字段映射
      */
@@ -40,4 +40,4 @@ public interface IFieldMappingDao extends BaseMapperX<FieldMappingPO> {
                 .eq(FieldMappingPO::getFieldName, fieldName)
                 .orderByDesc(FieldMappingPO::getMappingPriority));
     }
-} 
+}

@@ -8,7 +8,9 @@ import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
+import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
+import com.sdwu.types.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -115,7 +117,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         // 尝试从缓存获取
         DevelopeVo cachedStats = githubUserRepository.getUserStatsCache(username);
         if (cachedStats != null) {
-            log.debug("Cache hit for user stats: {}", username);
+            log.debug("用户统计信息的缓存命中: {}", username);
             return cachedStats;
         }
         String fetchGitHubApi= null;
@@ -256,6 +258,10 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
 
     public RankResult getTalentRankByUserName(String username){
+        RankResult talentRankCacheByUserName = githubUserRepository.getTalentRankCacheByUserName(username);
+        if (talentRankCacheByUserName!=null){
+            return talentRankCacheByUserName;
+        }
         String fetchGitHubApi= null;
         Boolean includeMergedPullRequests = true;
         Boolean includeDiscussions = true;
@@ -338,7 +344,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
         RankResult talentRank = calculateRank(false, totalCommits, totalPRs, totalIssues, totalReviews, totalStars, totalFollowers);
         log.info("用户 {} 的等级为：{}", username, talentRank.getLevel());
-
+        githubUserRepository.setTalentRankCacheByUserName(username, talentRank);
         return talentRank;
     }
 
@@ -959,7 +965,8 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
             String fetchGitHubApi = null;
             JSONObject userInfo=new JSONObject();
             List<Developer> developers = new ArrayList<>();
-
+            // 使用 Map 按国家分组存储开发者
+            Map<String, List<Developer>> developersByNation = new HashMap<>();
             try {
                 after = this.getGitHubAfterPageByTopic(formattedTerm);
 
@@ -997,12 +1004,13 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                     for (Object node : nodes) {
                         JSONObject jsonObject1 = (JSONObject) node;
                         String login = jsonObject1.getJSONObject("node").getJSONObject("owner").getString("login").trim(); // Trim whitespace
-                        //去除login的空格
-                        boolean checkLoginExist = githubUserRepository.checkLoginExist(login,formattedTerm);
+
+                        boolean checkLoginExist = githubUserRepository.checkLoginExist(login,field);
+
                         if (checkLoginExist){
                             continue;
                         }
-                        githubUserRepository.addLogin(login,formattedTerm);
+                        githubUserRepository.addLogin(login,field);
 
                         JSONObject owner= jsonObject1.getJSONObject("node").getJSONObject("owner");
                         String __typename =owner.getString("__typename");
@@ -1033,32 +1041,24 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
                         // 如果你需要talentRank仍然是double类型，可以这样做：
                         talentRank = Double.parseDouble(talentRankFormatted);
-                        Developer developer = Developer.builder()
-                                .login(login)
-                                .bio(userInfo.getString("bio"))
-                                .company(userInfo.getString("company"))
-                                .field(field)
-                                .location(userInfo.getString("location"))
-                                .htmlUrl(userInfo.getString("html_url"))
-                                .name(userInfo.getString("name"))
-                                .blog(userInfo.getString("blog"))
-                                .email(userInfo.getString("email"))
-                                .hireable(userInfo.getBoolean("hireable"))
-                                .talentRank(talentRank)
-                                .level(level)
-                                .nation(developerNation)
-                                .assessment(assessment)
-                                .twitterUsername(userInfo.getString("twitter_username"))
-                                .publicRepos(userInfo.getIntValue("public_repos"))
-                                .publicGists(userInfo.getIntValue("public_gists"))
-                                .followers(userInfo.getIntValue("followers"))
-                                .following(userInfo.getIntValue("following"))
-                                .type(userInfo.getString("type"))
-                                .repositoryUrl(jsonObject1.getJSONObject("node").getString("url"))
-                                .avatarUrl(userInfo.getString("avatar_url"))
-                                .build();
+
+                        Developer developer = Developer.fromGitHubData(
+                            login,
+                            userInfo,
+                            field,
+                            developerNation,
+                            talentRank,
+                            level,
+                            assessment,
+                            jsonObject1.getJSONObject("node").getString("url")
+                        );
+
                         log.info("开发者: {}", developer.toString());
                         developers.add(developer);
+
+//                        githubUserRepository.saveSingleByNationAndField(field,developerNation,developer);
+                        developersByNation.computeIfAbsent(developerNation, k -> new ArrayList<>())
+                                        .add(developer);
     //                    githubUserRepository.saveSingle(topic,developer);
                     }
     //            githubUserRepository.removeFieldSearchLock(topic);
@@ -1066,6 +1066,14 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                 log.info("开发者们: {}", developers);
                 if (!developers.isEmpty()) {
                     githubUserRepository.save(field, developers);
+                    // 批量保存按国家分组的数据
+                    for (Map.Entry<String, List<Developer>> entry : developersByNation.entrySet()) {
+                        String nation = entry.getKey();
+                        List<Developer> devs = entry.getValue();
+                        if (!devs.isEmpty()) {
+                            githubUserRepository.saveBatchByNationAndField(field, nation, devs);
+                        }
+                    }
                 }else{
                     //计数器
                     githubUserRepository.countDeveloperEmptyCount(field);
@@ -1080,7 +1088,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                     return false;
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new AppException(ResponseCode.GITHUB_API_ERROR.getCode(), ResponseCode.GITHUB_API_ERROR.getInfo(),e);
             }
             return true;
     }
@@ -1183,7 +1191,30 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
 
 
-
+//   Developer developer = Developer.builder()
+//                                .login(login)
+//                                .bio(userInfo.getString("bio"))
+//                                .company(userInfo.getString("company"))
+//                                .field(field)
+//                                .location(userInfo.getString("location"))
+//                                .htmlUrl(userInfo.getString("html_url"))
+//                                .name(userInfo.getString("name"))
+//                                .blog(userInfo.getString("blog"))
+//                                .email(userInfo.getString("email"))
+//                                .hireable(userInfo.getBoolean("hireable"))
+//                                .talentRank(talentRank)
+//                                .level(level)
+//                                .nation(developerNation)
+//                                .assessment(assessment)
+//                                .twitterUsername(userInfo.getString("twitter_username"))
+//                                .publicRepos(userInfo.getIntValue("public_repos"))
+//                                .publicGists(userInfo.getIntValue("public_gists"))
+//                                .followers(userInfo.getIntValue("followers"))
+//                                .following(userInfo.getIntValue("following"))
+//                                .type(userInfo.getString("type"))
+//                                .repositoryUrl(jsonObject1.getJSONObject("node").getString("url"))
+//                                .avatarUrl(userInfo.getString("avatar_url"))
+//                                .build();
 
 
 

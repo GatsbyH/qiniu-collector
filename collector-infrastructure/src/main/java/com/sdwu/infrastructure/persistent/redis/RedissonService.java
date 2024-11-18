@@ -3,6 +3,7 @@ package com.sdwu.infrastructure.persistent.redis;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.sdwu.infrastructure.persistent.po.DeveloperPO;
+import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.*;
 import org.springframework.stereotype.Service;
 
@@ -154,6 +155,29 @@ public class RedissonService implements IRedisService {
         List<DeveloperPO> users = ListUtil.toList(collection);
         return users;
     }
+
+     // 使用批量操作优化的方法
+    public Pair<List<DeveloperPO>, Integer> getUsersByRankDescWithSize(String key, int pageNumber, int pageSize) {
+        RBatch batch = redissonClient.createBatch();
+        RScoredSortedSetAsync<DeveloperPO> sortedSet = batch.getScoredSortedSet(key);
+
+        int startIndex = (pageNumber - 1) * pageSize;
+        int endIndex = startIndex + pageSize - 1;
+
+        // 并行执行两个操作
+        RFuture<Collection<DeveloperPO>> valuesFuture = sortedSet.valueRangeReversedAsync(startIndex, endIndex);
+        RFuture<Integer> sizeFuture = sortedSet.sizeAsync();
+
+        // 执行批量操作
+        batch.execute();
+
+        // 获取结果
+        List<DeveloperPO> users = new ArrayList<>(valuesFuture.getNow());
+        Integer size = sizeFuture.getNow();
+
+        return Pair.of(users, size);
+    }
+
 
     @Override
     public void removeUser(String key, DeveloperPO user) {

@@ -403,7 +403,7 @@ public class DeveloperFetcher {
     private static final String TASK_STATUS_FAILED = "FAILED";
     private static final String TASK_STATUS_COMPLETED = "COMPLETED";
 
-    // 2. 简化线程池管理，移除未使用的executorService
+    // 2. 简化线程池管理
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
 
     // 3. 统一任务管理，使用一个ConcurrentHashMap

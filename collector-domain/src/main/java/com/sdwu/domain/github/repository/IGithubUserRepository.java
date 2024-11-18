@@ -3,6 +3,7 @@ package com.sdwu.domain.github.repository;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.types.model.PageResult;
 
 import java.util.List;
@@ -43,7 +44,15 @@ public interface IGithubUserRepository {
 
     // 获取用户统计信息缓存
     DevelopeVo getUserStatsCache(String username);
-    
+
     // 保存用户统计信息缓存
     void saveUserStatsCache(String username, DevelopeVo stats);
+
+    void saveSingleByNationAndField(String field, String developerNation, Developer developer);
+
+    RankResult getTalentRankCacheByUserName(String username);
+
+    void setTalentRankCacheByUserName(String username, RankResult talentRank);
+
+    void saveBatchByNationAndField(String field, String nation, List<Developer> devs);
 }

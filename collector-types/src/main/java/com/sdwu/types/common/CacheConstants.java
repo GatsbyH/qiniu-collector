@@ -1,5 +1,7 @@
 package com.sdwu.types.common;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 缓存的key 常量
  *
@@ -43,6 +45,7 @@ public class CacheConstants
     public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
 
     public static final String GITHUB_USER_INFO_KEY = "github_user_info:";
+    public static final String TALENT_RANK_CACHE_KEY = "talent_rank_cache_key:";
     public static final String GITHUB_PAGE = "github_page:";
     public static final String FETCHING_KEY = "github_isFetching:";
     public static final String GITHUB_NX = "github_nx:";
@@ -51,7 +54,7 @@ public class CacheConstants
 
     public static final String USER_STATS_CACHE_KEY = "github:user:stats:";
 
-    public static final long USER_STATS_CACHE_TIME = 86400000; // 1天
+    public static final long USER_STATS_CACHE_TIME = TimeUnit.DAYS.toMillis(7);
 
     public static final String LOCK_PREFIX = "github:fetch:";
     public static final String CHECK_TASKS_LOCK = "check-tasks-lock:";

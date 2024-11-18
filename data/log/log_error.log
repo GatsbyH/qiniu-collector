@@ -1,172 +1,61 @@
-24-11-07.00:11:45.548 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
-24-11-07.00:11:47.351 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
-24-11-07.00:11:47.351 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.00:11:47.384 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
-24-11-07.00:11:47.384 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.10:37:10.438 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
-24-11-07.10:37:11.653 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
-24-11-07.10:37:11.653 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.10:37:11.677 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
-24-11-07.10:37:11.677 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.10:42:53.807 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m9s973ms163µs399ns).
-24-11-07.10:57:02.133 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
-24-11-07.10:57:03.414 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
-24-11-07.10:57:03.414 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.10:57:03.440 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
-24-11-07.10:57:03.440 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.16:52:42.532 [AMQP Connection 10.34.34.73:5672] WARN  ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Connection reset)
-24-11-07.16:52:42.530 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5h54m37s151ms463µs300ns).
-24-11-07.16:52:42.624 [redisson-netty-2-8] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0x19611b3f, L:/10.40.75.142:12301 - R:106.54.234.202/106.54.234.202:6379]
-java.io.IOException: 远程主机强迫关闭了一个现有的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method)
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:750)
-24-11-07.16:52:42.624 [redisson-netty-2-3] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0x3b4b41f4, L:/10.40.75.142:12296 - R:106.54.234.202/106.54.234.202:6379]
-java.io.IOException: 远程主机强迫关闭了一个现有的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method)
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:750)
-24-11-07.16:52:42.624 [redisson-netty-2-4] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0x7e02741f, L:/10.40.75.142:12298 - R:106.54.234.202/106.54.234.202:6379]
-java.io.IOException: 远程主机强迫关闭了一个现有的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method)
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:750)
-24-11-07.16:52:42.624 [redisson-netty-2-2] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0xd8770cb0, L:/10.40.75.142:12297 - R:106.54.234.202/106.54.234.202:6379]
-java.io.IOException: 远程主机强迫关闭了一个现有的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method)
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:750)
-24-11-07.16:52:42.624 [redisson-netty-2-7] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0xece8b97c, L:/10.40.75.142:12302 - R:106.54.234.202/106.54.234.202:6379]
-java.io.IOException: 远程主机强迫关闭了一个现有的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method)
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:750)
-24-11-07.16:52:42.624 [redisson-netty-2-11] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0xe3624a63, L:/10.40.75.142:12303 - R:106.54.234.202/106.54.234.202:6379]
-java.io.IOException: 远程主机强迫关闭了一个现有的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method)
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:750)
-24-11-07.17:10:04.010 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
-24-11-07.17:10:05.254 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
-24-11-07.17:10:05.254 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.17:10:05.279 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
-24-11-07.17:10:05.279 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.17:18:13.894 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
-24-11-07.17:18:15.075 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
-24-11-07.17:18:15.076 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.17:18:15.099 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
-24-11-07.17:18:15.099 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.17:18:31.138 [http-nio-8080-exec-1] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
-java.lang.NullPointerException: null
-	at java.util.ArrayList.addAll(ArrayList.java:583)
-	at com.sdwu.domain.github.service.GitHubGraphQLApiImpl.fetchUserStats(GitHubGraphQLApiImpl.java:329)
-	at com.sdwu.domain.github.service.TalentRankGraphQLServiceImpl.getDeveloperStatsByUserName(TalentRankGraphQLServiceImpl.java:31)
-	at com.sdwu.trigger.http.GitHubGraphQLController.getTalentRankByUserName(GitHubGraphQLController.java:33)
-	at com.sdwu.trigger.http.GitHubGraphQLController$$FastClassBySpringCGLIB$$494b4d44.invoke(<generated>)
+24-11-18.13:39:29.826 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.13:39:31.103 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.13:39:31.103 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:39:31.134 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.13:39:31.134 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:39:32.350 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.13:39:32.350 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:53:27.780 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.13:53:28.876 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.13:53:28.876 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:53:28.902 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.13:53:28.902 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:53:30.079 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.13:53:30.079 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:59:26.586 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.13:59:27.667 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.13:59:27.667 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:59:27.692 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.13:59:27.692 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.13:59:28.845 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.13:59:28.845 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:04:10.466 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.14:04:11.612 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.14:04:11.612 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:04:11.635 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.14:04:11.635 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:04:12.797 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.14:04:12.797 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:04:43.371 [http-nio-8080-exec-3] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: java.lang.Object Not Found TableInfoCache.] with root cause
+com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: java.lang.Object Not Found TableInfoCache.
+	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:49)
+	at com.baomidou.mybatisplus.core.toolkit.Assert.isTrue(Assert.java:38)
+	at com.baomidou.mybatisplus.core.toolkit.Assert.notNull(Assert.java:72)
+	at com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils.currentSessionFactory(GlobalConfigUtils.java:55)
+	at com.baomidou.mybatisplus.extension.toolkit.SqlHelper.sqlSessionFactory(SqlHelper.java:76)
+	at com.baomidou.mybatisplus.extension.toolkit.SqlHelper.executeBatch(SqlHelper.java:168)
+	at com.baomidou.mybatisplus.extension.toolkit.SqlHelper.executeBatch(SqlHelper.java:217)
+	at com.baomidou.mybatisplus.extension.service.impl.ServiceImpl.executeBatch(ServiceImpl.java:240)
+	at com.baomidou.mybatisplus.extension.service.impl.ServiceImpl.saveBatch(ServiceImpl.java:136)
+	at com.baomidou.mybatisplus.extension.service.IService.saveBatch(IService.java:73)
+	at com.sdwu.infrastructure.persistent.utils.BaseMapperX.insertBatch(BaseMapperX.java:142)
+	at java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:627)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$DefaultMethodInvoker.invoke(MybatisMapperProxy.java:162)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.insertBatch(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.batchSaveFieldMappings(FieldMappingRepository.java:60)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.sdwu.types.aop.LoggingAspect.logMethod(LoggingAspect.java:29)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:634)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:624)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:72)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
-	at com.sdwu.trigger.http.GitHubGraphQLController$$EnhancerBySpringCGLIB$$518e8f74.getTalentRankByUserName(<generated>)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$3a0289dc.batchSaveFieldMappings(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.batchSaveFieldMappings(FieldMappingServiceImpl.java:44)
+	at com.sdwu.trigger.http.FieldMappingController.batchSave(FieldMappingController.java:52)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -180,8 +69,8 @@ java.lang.NullPointerException: null
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
@@ -224,8 +113,1036 @@ java.lang.NullPointerException: null
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-24-11-07.17:18:50.942 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
-24-11-07.17:18:52.024 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
-24-11-07.17:18:52.024 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-24-11-07.17:18:52.051 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
-24-11-07.17:18:52.051 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:12:38.431 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.14:12:39.431 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.14:12:39.435 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:12:39.556 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.14:12:39.557 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:12:39.581 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.14:12:39.582 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.14:13:21.070 [http-nio-8080-exec-6] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'field_id' cannot be null
+### The error may exist in file [D:\qiniu-collector\collector\collector-app\target\classes\mybatis\mapper\FieldMappingMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: INSERT INTO field_mapping (             field_id, field_name, mapping_type,             mapping_value, mapping_priority, create_time,             update_time         ) VALUES                        (                 ?, ?, ?,                 ?, ?, NOW(),                 NOW()             )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'field_id' cannot be null
+; Column 'field_id' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'field_id' cannot be null] with root cause
+java.sql.SQLIntegrityConstraintViolationException: Column 'field_id' cannot be null
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:117)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy153.update(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy119.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:59)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.insertBatch(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.batchSaveFieldMappings(FieldMappingRepository.java:60)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7d48777.batchSaveFieldMappings(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.batchSaveFieldMappings(FieldMappingServiceImpl.java:44)
+	at com.sdwu.trigger.http.FieldMappingController.batchSave(FieldMappingController.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.14:40:11.216 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m59s305ms644µs200ns).
+24-11-18.14:40:12.303 [AMQP Connection 10.34.34.73:5672] WARN  ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Connection reset)
+24-11-18.14:55:37.589 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=56s305ms663µs100ns).
+24-11-18.15:11:50.909 [http-nio-8080-exec-10] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DuplicateKeyException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+### The error may exist in file [D:\qiniu-collector\collector\collector-app\target\classes\mybatis\mapper\FieldMappingMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: INSERT INTO field_mapping (             field_id, field_name, mapping_type,             mapping_value, mapping_priority, create_time,             update_time         ) VALUES                        (                 ?, ?, ?,                 ?, ?, NOW(),                 NOW()             )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+; Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'; nested exception is java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'] with root cause
+java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:117)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy153.update(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy119.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:59)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.insertBatch(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.batchSaveFieldMappings(FieldMappingRepository.java:60)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7d48777.batchSaveFieldMappings(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.batchSaveFieldMappings(FieldMappingServiceImpl.java:44)
+	at com.sdwu.trigger.http.FieldMappingController.batchSave(FieldMappingController.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:12:06.335 [http-nio-8080-exec-3] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DuplicateKeyException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+### The error may exist in file [D:\qiniu-collector\collector\collector-app\target\classes\mybatis\mapper\FieldMappingMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: INSERT INTO field_mapping (             field_id, field_name, mapping_type,             mapping_value, mapping_priority, create_time,             update_time         ) VALUES                        (                 ?, ?, ?,                 ?, ?, NOW(),                 NOW()             )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+; Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'; nested exception is java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'] with root cause
+java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:117)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy153.update(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy119.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:59)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.insertBatch(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.batchSaveFieldMappings(FieldMappingRepository.java:60)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7d48777.batchSaveFieldMappings(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.batchSaveFieldMappings(FieldMappingServiceImpl.java:44)
+	at com.sdwu.trigger.http.FieldMappingController.batchSave(FieldMappingController.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:13:02.234 [http-nio-8080-exec-6] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DuplicateKeyException: 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+### The error may exist in file [D:\qiniu-collector\collector\collector-app\target\classes\mybatis\mapper\FieldMappingMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: INSERT INTO field_mapping (             field_id, field_name, mapping_type,             mapping_value, mapping_priority, create_time,             update_time         ) VALUES                        (                 ?, ?, ?,                 ?, ?, NOW(),                 NOW()             )          ,              (                 ?, ?, ?,                 ?, ?, NOW(),                 NOW()             )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+; Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'; nested exception is java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'] with root cause
+java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '97-TOPIC-go' for key 'field_mapping.uk_field_mapping'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:117)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy153.update(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy152.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy119.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:59)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.insertBatch(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.batchSaveFieldMappings(FieldMappingRepository.java:60)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7d48777.batchSaveFieldMappings(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.batchSaveFieldMappings(FieldMappingServiceImpl.java:44)
+	at com.sdwu.trigger.http.FieldMappingController.batchSave(FieldMappingController.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:18:15.830 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.15:18:16.937 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.15:18:16.940 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:18:17.064 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.15:18:17.064 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:18:17.086 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.15:18:17.086 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:28:52.198 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.15:28:53.347 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.15:28:53.350 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:28:53.483 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.15:28:53.483 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:28:53.507 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.15:28:53.507 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:31:54.583 [redisson-timer-4-1] ERROR PingConnectionHandler  - Unable to send PING command over channel: [id: 0x85ab96de, L:/10.40.75.142:12050 - R:106.54.234.202/106.54.234.202:6379]
+org.redisson.client.RedisTimeoutException: Command execution timeout for command: (PING), params: [], Redis client: [addr=redis://106.54.234.202:6379]
+	at org.redisson.client.RedisConnection.lambda$async$0(RedisConnection.java:244)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.run(HashedWheelTimer.java:715)
+	at io.netty.util.concurrent.ImmediateExecutor.execute(ImmediateExecutor.java:34)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.expire(HashedWheelTimer.java:703)
+	at io.netty.util.HashedWheelTimer$HashedWheelBucket.expireTimeouts(HashedWheelTimer.java:790)
+	at io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:503)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:31:54.583 [redisson-timer-4-1] ERROR PingConnectionHandler  - Unable to send PING command over channel: [id: 0x0c2cd2ca, L:/10.40.75.142:12051 - R:106.54.234.202/106.54.234.202:6379]
+org.redisson.client.RedisTimeoutException: Command execution timeout for command: (PING), params: [], Redis client: [addr=redis://106.54.234.202:6379]
+	at org.redisson.client.RedisConnection.lambda$async$0(RedisConnection.java:244)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.run(HashedWheelTimer.java:715)
+	at io.netty.util.concurrent.ImmediateExecutor.execute(ImmediateExecutor.java:34)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.expire(HashedWheelTimer.java:703)
+	at io.netty.util.HashedWheelTimer$HashedWheelBucket.expireTimeouts(HashedWheelTimer.java:790)
+	at io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:503)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:31:54.583 [redisson-timer-4-1] ERROR PingConnectionHandler  - Unable to send PING command over channel: [id: 0x82ece2a6, L:/10.40.75.142:12052 - R:106.54.234.202/106.54.234.202:6379]
+org.redisson.client.RedisTimeoutException: Command execution timeout for command: (PING), params: [], Redis client: [addr=redis://106.54.234.202:6379]
+	at org.redisson.client.RedisConnection.lambda$async$0(RedisConnection.java:244)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.run(HashedWheelTimer.java:715)
+	at io.netty.util.concurrent.ImmediateExecutor.execute(ImmediateExecutor.java:34)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.expire(HashedWheelTimer.java:703)
+	at io.netty.util.HashedWheelTimer$HashedWheelBucket.expireTimeouts(HashedWheelTimer.java:790)
+	at io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:503)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:31:54.584 [redisson-timer-4-1] ERROR PingConnectionHandler  - Unable to send PING command over channel: [id: 0xd62992c8, L:/10.40.75.142:12054 - R:106.54.234.202/106.54.234.202:6379]
+org.redisson.client.RedisTimeoutException: Command execution timeout for command: (PING), params: [], Redis client: [addr=redis://106.54.234.202:6379]
+	at org.redisson.client.RedisConnection.lambda$async$0(RedisConnection.java:244)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.run(HashedWheelTimer.java:715)
+	at io.netty.util.concurrent.ImmediateExecutor.execute(ImmediateExecutor.java:34)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.expire(HashedWheelTimer.java:703)
+	at io.netty.util.HashedWheelTimer$HashedWheelBucket.expireTimeouts(HashedWheelTimer.java:790)
+	at io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:503)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:31:54.584 [redisson-timer-4-1] ERROR PingConnectionHandler  - Unable to send PING command over channel: [id: 0x0f5004d5, L:/10.40.75.142:12053 - R:106.54.234.202/106.54.234.202:6379]
+org.redisson.client.RedisTimeoutException: Command execution timeout for command: (PING), params: [], Redis client: [addr=redis://106.54.234.202:6379]
+	at org.redisson.client.RedisConnection.lambda$async$0(RedisConnection.java:244)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.run(HashedWheelTimer.java:715)
+	at io.netty.util.concurrent.ImmediateExecutor.execute(ImmediateExecutor.java:34)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.expire(HashedWheelTimer.java:703)
+	at io.netty.util.HashedWheelTimer$HashedWheelBucket.expireTimeouts(HashedWheelTimer.java:790)
+	at io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:503)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:31:54.667 [redisson-timer-4-1] ERROR PingConnectionHandler  - Unable to send PING command over channel: [id: 0xec6a017e, L:/10.40.75.142:12055 - R:106.54.234.202/106.54.234.202:6379]
+org.redisson.client.RedisTimeoutException: Command execution timeout for command: (PING), params: [], Redis client: [addr=redis://106.54.234.202:6379]
+	at org.redisson.client.RedisConnection.lambda$async$0(RedisConnection.java:244)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.run(HashedWheelTimer.java:715)
+	at io.netty.util.concurrent.ImmediateExecutor.execute(ImmediateExecutor.java:34)
+	at io.netty.util.HashedWheelTimer$HashedWheelTimeout.expire(HashedWheelTimer.java:703)
+	at io.netty.util.HashedWheelTimer$HashedWheelBucket.expireTimeouts(HashedWheelTimer.java:790)
+	at io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:503)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.15:44:41.047 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.15:44:42.102 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.15:44:42.105 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:44:42.223 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.15:44:42.224 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.15:44:42.246 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.15:44:42.246 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.16:14:23.818 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m9s130ms302µs300ns).
+24-11-18.17:23:06.979 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.17:23:08.057 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.17:23:08.061 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.17:23:08.207 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.17:23:08.207 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.17:23:08.234 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.17:23:08.234 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.17:23:10.598 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'developerBuilder' defined in file [D:\qiniu-collector\collector\collector-domain\target\classes\com\sdwu\domain\github\service\builder\DeveloperBuilder.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'java.lang.String' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+24-11-18.17:23:10.731 [main            ] ERROR LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.sdwu.domain.github.service.builder.DeveloperBuilder required a bean of type 'java.lang.String' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'java.lang.String' in your configuration.
+
+24-11-18.17:24:07.530 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.17:24:08.557 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.17:24:08.561 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.17:24:08.738 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.17:24:08.738 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.17:24:08.769 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.17:24:08.769 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:08:59.390 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:09:02.572 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:09:02.579 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:09:03.056 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:09:03.056 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:09:03.172 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:09:03.173 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:10:49.755 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:10:50.958 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:10:50.962 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:10:51.106 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:10:51.106 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:10:51.129 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:10:51.129 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:15:55.239 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=59s759ms124µs100ns).
+24-11-18.19:16:27.533 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:16:28.663 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:16:28.667 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:16:28.898 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:16:28.898 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:16:28.933 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:16:28.933 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:23:12.905 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:23:13.932 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:23:13.935 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:23:14.060 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:23:14.060 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:23:14.083 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:23:14.083 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:37:02.553 [http-nio-8080-exec-6] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.sdwu.infrastructure.persistent.dao.IFieldMappingDao.deleteById] with root cause
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.sdwu.infrastructure.persistent.dao.IFieldMappingDao.deleteById
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.<init>(MapperMethod.java:235)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.<init>(MybatisMapperMethod.java:50)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.lambda$cachedInvoker$0(MybatisMapperProxy.java:111)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at com.baomidou.mybatisplus.core.toolkit.CollectionUtils.computeIfAbsent(CollectionUtils.java:115)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.cachedInvoker(MybatisMapperProxy.java:98)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.deleteById(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.deleteFieldMapping(FieldMappingRepository.java:46)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7afab975.deleteFieldMapping(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.deleteFieldMapping(FieldMappingServiceImpl.java:34)
+	at com.sdwu.trigger.http.FieldMappingController.remove(FieldMappingController.java:47)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:931)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:561)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.19:37:06.391 [http-nio-8080-exec-7] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.sdwu.infrastructure.persistent.dao.IFieldMappingDao.deleteById] with root cause
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.sdwu.infrastructure.persistent.dao.IFieldMappingDao.deleteById
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.<init>(MapperMethod.java:235)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.<init>(MybatisMapperMethod.java:50)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.lambda$cachedInvoker$0(MybatisMapperProxy.java:111)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at com.baomidou.mybatisplus.core.toolkit.CollectionUtils.computeIfAbsent(CollectionUtils.java:115)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.cachedInvoker(MybatisMapperProxy.java:98)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.deleteById(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.deleteFieldMapping(FieldMappingRepository.java:46)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7afab975.deleteFieldMapping(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.deleteFieldMapping(FieldMappingServiceImpl.java:34)
+	at com.sdwu.trigger.http.FieldMappingController.remove(FieldMappingController.java:47)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:931)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:561)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.19:37:19.764 [http-nio-8080-exec-3] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.sdwu.infrastructure.persistent.dao.IFieldMappingDao.deleteById] with root cause
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.sdwu.infrastructure.persistent.dao.IFieldMappingDao.deleteById
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.<init>(MapperMethod.java:235)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.<init>(MybatisMapperMethod.java:50)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.lambda$cachedInvoker$0(MybatisMapperProxy.java:111)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at com.baomidou.mybatisplus.core.toolkit.CollectionUtils.computeIfAbsent(CollectionUtils.java:115)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.cachedInvoker(MybatisMapperProxy.java:98)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy132.deleteById(Unknown Source)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository.deleteFieldMapping(FieldMappingRepository.java:46)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$FastClassBySpringCGLIB$$899bf744.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.sdwu.infrastructure.persistent.repository.FieldMappingRepository$$EnhancerBySpringCGLIB$$7afab975.deleteFieldMapping(<generated>)
+	at com.sdwu.domain.github.service.FieldMappingServiceImpl.deleteFieldMapping(FieldMappingServiceImpl.java:34)
+	at com.sdwu.trigger.http.FieldMappingController.remove(FieldMappingController.java:47)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:931)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:561)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at cn.dev33.satoken.filter.SaPathCheckFilterForServlet.doFilter(SaPathCheckFilterForServlet.java:55)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.19:40:58.682 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:40:59.667 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:40:59.669 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:40:59.789 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:40:59.789 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:40:59.812 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:40:59.813 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:45:03.227 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:45:04.258 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:45:04.262 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:45:04.396 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:45:04.396 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:45:04.419 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:45:04.419 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:54:05.508 [pool-3-thread-1 ] WARN  DeveloperNationServiceImpl - Failed to parse confidence: 哥谭市（Gotham City）是美国虚构城市，出现在蝙蝠侠的漫画和相关作品中。因此，所属国家为美国。
+
+美国
+24-11-18.19:54:52.546 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.19:54:53.691 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.19:54:53.694 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:54:53.819 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.19:54:53.819 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.19:54:53.841 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.19:54:53.842 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.20:49:31.269 [redisson-netty-2-7] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0xe88cffa9, L:/10.40.75.142:7128 - R:106.54.234.202/106.54.234.202:6379]
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.20:49:31.269 [redisson-netty-2-3] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0xeab0a862, L:/10.40.75.142:7125 - R:106.54.234.202/106.54.234.202:6379]
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.20:49:31.269 [redisson-netty-2-4] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0x88923684, L:/10.40.75.142:7126 - R:106.54.234.202/106.54.234.202:6379]
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.20:49:31.269 [redisson-netty-2-2] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0x8d8dc595, L:/10.40.75.142:7124 - R:106.54.234.202/106.54.234.202:6379]
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.20:49:31.269 [redisson-netty-2-8] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0x8b4058e5, L:/10.40.75.142:7127 - R:106.54.234.202/106.54.234.202:6379]
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.20:49:31.269 [redisson-netty-2-11] ERROR ErrorsLoggingHandler   - Exception occured. Channel: [id: 0xfcd286a5, L:/10.40.75.142:7129 - R:106.54.234.202/106.54.234.202:6379]
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:256)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:750)
+24-11-18.20:49:55.271 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m58s724ms201µs600ns).
+24-11-18.20:49:56.152 [AMQP Connection 10.34.34.73:5672] WARN  ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Connection reset)
+24-11-18.22:35:14.749 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-18.22:35:16.012 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-18.22:35:16.017 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.22:35:16.183 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-18.22:35:16.184 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.22:35:16.213 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-18.22:35:16.213 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-18.22:49:23.826 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m33s901ms265µs400ns).
+24-11-18.22:49:25.994 [AMQP Connection 10.34.34.73:5672] WARN  ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Connection reset)
+24-11-18.23:27:49.407 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s535ms580µs700ns).

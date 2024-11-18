@@ -18,12 +18,19 @@
 <!--    </insert>-->
 
     <insert id="insertBatch">
-    INSERT IGNORE INTO field_mapping
-    (field_id, field_name, mapping_type, mapping_value, mapping_priority, create_time, update_time)
-    VALUES
-    <foreach collection="list" item="item" separator=",">
-        (#{item.fieldId}, #{item.fieldName}, #{item.mappingType},
-         #{item.mappingValue}, #{item.mappingPriority}, NOW(), NOW())
-    </foreach>
-</insert>
+        INSERT INTO field_mapping
+        (field_id, field_name, mapping_type, mapping_value, mapping_priority, create_time, update_time, deleted)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fieldId}, #{item.fieldName}, #{item.mappingType},
+             #{item.mappingValue}, #{item.mappingPriority}, NOW(), NOW(), 0)
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            field_name = VALUES(field_name),
+            mapping_type = VALUES(mapping_type),
+            mapping_value = VALUES(mapping_value),
+            mapping_priority = VALUES(mapping_priority),
+            update_time = NOW(),
+            deleted = 0
+    </insert>
 </mapper>
