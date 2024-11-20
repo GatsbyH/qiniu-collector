@@ -11,6 +11,10 @@
 
     <dependencies>
         <dependency>
+             <groupId>me.zhyd.oauth</groupId>
+             <artifactId>JustAuth</artifactId>
+         </dependency>
+        <dependency>
             <groupId>com.baidu.aip</groupId>
             <artifactId>java-sdk</artifactId>
         </dependency>

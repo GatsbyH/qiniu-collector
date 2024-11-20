@@ -22,4 +22,14 @@ public class DevelopeVo {
     private String field;
     private String nation;
     private String avatarUrl;
+
+
+    // 添加新的得分字段
+    private Double totalScore;
+    private Double commitScore;
+    private Double prScore;
+    private Double issueScore;
+    private Double reviewScore;
+    private Double starScore;
+    private Double followerScore;
 }

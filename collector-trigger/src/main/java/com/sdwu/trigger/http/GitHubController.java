@@ -3,6 +3,7 @@ package com.sdwu.trigger.http;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sdwu.domain.github.model.valobj.DeveloperContributionVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.domain.github.model.valobj.GithubRepoReqVo;
 import com.sdwu.domain.github.model.valobj.GithubUserReqVo;
 import com.sdwu.domain.github.service.*;
 import com.sdwu.types.annotation.Loggable;
@@ -68,6 +69,17 @@ public class GitHubController {
                 .build();
     }
 
+    //获取开发者仓库
+    @GetMapping("getGithubUserRepos")
+    @Loggable
+    public Response getGithubUserRepos(String username) {
+        return Response.builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(gitHubApi.getGithubUserRepos(username))
+                .build();
+    }
+
     //关闭定时任务，根据领域搜索匹配开发者
     @GetMapping("stopGetDeveloperByField")
     public Response stopGetDeveloperByField(String field){
@@ -109,6 +121,7 @@ public class GitHubController {
                 .data(developerTechnicalAbility)
                 .build();
     }
+
 
 
 

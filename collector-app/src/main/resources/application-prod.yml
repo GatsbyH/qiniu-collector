@@ -151,3 +151,8 @@ openai:
         api-host: https://open.bigmodel.cn/
         api-key: 2589ec5698aa22ce677a261bb7bf5221.nCX8m9P7dfLKUBdp
         enabled: true
+github:
+  oauth:
+    client-id: Ov23liZR76ZlleKIVHq7
+    client-secret: f6fd5a932bdef1dc21922bd63c0bb2f170089560
+    redirect-uri: http://106.54.234.202:8080/oauth/callback/github

@@ -117,6 +117,7 @@ public class DeveloperNationServiceImpl implements IDeveloperNationService {
                 confidence = confidence.replace("%", "");
 
                 // 如果置信度为大于等于80，直接返回国家名
+
                 if (80<=(Integer.valueOf(confidence))) {
                     return country;
                 }

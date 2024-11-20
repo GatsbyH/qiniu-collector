@@ -1,9 +1,12 @@
 package com.sdwu.domain.github.service;
 
+import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.sdwu.domain.github.model.entity.Developer;
+import com.sdwu.domain.github.model.valobj.GithubRepoReqVo;
+import com.sdwu.domain.github.model.valobj.GithubRepoRespVo;
 import com.sdwu.domain.github.model.valobj.GithubUserReqVo;
 import com.sdwu.domain.github.model.valobj.GithubUserRespVo;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
@@ -12,12 +15,16 @@ import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
 import com.sdwu.types.model.PageResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -264,8 +271,10 @@ public class GitHubApiImpl implements IGitHubApi{
     @Override
     public PageResult<GithubUserRespVo> getGithubDevelopers(GithubUserReqVo githubUserReqVo) {
         String response = null;
-        String endpoint = String.format("/search/users?q=%s&page=%d&per_page=%d",
-            githubUserReqVo.getUsername(), githubUserReqVo.getPageNum(), githubUserReqVo.getPageSize());
+        // 对用户名进行 URL 编码
+        String encodedUsername = URLUtil.encode(githubUserReqVo.getUsername());
+        String endpoint = String.format("/search/users?q=%s in:login&page=%d&per_page=%d",
+            encodedUsername, githubUserReqVo.getPageNum(), githubUserReqVo.getPageSize());
 
         try {
             // 1. API调用
@@ -306,4 +315,92 @@ public class GitHubApiImpl implements IGitHubApi{
             throw new AppException(ResponseCode.UN_ERROR.getCode(), ResponseCode.UN_ERROR.getInfo());
         }
     }
+
+    @Override
+    public List<GithubRepoRespVo> getGithubUserRepos(String username) {
+        String response = null;
+        String encodedUsername = URLUtil.encode(username);
+
+        String endpoint = String.format("/users/%s/repos?per_page=100&sort=stars&direction=desc", encodedUsername);
+
+        try {
+            // 1. API调用
+            response = gitHubClientService.fetchGitHubApi(endpoint, null);
+            if (response == null || response.isEmpty()) {
+                log.warn("API返回空响应，用户: {}", username);
+                return Collections.emptyList();
+            }
+
+            // 2. 解析响应
+            JSONArray repositories = JSON.parseArray(response);
+            if (repositories == null || repositories.isEmpty()) {
+                log.warn("未找到仓库，用户: {}", username);
+                return Collections.emptyList();
+            }
+
+            // 3. 直接处理数据，不需要额外的API调用
+            return repositories.stream()
+                    .map(item -> {
+                        JSONObject repo = (JSONObject) item;
+                        return GithubRepoRespVo.builder()
+                                // 基本信息
+                                .name(repo.getString("name"))
+                                .description(StringUtils.defaultIfBlank(repo.getString("description"), "No description"))
+                                .htmlUrl(repo.getString("html_url"))
+                                .homepage(repo.getString("homepage"))
+                                // 统计信息
+                                .stars(repo.getInteger("stargazers_count"))
+                                .forks(repo.getInteger("forks_count"))
+                                .watchers(repo.getInteger("watchers_count"))
+                                .openIssues(repo.getInteger("open_issues_count"))
+                                // 技术相关
+                                .language(repo.getString("language"))
+                                .defaultBranch(repo.getString("default_branch"))
+                                // 状态标记
+                                .isPrivate(repo.getBoolean("private"))
+                                .isFork(repo.getBoolean("fork"))
+                                .isArchived(repo.getBoolean("archived"))
+                                // 时间信息
+                                .updatedAt(repo.getDate("updated_at"))
+                                .createdAt(repo.getDate("created_at"))
+                                // topics直接从响应中获取
+                                .topics(repo.getJSONArray("topics") != null ?
+                                      repo.getJSONArray("topics").toJavaList(String.class) :
+                                      Collections.emptyList())
+                                .size(formatRepoSize(repo.getInteger("size")))
+                                .build();
+                    })
+                    .sorted(Comparator.comparing(GithubRepoRespVo::getStars).reversed())
+                    .collect(Collectors.toList());
+
+        } catch (Exception e) {
+            log.error("处理仓库数据时发生错误: {}", e.getMessage());
+            throw new AppException(ResponseCode.UN_ERROR.getCode(), ResponseCode.UN_ERROR.getInfo());
+        }
+    }
+    /**
+     * 格式化仓库大小
+     * @param sizeInKB 仓库大小（KB）
+     * @return 格式化后的大小字符串
+     */
+    private String formatRepoSize(Integer sizeInKB) {
+        if (sizeInKB == null || sizeInKB == 0) {
+            return "0 KB";
+        }
+
+        final long KB = 1024;
+        final long MB = KB * 1024;
+        final long GB = MB * 1024;
+
+        if (sizeInKB < KB) {
+            return sizeInKB + " KB";
+        } else if (sizeInKB < MB) {
+            double size = sizeInKB / (double) KB;
+            return String.format("%.1f MB", size);
+        } else {
+            double size = sizeInKB / (double) MB;
+            return String.format("%.1f GB", size);
+        }
+    }
+
 }

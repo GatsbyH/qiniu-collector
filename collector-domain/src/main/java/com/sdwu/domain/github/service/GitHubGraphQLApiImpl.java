@@ -7,6 +7,7 @@ import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
+import com.sdwu.domain.github.model.valobj.RepoAnalysisData;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.types.enums.ResponseCode;
 import com.sdwu.types.exception.AppException;
@@ -19,6 +20,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -236,6 +239,15 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
         RankResult talentRank = calculateRank(false, totalCommits, totalPRs, totalIssues, totalReviews, totalStars, totalFollowers);
         log.info("用户 {} 的等级为：{}", username, talentRank.getLevel());
+        double percentile = talentRank.getPercentile();
+        double v = new BigDecimal(100 - percentile).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        // 计算各部分得分并保留两位小数
+        double commitScore = new BigDecimal(v * 0.1667).setScale(2, RoundingMode.HALF_UP).doubleValue();  // 16.67%
+        double prScore = new BigDecimal(v * 0.25).setScale(2, RoundingMode.HALF_UP).doubleValue();        // 25%
+        double issueScore = new BigDecimal(v * 0.0833).setScale(2, RoundingMode.HALF_UP).doubleValue();   // 8.33%
+        double reviewScore = new BigDecimal(v * 0.0833).setScale(2, RoundingMode.HALF_UP).doubleValue();  // 8.33%
+        double starScore = new BigDecimal(v * 0.3333).setScale(2, RoundingMode.HALF_UP).doubleValue();    // 33.33%
+        double followerScore = new BigDecimal(v * 0.0833).setScale(2, RoundingMode.HALF_UP).doubleValue(); // 8.33%
 
         DevelopeVo developeVo = new DevelopeVo().builder()
                 .totalCommits(totalCommits)
@@ -249,6 +261,14 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                 .totalFollowers(totalFollowers)
                 .rankResult(talentRank)
                 .contributeTo(contributedTo)
+                 // 添加各部分得分
+                .totalScore(v)
+                .commitScore(commitScore)
+                .prScore(prScore)
+                .issueScore(issueScore)
+                .reviewScore(reviewScore)
+                .starScore(starScore)
+                .followerScore(followerScore)
                 .build();
         // 缓存结果
         githubUserRepository.saveUserStatsCache(username, developeVo);
@@ -958,6 +978,9 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         return guessedFieldBaseOnDescrip;
     }
 
+
+
+
     @Override
     public boolean fetchUsersByStrategy(String field, String queryTemplate, String queryParamName, String formattedTerm) {
             boolean hasNextPage = true;
@@ -1162,30 +1185,30 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         return new RankResult(level, rank * 100);
     }
 
-//    private static String determineLevel(double rank) {
-//        double[] thresholds = {1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100};
-//        String[] levels = {"S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"};
-//
-//        for (int i = 0; i < thresholds.length; i++) {
-//            if (rank * 100 <= thresholds[i]) {
-//                return levels[i];
-//            }
-//        }
-//        return "Unknown"; // fallback in case of no match
-//    }
-
     private static String determineLevel(double rank) {
-        // 阈值和等级名称，分数越高等级越低
-        double[] thresholds = {0, 33.33, 66.66};
-        String[] levels = {"高级工程师", "中级工程师", "初级工程师"};
+        double[] thresholds = {1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100};
+        String[] levels = {"S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"};
 
-        for (int i = thresholds.length - 1; i >= 0; i--) {
-            if (rank * 100 >= thresholds[i]) {
+        for (int i = 0; i < thresholds.length; i++) {
+            if (rank * 100 <= thresholds[i]) {
                 return levels[i];
             }
         }
-        return "未知"; // fallback in case of no match
+        return "Unknown"; // fallback in case of no match
     }
+
+//    private static String determineLevel(double rank) {
+//        // 阈值和等级名称，分数越高等级越低
+//        double[] thresholds = {0, 33.33, 66.66};
+//        String[] levels = {"高级工程师", "中级工程师", "初级工程师"};
+//
+//        for (int i = thresholds.length - 1; i >= 0; i--) {
+//            if (rank * 100 >= thresholds[i]) {
+//                return levels[i];
+//            }
+//        }
+//        return "未知"; // fallback in case of no match
+//    }
 
 }
 
