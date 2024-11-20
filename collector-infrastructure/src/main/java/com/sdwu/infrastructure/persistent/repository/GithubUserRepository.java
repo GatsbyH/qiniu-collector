@@ -10,6 +10,7 @@ import com.sdwu.infrastructure.persistent.redis.IRedisService;
 import com.sdwu.types.model.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -25,6 +26,8 @@ import static com.sdwu.types.common.CacheConstants.*;
 public class GithubUserRepository implements IGithubUserRepository {
     @Resource
     private IRedisService redisService;
+
+
 
     @Override
     public void save(String field,List<Developer> developers) {
@@ -237,5 +240,35 @@ public class GithubUserRepository implements IGithubUserRepository {
     @Override
     public void saveBatchByNationAndField(String field, String nation, List<Developer> devs) {
         devs.forEach(developer -> redisService.addUser(GITHUB_USER_INFO_KEY+field+":"+nation, DeveloperPO.toPO(developer), developer.getTalentRank()));
+    }
+
+    @Override
+    public String getSvgCache(String username, String theme) {
+        try {
+            // 构建缓存key
+            String cacheKey = buildSvgCacheKey(username, theme);
+            return redisService.getValue(cacheKey);
+        } catch (Exception e) {
+            log.warn("获取用户 {} 的SVG缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveSvgCache(String username, String theme, String svg) {
+        try {
+            String cacheKey = buildSvgCacheKey(username, theme);
+            redisService.setValue(cacheKey, svg, SVG_CACHE_TIME);
+            log.debug("已保存用户 {} 的SVG缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户 {} 的SVG缓存失败: {}", username, e.getMessage());
+        }
+    }
+
+    /**
+     * 构建SVG缓存的key
+     */
+    private String buildSvgCacheKey(String username, String theme) {
+        return String.format("%s%s:%s", SVG_CACHE_KEY, username, theme);
     }
 }

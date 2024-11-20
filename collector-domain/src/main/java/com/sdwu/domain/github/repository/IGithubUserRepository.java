@@ -55,4 +55,20 @@ public interface IGithubUserRepository {
     void setTalentRankCacheByUserName(String username, RankResult talentRank);
 
     void saveBatchByNationAndField(String field, String nation, List<Developer> devs);
+
+    /**
+     * 获取用户SVG统计图缓存
+     * @param username 用户名
+     * @param theme 主题
+     * @return 缓存的SVG内容，如果没有缓存则返回null
+     */
+    String getSvgCache(String username, String theme);
+
+    /**
+     * 保存用户SVG统计图缓存
+     * @param username 用户名
+     * @param theme 主题
+     * @param svg SVG内容
+     */
+    void saveSvgCache(String username, String theme, String svg);
 }

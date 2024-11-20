@@ -59,4 +59,12 @@ public class CacheConstants
     public static final String LOCK_PREFIX = "github:fetch:";
     public static final String CHECK_TASKS_LOCK = "check-tasks-lock:";
 
+    /**
+     * SVG统计图缓存key前缀
+     */
+    public static final String SVG_CACHE_KEY = "github:svg:";
+
+
+    // 设置SVG缓存时间为24小时
+    public static final long SVG_CACHE_TIME = TimeUnit.HOURS.toSeconds(24);
 }
