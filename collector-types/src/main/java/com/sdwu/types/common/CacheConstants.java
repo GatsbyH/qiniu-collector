@@ -64,7 +64,8 @@ public class CacheConstants
      */
     public static final String SVG_CACHE_KEY = "github:svg:";
 
+    public static final long SVG_CACHE_TIME = TimeUnit.DAYS.toMillis(7);
 
-    // 设置SVG缓存时间为24小时
-    public static final long SVG_CACHE_TIME = TimeUnit.HOURS.toSeconds(24);
+     public static final String LANGUAGE_STATS_CACHE_KEY = "github:language_stats:";
+    public static final long LANGUAGE_STATS_CACHE_TIME = TimeUnit.HOURS.toSeconds(24); // 缓存24小时
 }

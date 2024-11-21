@@ -1,22 +1,7 @@
 <template>
-<!--  <div class="main"  >-->
   <div class="main" v-loading="loading"
        element-loading-text="加载中..."
        element-loading-background="rgba(255, 255, 255, 0.8)">
-
-    <!-- <div class="nav flex-a-center">
-      <div class="icon">
-        <el-icon>
-         <fold />
-        </el-icon>
-      </div>
-        <div class="searchBar">
-        <div class="icon">
-        <search style="  width: 20px;height: 20px; vertical-align: middle; " />
-        </div>
-        <input type="text" v-model="query" @keyup.enter="find">
-      </div>
-      </div> -->
       <div class="contain flex-a-center">
 
         <div class="left">
@@ -32,28 +17,15 @@
              </el-icon>
            </button>
            </div>
-           <!-- <div class="sd-spacing">
-             <span>
-               已选
-               <span></span>
-               条件
-             </span>
-             <span>|</span>
-             <span>
-              <span></span>
-              结果
-             </span>
-           </div> -->
           <div class="search-result">
-            <div class="item-label">开发者搜索</div>
             <label class="sd-label">
               <input
-                v-model="searchQuery"
+                v-model="searchName"
                 placeholder="搜索开发者"
                 class="sd-input"
                 @keyup.enter="handleSearch"
               />
-              <span class="sd-input-addon" @click="handleSearch">
+              <span class="sd-input-addon" @click="getfuzzySearch()">
               <el-icon>
                 <Search />
               </el-icon>
@@ -65,9 +37,9 @@
             <el-checkbox
               v-for="item in fields"
               :key="item"
-              v-model="selectedFields"
+              :v-model="selectedField == item"
               :label="item"
-              @change="handleFieldChange"
+              @change="handleFieldChange(item)"
               class="checkbox"
             ></el-checkbox>
           </div>
@@ -78,53 +50,58 @@
 <!--                </ul>-->
 <!--           </div>-->
            <div class="search-nation">
-<!--             <div class="item-label">开发者国家</div>-->
-<!--             <el-checkbox-->
-<!--               v-for="item in selectedNation.value"-->
-<!--               :key="item"-->
-<!--               v-model="selectedNations[item]"-->
-<!--               :label="item"-->
-<!--               class="checkbox"-->
-<!--               @change="handleNationChange"-->
-<!--             ></el-checkbox>-->
-             <div class="item-label">开发者国家</div>
-             <el-radio-group v-model="currentNation" @change="handleNationChange">
+             <div class="item-label">所属国家</div>
+             <!-- <el-radio-group v-model="currentNation" @change="handleNationChange">
                <el-radio
                  v-for="item in selectedNation.value"
                  :key="item"
                  :label="item"
                  class="radio"
                >{{ item }}</el-radio>
-             </el-radio-group>
+             </el-radio-group> -->
+             <el-select v-model="countryValue" placeholder="请选择">
+              <el-option
+              v-for="item in countriesOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+             >
+    </el-option>
+  </el-select>
            </div>
 
         </div>
 
         <div class="right">
            <div class="search-sub-header">
-             <!-- <div class="count">
-               <span>{{ number }}results</span>
-             </div>
-             <div class="sort">
-             </div> -->
            </div>
            <ul>
+             <template v-if="userData.data.length > 0">
             <li v-for="item in userData.data" :key="item.login" class="list-item flex-a-center" @click="changeAssessView(item.login)">
-              <img v-if="item.avatar_url" :src="item.avatar_url" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
-              <img v-if="item.avatarUrl" :src="item.avatarUrl" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
-              <a v-if="item.htmlUrl" :href="item.htmlUrl" class="list-item-a">{{ item.login }}</a>
-              <a v-if="item.html_url"  :href="item.html_url" class="list-item-a">{{ item.login }}</a>
-              <span v-if="item.talentRank" class="list-item-a">{{ item.talentRank }}</span></li>
+              <img  :src="item.avatarUrl" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
+              <a  :href="item.htmlUrl" class="list-item-a list-item-name">{{ item.login }}</a>
+              <span v-if="item.talentRank" class="list-item-a item-rank" >{{ item.talentRank }}</span>
+            </li>
+          </template>
            </ul>
+           <div v-if="userData.data.length == 0" class="zero-data ">
+              <div>
+                <h2 style="margin-bottom: 100px;">Your search did not match any users</h2>
+               <img src="../assets/light.png">
+              </div>
+              <div>
+              
+              </div>
+           </div>
            <div class="block">
-    <el-pagination
-     layout="prev, pager, next"
-     @current-change="handleCurrentClick"
-    :total="number">
-    </el-pagination>
-
-<!--             @prevClick="handlePrevClick"-->
-<!--             @next-click="handleNextClick"-->
+              <el-pagination
+                v-if="number > 0"
+                layout="prev, pager, next"
+                @prev-click ="handlePrevClick"
+                @next-click = "handleNextClick"
+                @current-change="handleCurrentClick"
+                :total="number">
+              </el-pagination>
   </div>
         </div>
       </div>
@@ -133,85 +110,138 @@
 
 
 <script setup>
-import { shallowReactive, reactive, ref, getCurrentInstance, onMounted } from 'vue'
+import { shallowReactive, reactive, ref, getCurrentInstance, onMounted,watch } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
-import { fuzzySearch, getDeveloperFields, getDeveloperNationOptionsByField, getDevelopersPage } from '../Utils/request'
+import api from '../api/index'
 const loading = ref(false)
-
-
-
-import { watch } from 'vue';
+ let countriesOption = [
+  { value: '阿富汗', label: '阿富汗' },
+  { value: '阿尔巴尼亚', label: '阿尔巴尼亚' },
+  { value: '阿尔及利亚', label: '阿尔及利亚' },
+  { value: '安道尔', label: '安道尔' },
+  { value: '安哥拉', label: '安哥拉' },
+  { value: '阿根廷', label: '阿根廷' },
+  { value: '亚美尼亚', label: '亚美尼亚' },
+  { value: '澳大利亚', label: '澳大利亚' },
+  { value: '奥地利', label: '奥地利' },
+  { value: '阿塞拜疆', label: '阿塞拜疆' },
+  { value: '巴哈马', label: '巴哈马' },
+  { value: '巴林', label: '巴林' },
+  { value: '孟加拉国', label: '孟加拉国' },
+  { value: '巴巴多斯', label: '巴巴多斯' },
+  { value: '白俄罗斯', label: '白俄罗斯' },
+  { value: '比利时', label: '比利时' },
+  { value: '伯利兹', label: '伯利兹' },
+  { value: '贝宁', label: '贝宁' },
+  { value: '不丹', label: '不丹' },
+  { value: '玻利维亚', label: '玻利维亚' },
+  { value: '波斯尼亚和黑塞哥维那', label: '波斯尼亚和黑塞哥维那' },
+  { value: '博茨瓦纳', label: '博茨瓦纳' },
+  { value: '巴西', label: '巴西' },
+  { value: '文莱', label: '文莱' },
+  { value: '保加利亚', label: '保加利亚' },
+  { value: '布基纳法索', label: '布基纳法索' },
+  { value: '布隆迪', label: '布隆迪' },
+  { value: '柬埔寨', label: '柬埔寨' },
+  { value: '喀麦隆', label: '喀麦隆' },
+  { value: '加拿大', label: '加拿大' },
+  { value: '佛得角', label: '佛得角' },
+  { value: '中非共和国', label: '中非共和国' },
+  { value: '乍得', label: '乍得' },
+  { value: '智利', label: '智利' },
+  { value: '中国', label: '中国' },
+  { value: '哥伦比亚', label: '哥伦比亚' },
+  { value: '科摩罗', label: '科摩罗' },
+  { value: '刚果（布）', label: '刚果（布）' },
+  { value: '刚果（金）', label: '刚果（金）' },
+  { value: '哥斯达黎加', label: '哥斯达黎加' },
+  { value: '克罗地亚', label: '克罗地亚' },
+  { value: '古巴', label: '古巴' },
+  { value: '塞浦路斯', label: '塞浦路斯' },
+  { value: '捷克', label: '捷克' },
+  { value: '丹麦', label: '丹麦' },
+  { value: '吉布提', label: '吉布提' },
+  { value: '多米尼克', label: '多米尼克' },
+  { value: '多米尼加共和国', label: '多米尼加共和国' },
+  { value: '厄瓜多尔', label: '厄瓜多尔' },
+  { value: '埃及', label: '埃及' },
+  { value: '萨尔瓦多', label: '萨尔瓦多' },
+  { value: '赤道几内亚', label: '赤道几内亚' },
+  { value: '厄立特里亚', label: '厄立特里亚' },
+  { value: '爱沙尼亚', label: '爱沙尼亚' },
+  { value: '埃斯瓦蒂尼', label: '埃斯瓦蒂尼' },
+  { value: '埃塞俄比亚', label: '埃塞俄比亚' },
+  { value: '斐济', label: '斐济' },
+  { value: '芬兰', label: '芬兰' },
+  { value: '法国', label: '法国' },
+  { value: '加蓬', label: '加蓬' },
+  { value: '冈比亚', label: '冈比亚' },
+  { value: '格鲁吉亚', label: '格鲁吉亚' },
+  { value: '德国', label: '德国' },
+  { value: '加纳', label: '加纳' },
+  { value: '希腊', label: '希腊' },
+  { value: '格林纳达', label: '格林纳达' },
+  { value: '危地马拉', label: '危地马拉' },
+  { value: '几内亚', label: '几内亚' },
+  { value: '几内亚比绍', label: '几内亚比绍' },
+  { value: '圭亚那', label: '圭亚那' },
+  { value: '海地', label: '海地' },
+  { value: '洪都拉斯', label: '洪都拉斯' },
+  { value: '匈牙利', label: '匈牙利' },
+  { value: '冰岛', label: '冰岛' },
+  { value: '印度', label: '印度' },
+  { value: '印度尼西亚', label: '印度尼西亚' },
+  { value: '伊朗', label: '伊朗' },
+  { value: '伊拉克', label: '伊拉克' },
+  { value: '爱尔兰', label: '爱尔兰' },
+  { value: '以色列', label: '以色列' },
+  { value: '意大利', label: '意大利' },
+  { value: '牙买加', label: '牙买加' },
+  { value: '日本', label: '日本' },
+  { value: '约旦', label: '约旦' },
+];
+const fields = ref('')
+let number = ref(0)
+const searchName = ref('') // 开发者名字
+const countryValue = ref("")
 const router = useRouter()
-const queryName = useRoute().query.username
-let userData = reactive({
-  data:[]
-})
-
-const selectedFields = ref([]) // 用于存储选中的值
+const selectedField = ref('') // 用于存储选中的值
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
-const nationArrs = [
-  '新加坡',
-  '中国',
-  '英国',
-  '美国',
-  '澳大利亚',
-  '德国'
-]
-const currentNation = ref('')
+let userData = reactive({
+  data:[{}]
+})
+ searchName.value = useRoute().query.username
 
-// 修改处理国家选择变化的函数
-const handleNationChange =  (nation) => {
-  queryParams.pageNum = 1
-  // // 更新当前选中的国家
-  // currentNation.value = nation
-  // console.log('当前选中的国家：', currentNation.value)
-  // // 重置其他国家的选中状态
-  // Object.keys(selectedNations).forEach(key => {
-  //   if (key !== nation) {
-  //     selectedNations[key] = false
-  //   }
-  // })
-  // // 更新查询参数
-  // queryParams.nation = currentNation.value
-  // handleSearch()
-  try {
-    // 更新当前选中的国家
-    currentNation.value = nation
-    // 更新查询参数
-    queryParams.nation = nation
-    // 执行搜索
-    handleSearch()
-  } catch (error) {
-    console.error('处理国家变化出错:', error)
-  }
-}
+ onMounted(()=>{
+    api.getDeveloperFields().then(res=>{
+      console.log("返回的领域",res.data.data)
+      fields.value = res.data.data
+    })
+  })
+
 
 // 修改清除过滤器的函数
 const clearFilters = () => {
   // 清除所有选中状态
-  Object.keys(selectedNations).forEach(key => {
-    selectedNations[key] = false
-  })
-  currentNation.value = '' // 清除当前选中的国家
-  selectedFields.value = []
-  searchQuery.value = ''
+  // Object.keys(selectedNations).forEach(key => {
+  //   selectedNations[key] = false
+  // })
+  countryValue.value = ''
+  selectedField.value = ''
+  searchName.value = ''
   queryParams.nation = ''
   queryParams.field = ''
   handleSearch()
 }
 
-
+watch(countryValue,(newCountry,oldCountry)=>{
+  console.log("国家变化",newCountry)
+  queryParams.pageNum= 1
+  queryParams.nation = newCountry
+  handleSearch()
+})
 let selectedNation = reactive({
   value:{}
-})
-const searchQuery = ref('') // 添加搜索关键词
-// 监听选择变化，确保只能选中一个
-watch(selectedFields, (newVal) => {
-  if (newVal.length > 1) {
-    // 只保留最后选中的值
-    selectedFields.value = [newVal[newVal.length - 1]]
-    handleSearch()
-  }
 })
 
 
@@ -221,40 +251,27 @@ let queryParams = {
   pageNum: 1,
   pageSize: 10
 }
+  
 
-
-const handleFieldChange = async () => {
-  // // 清除所有选中状态
-  // Object.keys(selectedNations).forEach(key => {
-  //   selectedNations[key] = false
-  // })
-  // selectedNation.value = {}
-  // queryParams.nation = ''
-  // currentNation.value = '' // 清除当前选中的国家
-  // handleSearch();
+const handleFieldChange = async (item) => {
   try {
     loading.value = true
-    // 清除国家选择
-    currentNation.value = ''
-    selectedNation.value = {} // 如果没有选择领域，清空国家选项
-
     queryParams.nation = ''
+    //不能重复选择
+    selectedField.value = selectedField.value == item ? '' : item;
     // 更新领域
-    queryParams.field = selectedFields.value[0]
-
-
+    queryParams.field = selectedField.value
+    
     // 先获取新的国家选项
     if (queryParams.field) {
-      const nationRes = await getDeveloperNationOptionsByField(queryParams).finally(
+      const nationRes = await api.getDeveloperNationOptionsByField(queryParams).finally(
         () => {
           // 清除过滤器
           loading.value = false
         }
       )
-      selectedNation.value = nationRes.data.data
-    } else {
-      selectedNation.value = {} // 如果没有选择领域，清空国家选项
-    }
+      countriesOption = nationRes.data.data
+    } 
 
     // 然后搜索开发者
     await handleSearch()
@@ -268,13 +285,11 @@ const selectedNations = reactive({}) // 用于存储选中状态
 
 const handleSearch = () => {
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
-  console.log('搜索关键词:', searchQuery.value)
-  console.log('选中的开发者类型:', selectedFields.value[0])
-  queryParams.field = selectedFields.value[0]
-  // queryParams.nation = selectedNation.value
+  console.log('选中的开发者类型:', selectedField.value)
+  queryParams.field = selectedField.value
   console.log("queryParams",queryParams)
   loading.value = true
-  getDevelopersPage(queryParams).then(res => {
+  api.getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
     // getDeveloperNationOptionsByField(queryParams).then(
@@ -287,7 +302,7 @@ const handleSearch = () => {
     //     })
     //   }
     // )
-    console.log("res",res)
+    console.log(" handleSearch",res)
   }).finally(
     () => {
       loading.value = false
@@ -296,23 +311,18 @@ const handleSearch = () => {
 }
 
 
-
-const fields = ref('')
-let number = ref(0)
-const { appContext : { config: { globalProperties} } } = getCurrentInstance()
-  console.log("context",globalProperties.$api)
+  const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   const getDevelopers = globalProperties.$api.getDevelopers
-  const  find = async ()=>{
-     console.log(queryName)
-    const result = await fuzzySearch(queryName)
-    const data = result.data.items
+  const  getfuzzySearch = async ()=>{
+    const result = await api.fuzzySearch(searchName.value)
+    const data = result.data.data.list
+    console.log("319",result.data.data.list)
     number.value = data.length
-    userData.data = data.slice(0,8)
+    userData.data = data
     console.log("result",userData)
   }
-  find()
   const handlePrevClick = async (page)=>{
-    console.log('page',await getDevelopers(page))
+    console.log('page',await api.getDevelopers(page))
     console.log("prevClick",page)
   }
   const handleCurrentClick = async (page)=>{
@@ -321,7 +331,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     queryParams.pageNum = page
     console.log("changePage queryParams.pageNum",queryParams.pageNum)
     loading.value = true
-    getDevelopersPage(queryParams).then(res => {
+    api.getDevelopersPage(queryParams).then(res => {
       console.log("queryParams changePage",queryParams)
       userData.data = res.data.data.list
       number.value = res.data.data.total
@@ -331,11 +341,6 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
         loading.value = false
       }
     )
-    // userData.data =[...result.data.data.list]
-    // number.value = result.data.data.total
-    console.log('page',result)
-    console.log("changePage",page)
-    console.log(userData)
   }
   const handleNextClick = async (page)=>{
     // reset()
@@ -343,40 +348,27 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     queryParams.pageNum += 1;
     handleSearch()
     // userData.data =[...result.data.data.list]
-    console.log('page',result)
-    console.log("changePage",page)
-    console.log(userData)
   }
-  watch(()=>userData.data,()=>{
-    console.log("监听到了变化")
-  },{
-    deep:true
-  })
+ 
   const changeAssessView = (user)=>{
      router.push({path:'/assess',query:{username:user}})
   }
-  onMounted(()=>{
-    getDeveloperFields().then(res=>{
-      console.log("res",res.data.data)
-      fields.value = res.data.data
-      console.log("fields",fields.value[1])
-    })
-  })
+ 
 
 </script>
 <style scoped>
 .radio-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;  /* 控制选项之间的间距 */
+  gap: 12px;  
 }
 
 .radio-item {
-  height: 32px;  /* 控制每个选项的高度 */
-  margin: 0;     /* 清除默认边距 */
+  height: 32px; 
+  margin: 0;    
 }
 
-/* 可选：鼠标悬停效果 */
+
 .radio-item:hover {
   color: #0068FF;
 }
@@ -398,7 +390,6 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .right{
   flex:1;
   height: 100%;
-  /* border-left: 1px solid #d4d3d3; */
 }
 .searchBar{
     border-radius: 24px;
@@ -424,11 +415,17 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   height: 40px;
 }
 .list-item{
+  position: relative;
   min-height:80px;
   list-style: none;
   border: 1px solid #d1d9e0;
   width: 80%;
   margin-bottom: 10px;
+}
+.item-rank{
+ padding-right: 10px;
+ position: absolute;
+ right: 0;
 }
 .title-prefix{
   width: 4px;
@@ -436,6 +433,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   font-weight: 900;
   display:inline-block;
   border-radius: 100px;
+  margin-right: 10px;
   background-color:#0068FF ;
 }
 .item-label{
@@ -445,6 +443,9 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   color:#141933;
   font-weight: 500;
   height: 40px;
+}
+.list-item-name{
+  padding: 0 20px;
 }
 .search-head{
   display:flex;
@@ -469,7 +470,6 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .sd-input{
     width: 100%;
     height: 40px;
-
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -482,6 +482,9 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
+}
+.search-result{
+  margin: 20px auto;
 }
 .sd-label{
   position: relative;
@@ -519,7 +522,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
  .list-item-a{
   text-decoration: none;
   color:black;
-  margin-left:10px;
+  text-align: right;
   font-size: 18px;
 
  }
@@ -529,5 +532,18 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
  }
  .checkbox{
   display: block;
+ }
+ .block{
+  padding:40px;
+  height: 50px;
+ }
+ .zero-data div{
+  margin: 0 auto;
+  text-align: center;
+ }
+ .zero-data{
+  display: flex;
+  align-items: center;
+  height: 710px;
  }
 </style>

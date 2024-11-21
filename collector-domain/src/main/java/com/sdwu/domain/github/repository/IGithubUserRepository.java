@@ -3,6 +3,7 @@ package com.sdwu.domain.github.repository;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.types.model.PageResult;
 
@@ -71,4 +72,20 @@ public interface IGithubUserRepository {
      * @param svg SVG内容
      */
     void saveSvgCache(String username, String theme, String svg);
+
+
+
+     /**
+     * 获取用户的编程语言统计缓存
+     * @param username GitHub用户名
+     * @return 语言统计列表,如果没有缓存则返回null
+     */
+    List<LanguageCountRespVo> getLanguageStatsCache(String username);
+
+    /**
+     * 保存用户的编程语言统计缓存
+     * @param username GitHub用户名
+     * @param stats 要缓存的语言统计数据
+     */
+    void saveLanguageStatsCache(String username, List<LanguageCountRespVo> stats);
 }

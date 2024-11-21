@@ -22,6 +22,7 @@ public class DevelopeVo {
     private String field;
     private String nation;
     private String avatarUrl;
+    private String login;
 
 
     // 添加新的得分字段

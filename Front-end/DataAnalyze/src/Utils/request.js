@@ -10,83 +10,13 @@ const NETWORK_ERROR = '网络请求异常,请稍后重试'
 //创建 axios 实例对象 ，添加全局配置
 const service = axios.create({
 
- // baseURL: "http://106.54.234.202:8080",
+ baseURL: "http://106.54.234.202:8080",
  // baseURL: "http://127.0.0.1:8080",
- baseURL: "/prod-api",
+ //baseURL: "/prod-api",
  timeout: 3000000
 })
 
 
-
-
-export const getDeveloperFields=function(){
-  return request({
-    url: '/getDeveloperFields'
-  })
-}
-
-
-export const getDevelopersPage=function(params){
-  return request({
-    url: '/getDevelopersByFields',
-    data:{
-      nation:params.nation,
-      field:params.field,
-      page: params.page,
-      pageSize: params.pageSize,
-      pageNum: params.pageNum
-    }
-  })
-}
-
-export const getDeveloperTechnicalAbility=function(username){
-  return request({
-    url: '/getDeveloperTechnicalAbility',
-    data:{
-      username:username
-    }
-  })
-}
-
-export const getDeveloperNation=function(username){
-  return request({
-    url: '/getDeveloperNation',
-    data:{
-      username:username
-    }
-  })
-}
-
-export const getDeveloperNationOptionsByField=function(params){
-  return request({
-    url: '/getDeveloperNationOptionsByField',
-    data:{
-      field:params.field,
-    }
-  })
-}
-
-
-
-
-export const fuzzySearch = function (userName){
-   return axios({
-      method: 'get',
-      url: `https://api.github.com/search/users?q=${userName}`
-   })
-}
-export const getDeveloperAurl = function(userName){
-   return axios({
-      method: 'get',
-      url: `https://api.github.com/users/${userName}`
-   })
-}
-export const getDeveloperFollower = function(userName){
-   return axios({
-      method: 'get',
-      url:  `https://api.github.com/users/${userName}/followers`
-   })
-}
 // //请求拦截
 // service.interceptors.request.use((req)=>{
 //     //TO-DO
@@ -112,14 +42,3 @@ export function request(options){
 console.log(service(options))
  return service(options);
 }
-
-// ['get','post','put','delete','patch'].forEach((item)=>{
-//     request[item] = (url,data,options)=>{
-//      return request({
-//         url,
-//         data :data,
-//         method: item,
-//         ...options
-//         })
-//     }
-// })

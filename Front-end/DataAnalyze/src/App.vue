@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <div class="main">
   <header>
@@ -9,10 +5,22 @@ import { RouterLink, RouterView } from 'vue-router'
       <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
       <div class="info">
       <div class="user flex-a-center">
-       <el-icon size="30">
-       <user-filled />
-       </el-icon>
+        <a href="http://106.54.234.202:8080/oauth/github/render" >
+          <el-icon size="30" v-if="avatarUrl == ''">
+              <user-filled />
+            </el-icon>
+        </a>
+        <img
+              v-if="avatarUrl != ''"
+              :src="avatarUrl"
+              alt="User"
+              class="avatar"
+            />
+           
+       <div class="dropdown">
       </div>
+      </div>
+      
   </div>
     </div>
   </header>
@@ -21,17 +29,17 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { ref ,onMounted} from 'vue'
+import { RouterLink, RouterView,useRouter } from 'vue-router'
+const router = useRouter();
+const avatarUrl = ref(localStorage.getItem('avatar'))
+
 
 
 </script>
-<style scoped>
 
-.web-info{
-  font-family: 'ali-font1';
-  font-size: 30px;
-  margin-left: 20px;
-}
+<style scoped>
 .main{
   height:100%;
 }
@@ -60,7 +68,28 @@ import { RouterLink, RouterView } from 'vue-router'
 .user{
   width: 50px;
   height: 50px;
+  padding: 0 10px;
+  box-sizing: content-box;
   text-align: center;
   margin-left: 10px;
+  position: relative;
+}
+.user:hover{
+  cursor: pointer;
+}
+.dropdown{
+  position: absolute;
+  top: 50px;
+  left: -50px;
+
+}
+.dropdown ul{
+  list-style: none;
+  
+}
+.avatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 </style>
