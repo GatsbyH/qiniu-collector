@@ -95,3 +95,11 @@ body {
 #app{
   height:100vh;
 }
+.web-info{
+  font-family: 'ali-font1';
+  font-size: 30px;
+  margin-left: 20px;
+}
+.item-font{
+  font-family: 'ali-font1';
+}

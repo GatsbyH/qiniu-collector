@@ -1,5 +1,19 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView,useRouter } from 'vue-router'
+const router = useRouter();
+
+
+const openLogin = () => {
+        ElMessageBox.alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          callback: (action) => {
+            ElMessage({
+              type: 'info',
+              message: `action: ${action}`,
+            });
+          },
+        });
+      };
 </script>
 
 <template>
@@ -8,11 +22,14 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="nav">
       <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
       <div class="info">
-      <div class="user flex-a-center">
-       <el-icon size="30">
-       <user-filled />
-       </el-icon>
+      <div class="user flex-a-center" @click="login()">
+           <el-icon size="30">
+              <user-filled />
+            </el-icon>
+       <div class="dropdown">
       </div>
+      </div>
+      
   </div>
     </div>
   </header>
@@ -21,17 +38,7 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 </div>
 </template>
-<script setup>
-
-
-</script>
 <style scoped>
-
-.web-info{
-  font-family: 'ali-font1';
-  font-size: 30px;
-  margin-left: 20px;
-}
 .main{
   height:100%;
 }
@@ -62,5 +69,19 @@ import { RouterLink, RouterView } from 'vue-router'
   height: 50px;
   text-align: center;
   margin-left: 10px;
+  position: relative;
+}
+.user:hover{
+  cursor: pointer;
+}
+.dropdown{
+  position: absolute;
+  top: 50px;
+  left: -50px;
+
+}
+.dropdown ul{
+  list-style: none;
+  
 }
 </style>
