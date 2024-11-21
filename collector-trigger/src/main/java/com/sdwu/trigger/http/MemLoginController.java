@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,16 +46,20 @@ public class MemLoginController {
     private IGithubLoginService githubLoginService;
 
     @GetMapping("/github/render")
-    public Response renderAuth() {
+    public void renderAuth(HttpServletResponse response) {
         try {
             AuthRequest authRequest = getAuthRequest();
-            // 直接返回授权URL
-            return Response.success(authRequest.authorize(AuthStateUtils.createState()));
+            // 生成授权URL并直接重定向
+            String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
+            response.sendRedirect(authorizeUrl);
         } catch (Exception e) {
-            return Response.builder()
-                    .code(ResponseCode.UN_ERROR.getCode())
-                    .info("获取GitHub授权URL失败：" + e.getMessage())
-                    .build();
+            log.error("GitHub授权重定向失败: {}", e.getMessage(), e);
+            try {
+                // 发生错误时重定向到错误页面
+                response.sendRedirect("/error?message=" + URLEncoder.encode("GitHub授权失败: " + e.getMessage(), "UTF-8"));
+            } catch (IOException ex) {
+                log.error("重定向到错误页面失败: {}", ex.getMessage(), ex);
+            }
         }
     }
 

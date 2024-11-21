@@ -90,7 +90,7 @@
                <img src="../assets/light.png">
               </div>
               <div>
-              
+
               </div>
            </div>
            <div class="block">
@@ -115,90 +115,7 @@ import { useRoute,useRouter} from 'vue-router'
 import api from '../api/index'
 const loading = ref(false)
  let countriesOption = [
-  { value: '阿富汗', label: '阿富汗' },
-  { value: '阿尔巴尼亚', label: '阿尔巴尼亚' },
-  { value: '阿尔及利亚', label: '阿尔及利亚' },
-  { value: '安道尔', label: '安道尔' },
-  { value: '安哥拉', label: '安哥拉' },
-  { value: '阿根廷', label: '阿根廷' },
-  { value: '亚美尼亚', label: '亚美尼亚' },
-  { value: '澳大利亚', label: '澳大利亚' },
-  { value: '奥地利', label: '奥地利' },
-  { value: '阿塞拜疆', label: '阿塞拜疆' },
-  { value: '巴哈马', label: '巴哈马' },
-  { value: '巴林', label: '巴林' },
-  { value: '孟加拉国', label: '孟加拉国' },
-  { value: '巴巴多斯', label: '巴巴多斯' },
-  { value: '白俄罗斯', label: '白俄罗斯' },
-  { value: '比利时', label: '比利时' },
-  { value: '伯利兹', label: '伯利兹' },
-  { value: '贝宁', label: '贝宁' },
-  { value: '不丹', label: '不丹' },
-  { value: '玻利维亚', label: '玻利维亚' },
-  { value: '波斯尼亚和黑塞哥维那', label: '波斯尼亚和黑塞哥维那' },
-  { value: '博茨瓦纳', label: '博茨瓦纳' },
-  { value: '巴西', label: '巴西' },
-  { value: '文莱', label: '文莱' },
-  { value: '保加利亚', label: '保加利亚' },
-  { value: '布基纳法索', label: '布基纳法索' },
-  { value: '布隆迪', label: '布隆迪' },
-  { value: '柬埔寨', label: '柬埔寨' },
-  { value: '喀麦隆', label: '喀麦隆' },
-  { value: '加拿大', label: '加拿大' },
-  { value: '佛得角', label: '佛得角' },
-  { value: '中非共和国', label: '中非共和国' },
-  { value: '乍得', label: '乍得' },
-  { value: '智利', label: '智利' },
-  { value: '中国', label: '中国' },
-  { value: '哥伦比亚', label: '哥伦比亚' },
-  { value: '科摩罗', label: '科摩罗' },
-  { value: '刚果（布）', label: '刚果（布）' },
-  { value: '刚果（金）', label: '刚果（金）' },
-  { value: '哥斯达黎加', label: '哥斯达黎加' },
-  { value: '克罗地亚', label: '克罗地亚' },
-  { value: '古巴', label: '古巴' },
-  { value: '塞浦路斯', label: '塞浦路斯' },
-  { value: '捷克', label: '捷克' },
-  { value: '丹麦', label: '丹麦' },
-  { value: '吉布提', label: '吉布提' },
-  { value: '多米尼克', label: '多米尼克' },
-  { value: '多米尼加共和国', label: '多米尼加共和国' },
-  { value: '厄瓜多尔', label: '厄瓜多尔' },
-  { value: '埃及', label: '埃及' },
-  { value: '萨尔瓦多', label: '萨尔瓦多' },
-  { value: '赤道几内亚', label: '赤道几内亚' },
-  { value: '厄立特里亚', label: '厄立特里亚' },
-  { value: '爱沙尼亚', label: '爱沙尼亚' },
-  { value: '埃斯瓦蒂尼', label: '埃斯瓦蒂尼' },
-  { value: '埃塞俄比亚', label: '埃塞俄比亚' },
-  { value: '斐济', label: '斐济' },
-  { value: '芬兰', label: '芬兰' },
-  { value: '法国', label: '法国' },
-  { value: '加蓬', label: '加蓬' },
-  { value: '冈比亚', label: '冈比亚' },
-  { value: '格鲁吉亚', label: '格鲁吉亚' },
-  { value: '德国', label: '德国' },
-  { value: '加纳', label: '加纳' },
-  { value: '希腊', label: '希腊' },
-  { value: '格林纳达', label: '格林纳达' },
-  { value: '危地马拉', label: '危地马拉' },
-  { value: '几内亚', label: '几内亚' },
-  { value: '几内亚比绍', label: '几内亚比绍' },
-  { value: '圭亚那', label: '圭亚那' },
-  { value: '海地', label: '海地' },
-  { value: '洪都拉斯', label: '洪都拉斯' },
-  { value: '匈牙利', label: '匈牙利' },
-  { value: '冰岛', label: '冰岛' },
-  { value: '印度', label: '印度' },
-  { value: '印度尼西亚', label: '印度尼西亚' },
-  { value: '伊朗', label: '伊朗' },
-  { value: '伊拉克', label: '伊拉克' },
-  { value: '爱尔兰', label: '爱尔兰' },
-  { value: '以色列', label: '以色列' },
-  { value: '意大利', label: '意大利' },
-  { value: '牙买加', label: '牙买加' },
-  { value: '日本', label: '日本' },
-  { value: '约旦', label: '约旦' },
+
 ];
 const fields = ref('')
 let number = ref(0)
@@ -269,7 +186,7 @@ let queryParams = {
   pageNum: 1,
   pageSize: 10
 }
-  
+
 
 const handleFieldChange = async (item) => {
   try {
@@ -281,7 +198,7 @@ const handleFieldChange = async (item) => {
     selectedField.value = selectedField.value == item ? '' : item;
     // 更新领域
     queryParams.field = selectedField.value
-    
+
     // 先获取新的国家选项
     if (queryParams.field) {
       const nationRes = await api.getDeveloperNationOptionsByField(queryParams).finally(
@@ -291,7 +208,7 @@ const handleFieldChange = async (item) => {
         }
       )
       countriesOption = nationRes.data.data
-    } 
+    }
 
     // 然后搜索开发者
     await handleSearch()
@@ -304,6 +221,7 @@ const handleFieldChange = async (item) => {
 const selectedNations = reactive({}) // 用于存储选中状态
 
 const handleSearch = () => {
+  // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
   console.log('选中的开发者类型:', selectedField.value)
   queryParams.field = selectedField.value
   console.log("queryParams",queryParams)
@@ -330,7 +248,7 @@ const handleSearch = () => {
   )
 }
 
-  
+
   const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   const  getfuzzySearch = async ()=>{
     updateUsername()
@@ -374,19 +292,19 @@ const handleSearch = () => {
   const changeAssessView = (user)=>{
      router.push({path:'/assess',query:{username:user}})
   }
- 
+
 
 </script>
 <style scoped>
 .radio-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;  
+  gap: 12px;
 }
 
 .radio-item {
-  height: 32px; 
-  margin: 0;    
+  height: 32px;
+  margin: 0;
 }
 
 

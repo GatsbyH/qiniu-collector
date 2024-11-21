@@ -13,7 +13,7 @@
             <!-- <span class="score">talentRank:{{  }}</span> -->
             <span class="rank">{{rankResult?.data?.rankResult?.level }}</span>
             <div class="level">
-                  
+
             </div>
             <span class="nation"><el-icon><map-location /></el-icon> {{ nationResult?.data}}</span>
             <span class="field">{{ fieldResult?.data}}</span>
@@ -39,7 +39,7 @@
               <div class="flex-a-center github-icon">
                 <el-icon>
                    <timer />
-                </el-icon>       
+                </el-icon>
                 <span>Total Commits</span>
               </div>
               <div>
@@ -94,7 +94,7 @@
             </div>
           </div>
 </el-tabs>
-          
+
         </el-card>
       </div>
       <div class="right">
@@ -117,13 +117,13 @@
           <div id="ai-assess" >
                 <p style="font-size: 20px;margin-top: -20px;">大模型评估开发者信息:</p>
                 <div v-html="formattedHtml" style="margin-top:10px;font-size: 18px;"> </div>
-               
-         </div> 
+
+         </div>
         </div>
-        
+
       </div>
     </div>
-   
+
   </div>
 </template>
 
@@ -282,10 +282,10 @@ const formatToHtml = (infor)=>{
         } else if (line.trim().startsWith("1.") || line.trim().startsWith("2.") || line.trim().startsWith("3.") || line.trim().startsWith("4.")) {
             htmlLines.push('<p>' + line.trim() + '</p>');
         }
-        else 
-        {
-          htmlLines.push(line.trim())
-        }
+        // else
+        // {
+        //   htmlLines.push(line.trim())
+        // }
     });
      // 将数组中的HTML内容合并成一个字符串
      return htmlLines.join('\n');
@@ -351,7 +351,7 @@ chart.render();
 }
 
 const renderRankItem = ()=>{
-  const chart = new Chart({ 
+  const chart = new Chart({
     container: 'rank-item' ,
     height: 442, // 设置高度
   });
@@ -407,7 +407,7 @@ watch(()=>chartReady.value,(newVal)=>{
       renderRankItem()
       loading.value = false
   }
-     
+
 })
 </script>
 
@@ -419,7 +419,7 @@ watch(()=>chartReady.value,(newVal)=>{
   max-width: 1780px;
   margin-top: 10px;
   background-size: 20px 20px;
-  background-image: linear-gradient(90deg, rgba(60, 10, 30, .1) 3%, transparent 0), linear-gradient(1turn, rgba(60, 10, 30, .1) 3%, transparent 0); 
+  background-image: linear-gradient(90deg, rgba(60, 10, 30, .1) 3%, transparent 0), linear-gradient(1turn, rgba(60, 10, 30, .1) 3%, transparent 0);
   font-family: 'ali-font1';
 }
 
@@ -551,5 +551,5 @@ watch(()=>chartReady.value,(newVal)=>{
 #shape-container{
   position: relative;
 }
-</style>      
- 
+</style>
+

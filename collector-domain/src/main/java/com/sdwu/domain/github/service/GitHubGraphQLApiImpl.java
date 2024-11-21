@@ -114,6 +114,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
         }
         return fetchGitHubApi;
     }
+    
 
     @Override
     public DevelopeVo fetchUserStats(String username) {

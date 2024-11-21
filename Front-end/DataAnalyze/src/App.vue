@@ -1,41 +1,52 @@
 <template>
   <div class="main">
-  <header>
-    <div class="nav">
-      <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
-      <div class="info">
-      <div class="user flex-a-center">
-        <a href="http://106.54.234.202:8080/oauth/github/render"  v-if="avatarUrl == undefined">
-          <el-icon size="30" >
-              <user-filled />
-            </el-icon>
-        </a>
-        <img
-              v-if="avatarUrl != undefined"
-              :src="avatarUrl"
-              alt="User"
-              class="avatar"
-            />
-           
-       <div class="dropdown">
+    <header>
+      <div class="nav">
+        <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
+        <div class="info">
+          <div class="user">
+            <template v-if="avatarUrl == undefined">
+              <a @click.prevent="handleGithubLogin">
+                <el-icon size="30">
+                  <user-filled />
+                </el-icon>
+              </a>
+            </template>
+            <template v-else>
+              <div class="user-info">
+                <span class="username">{{ userName }}</span>
+                <img :src="avatarUrl" alt="User" class="avatar" />
+              </div>
+            </template>
+          </div>
+        </div>
       </div>
-      </div>
-      
-  </div>
+    </header>
+    <div class="view">
+      <RouterView />
     </div>
-  </header>
-  <div class="view">
-  <RouterView />
   </div>
-</div>
 </template>
 <script setup lang="ts">
 import { ref ,onMounted} from 'vue'
 import { RouterLink, RouterView,useRouter } from 'vue-router'
+import { request } from '../src/Utils/request'
 const router = useRouter();
 const avatarUrl = ref(localStorage.getItem('avatar'))
+const userName = ref(localStorage.getItem('userName'))
 
-
+const handleGithubLogin = async () => {
+    try {
+        const redirectUrl = await request({
+            url: '/oauth/github/render',
+            method: 'get'
+        });
+        console.log("redirectUrl是",redirectUrl)
+        window.location.href = redirectUrl.data.data;
+    } catch (error) {
+        console.error('GitHub login error:', error);
+    }
+}
 
 </script>
 
@@ -62,34 +73,26 @@ const avatarUrl = ref(localStorage.getItem('avatar'))
 }
 .info{
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  padding-right: 20px;
 }
 .user{
-  width: 50px;
-  height: 50px;
-  padding: 0 10px;
-  box-sizing: content-box;
-  text-align: center;
-  margin-left: 10px;
-  position: relative;
+  display: flex;
+  align-items: center;
 }
-.user:hover{
-  cursor: pointer;
+.user-info{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.dropdown{
-  position: absolute;
-  top: 50px;
-  left: -50px;
-
-}
-.dropdown ul{
-  list-style: none;
-  
+.username{
+  color: #333;
+  font-size: 14px;
+  white-space: nowrap;
 }
 .avatar{
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 </style>

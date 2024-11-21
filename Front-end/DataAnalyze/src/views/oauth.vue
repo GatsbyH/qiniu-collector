@@ -25,7 +25,7 @@ async function handleCallback() {
         if (data.code === 200) {
             loading.value = false;
             // 保存token
-            alert("登录成功data",response)
+            alert("登录成功",response)
             localStorage.setItem('userName',data.data.userInfo.username)
             localStorage.setItem('avatar',data.data.userInfo.avatar)
             localStorage.setItem('token', data.data.token)
