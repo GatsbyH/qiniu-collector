@@ -25,7 +25,7 @@
                 class="sd-input"
                 @keyup.enter="handleSearch"
               />
-              <span class="sd-input-addon" @click="handleSearch">
+              <span class="sd-input-addon" @click="getfuzzySearch()">
               <el-icon>
                 <Search />
               </el-icon>
@@ -37,9 +37,9 @@
             <el-checkbox
               v-for="item in fields"
               :key="item"
-              v-model="selectedFields"
+              :v-model="selectedField == item"
               :label="item"
-              @change="handleFieldChange"
+              @change="handleFieldChange(item)"
               class="checkbox"
             ></el-checkbox>
           </div>
@@ -76,21 +76,26 @@
            <div class="search-sub-header">
            </div>
            <ul>
+             <template v-if="userData.data.length > 0">
             <li v-for="item in userData.data" :key="item.login" class="list-item flex-a-center" @click="changeAssessView(item.login)">
-              <img v-if="item.avatar_url" :src="item.avatar_url" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
-              <a  :href="item.htmlUrl" class="list-item-a">{{ item.login }}</a>
-              <span v-if="item.talentRank" class="list-item-a">{{ item.talentRank }}</span></li>
+              <img  :src="item.avatarUrl" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
+              <a  :href="item.htmlUrl" class="list-item-a list-item-name">{{ item.login }}</a>
+              <span v-if="item.talentRank" class="list-item-a item-rank" >{{ item.talentRank }}</span>
+            </li>
+          </template>
            </ul>
-           <div v-if="userData.data.length == 0" class="zero-data">
+           <div v-if="userData.data.length == 0" class="zero-data ">
               <div>
+                <h2 style="margin-bottom: 100px;">Your search did not match any users</h2>
                <img src="../assets/light.png">
               </div>
               <div>
-               <h3>Your search did not match any users</h3>
+              
               </div>
            </div>
            <div class="block">
               <el-pagination
+                v-if="number > 0"
                 layout="prev, pager, next"
                 @prev-click ="handlePrevClick"
                 @next-click = "handleNextClick"
@@ -107,9 +112,9 @@
 <script setup>
 import { shallowReactive, reactive, ref, getCurrentInstance, onMounted,watch } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
-import { fuzzySearch, getDeveloperFields, getDeveloperNationOptionsByField, getDevelopersPage } from '../Utils/request'
+import api from '../api/index'
 const loading = ref(false)
- const countriesOption = [
+ let countriesOption = [
   { value: '阿富汗', label: '阿富汗' },
   { value: '阿尔巴尼亚', label: '阿尔巴尼亚' },
   { value: '阿尔及利亚', label: '阿尔及利亚' },
@@ -194,69 +199,35 @@ const loading = ref(false)
   { value: '牙买加', label: '牙买加' },
   { value: '日本', label: '日本' },
   { value: '约旦', label: '约旦' },
-  { value: '哈萨克斯坦', label: '哈萨克斯坦' },
-  { value: '肯尼亚', label: '肯尼亚' },
-  { value: '科威特', label: '科威特' },
-  { value: '吉尔吉斯斯坦', label: '吉尔吉斯斯坦' },
-  { value: '老挝', label: '老挝' },
-  { value: '拉脱维亚', label: '拉脱维亚' },
-  { value: '黎巴嫩', label: '黎巴嫩' },
-  { value: '莱索托', label: '莱索托' },
-  { value: '利比里亚', label: '利比里亚' },
-  { value: '利比亚', label: '利比亚' }
 ];
+const fields = ref('')
+let number = ref(0)
 const searchName = ref('') // 开发者名字
 const countryValue = ref("")
 const router = useRouter()
-const selectedFields = ref('') // 用于存储选中的值
+const selectedField = ref('') // 用于存储选中的值
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
 let userData = reactive({
-  data:[]
+  data:[{}]
 })
  searchName.value = useRoute().query.username
 
  onMounted(()=>{
-    getDeveloperFields().then(res=>{
+    api.getDeveloperFields().then(res=>{
       console.log("返回的领域",res.data.data)
       fields.value = res.data.data
     })
   })
-// 修改处理国家选择变化的函数
-const handleNationChange =  (nation) => {
-  queryParams.pageNum = 1
-  // // 更新当前选中的国家
-  // currentNation.value = nation
-  // console.log('当前选中的国家：', currentNation.value)
-  // // 重置其他国家的选中状态
-  // Object.keys(selectedNations).forEach(key => {
-  //   if (key !== nation) {
-  //     selectedNations[key] = false
-  //   }
-  // })
-  // // 更新查询参数
-  // queryParams.nation = currentNation.value
-  // handleSearch()
-  try {
-    // 更新当前选中的国家
-    currentNation.value = nation
-    // 更新查询参数
-    queryParams.nation = nation
-    // 执行搜索
-    handleSearch()
-  } catch (error) {
-    console.error('处理国家变化出错:', error)
-  }
-}
+
 
 // 修改清除过滤器的函数
 const clearFilters = () => {
   // 清除所有选中状态
-  Object.keys(selectedNations).forEach(key => {
-    selectedNations[key] = false
-  })
+  // Object.keys(selectedNations).forEach(key => {
+  //   selectedNations[key] = false
+  // })
   countryValue.value = ''
-  currentNation.value = '' // 清除当前选中的国家
-  selectedFields.value = []
+  selectedField.value = ''
   searchName.value = ''
   queryParams.nation = ''
   queryParams.field = ''
@@ -265,20 +236,12 @@ const clearFilters = () => {
 
 watch(countryValue,(newCountry,oldCountry)=>{
   console.log("国家变化",newCountry)
+  queryParams.pageNum= 1
   queryParams.nation = newCountry
   handleSearch()
 })
 let selectedNation = reactive({
   value:{}
-})
-
-// 监听选择变化，确保只能选中一个
-watch(selectedFields, (newVal) => {
-  if (newVal.length > 1) {
-    // 只保留最后选中的值
-    selectedFields.value = [newVal[newVal.length - 1]]
-    handleSearch()
-  }
 })
 
 
@@ -290,26 +253,25 @@ let queryParams = {
 }
   
 
-const handleFieldChange = async () => {
+const handleFieldChange = async (item) => {
   try {
     loading.value = true
     queryParams.nation = ''
+    //不能重复选择
+    selectedField.value = selectedField.value == item ? '' : item;
     // 更新领域
-    queryParams.field = selectedFields.value[0]
-
+    queryParams.field = selectedField.value
+    
     // 先获取新的国家选项
     if (queryParams.field) {
-      const nationRes = await getDeveloperNationOptionsByField(queryParams).finally(
+      const nationRes = await api.getDeveloperNationOptionsByField(queryParams).finally(
         () => {
           // 清除过滤器
           loading.value = false
         }
       )
-      console.log()
-      selectedNation.value = nationRes.data.data
-    } else {
-      selectedNation.value = {} // 如果没有选择领域，清空国家选项
-    }
+      countriesOption = nationRes.data.data
+    } 
 
     // 然后搜索开发者
     await handleSearch()
@@ -323,11 +285,11 @@ const selectedNations = reactive({}) // 用于存储选中状态
 
 const handleSearch = () => {
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
-  console.log('选中的开发者类型:', selectedFields.value[0])
-  queryParams.field = selectedFields.value[0]
+  console.log('选中的开发者类型:', selectedField.value)
+  queryParams.field = selectedField.value
   console.log("queryParams",queryParams)
   loading.value = true
-  getDevelopersPage(queryParams).then(res => {
+  api.getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
     // getDeveloperNationOptionsByField(queryParams).then(
@@ -340,7 +302,7 @@ const handleSearch = () => {
     //     })
     //   }
     // )
-    console.log("返回的数据",res)
+    console.log(" handleSearch",res)
   }).finally(
     () => {
       loading.value = false
@@ -349,21 +311,18 @@ const handleSearch = () => {
 }
 
 
-
-const fields = ref('')
-let number = ref(0)
-const { appContext : { config: { globalProperties} } } = getCurrentInstance()
+  const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   const getDevelopers = globalProperties.$api.getDevelopers
-  const  find = async ()=>{
-    const result = await fuzzySearch(searchName.value)
-    const data = result.data.items
+  const  getfuzzySearch = async ()=>{
+    const result = await api.fuzzySearch(searchName.value)
+    const data = result.data.data.list
+    console.log("319",result.data.data.list)
     number.value = data.length
-    userData.data = data.slice(0,8)
+    userData.data = data
     console.log("result",userData)
   }
-  find()
   const handlePrevClick = async (page)=>{
-    console.log('page',await getDevelopers(page))
+    console.log('page',await api.getDevelopers(page))
     console.log("prevClick",page)
   }
   const handleCurrentClick = async (page)=>{
@@ -372,7 +331,7 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
     queryParams.pageNum = page
     console.log("changePage queryParams.pageNum",queryParams.pageNum)
     loading.value = true
-    getDevelopersPage(queryParams).then(res => {
+    api.getDevelopersPage(queryParams).then(res => {
       console.log("queryParams changePage",queryParams)
       userData.data = res.data.data.list
       number.value = res.data.data.total
@@ -456,11 +415,17 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   height: 40px;
 }
 .list-item{
+  position: relative;
   min-height:80px;
   list-style: none;
   border: 1px solid #d1d9e0;
   width: 80%;
   margin-bottom: 10px;
+}
+.item-rank{
+ padding-right: 10px;
+ position: absolute;
+ right: 0;
 }
 .title-prefix{
   width: 4px;
@@ -478,6 +443,9 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   color:#141933;
   font-weight: 500;
   height: 40px;
+}
+.list-item-name{
+  padding: 0 20px;
 }
 .search-head{
   display:flex;
@@ -502,7 +470,6 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
 .sd-input{
     width: 100%;
     height: 40px;
-
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -570,11 +537,13 @@ const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   padding:40px;
   height: 50px;
  }
- .zero-data img{
-  width: auto;
-  height: 100%;
+ .zero-data div{
+  margin: 0 auto;
+  text-align: center;
  }
  .zero-data{
+  display: flex;
+  align-items: center;
   height: 710px;
  }
 </style>

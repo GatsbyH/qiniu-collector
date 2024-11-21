@@ -1,31 +1,22 @@
-<script setup lang="ts">
-import { RouterLink, RouterView,useRouter } from 'vue-router'
-const router = useRouter();
-
-
-const openLogin = () => {
-        ElMessageBox.alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          callback: (action) => {
-            ElMessage({
-              type: 'info',
-              message: `action: ${action}`,
-            });
-          },
-        });
-      };
-</script>
-
 <template>
   <div class="main">
   <header>
     <div class="nav">
       <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
       <div class="info">
-      <div class="user flex-a-center" @click="login()">
-           <el-icon size="30">
+      <div class="user flex-a-center">
+        <a href="http://106.54.234.202:8080/oauth/github/render" >
+          <el-icon size="30" v-if="avatarUrl == ''">
               <user-filled />
             </el-icon>
+        </a>
+        <img
+              v-if="avatarUrl != ''"
+              :src="avatarUrl"
+              alt="User"
+              class="avatar"
+            />
+           
        <div class="dropdown">
       </div>
       </div>
@@ -38,6 +29,16 @@ const openLogin = () => {
   </div>
 </div>
 </template>
+<script setup lang="ts">
+import { ref ,onMounted} from 'vue'
+import { RouterLink, RouterView,useRouter } from 'vue-router'
+const router = useRouter();
+const avatarUrl = ref(localStorage.getItem('avatar'))
+
+
+
+</script>
+
 <style scoped>
 .main{
   height:100%;
@@ -67,6 +68,8 @@ const openLogin = () => {
 .user{
   width: 50px;
   height: 50px;
+  padding: 0 10px;
+  box-sizing: content-box;
   text-align: center;
   margin-left: 10px;
   position: relative;
@@ -83,5 +86,10 @@ const openLogin = () => {
 .dropdown ul{
   list-style: none;
   
+}
+.avatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 </style>
