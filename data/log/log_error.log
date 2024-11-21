@@ -1146,3 +1146,17 @@ java.io.IOException: 远程主机强迫关闭了一个现有的连接。
 24-11-18.22:49:23.826 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m33s901ms265µs400ns).
 24-11-18.22:49:25.994 [AMQP Connection 10.34.34.73:5672] WARN  ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Connection reset)
 24-11-18.23:27:49.407 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s535ms580µs700ns).
+24-11-21.20:19:17.691 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-21.20:19:18.714 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-21.20:19:18.718 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-21.20:19:18.836 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-21.20:19:18.836 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-21.20:19:18.861 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-21.20:19:18.861 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-21.20:28:10.625 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-21.20:28:11.705 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-21.20:28:11.709 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-21.20:28:11.869 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-21.20:28:11.870 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-21.20:28:11.898 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-21.20:28:11.899 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
