@@ -2,18 +2,6 @@
 import { RouterLink, RouterView,useRouter } from 'vue-router'
 const router = useRouter();
 
-
-const openLogin = () => {
-        ElMessageBox.alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          callback: (action) => {
-            ElMessage({
-              type: 'info',
-              message: `action: ${action}`,
-            });
-          },
-        });
-      };
 </script>
 
 <template>
@@ -22,10 +10,13 @@ const openLogin = () => {
     <div class="nav">
       <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
       <div class="info">
-      <div class="user flex-a-center" @click="login()">
-           <el-icon size="30">
+      <div class="user flex-a-center">
+        <a href="http://106.54.234.202:8080/oauth/github/render">
+          <el-icon size="30">
               <user-filled />
             </el-icon>
+        </a>
+           
        <div class="dropdown">
       </div>
       </div>

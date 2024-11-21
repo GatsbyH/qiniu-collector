@@ -133,7 +133,7 @@ import { DataView } from '@antv/data-set';
 import { getDeveloperAurl, getDeveloperNation, getDeveloperTechnicalAbility } from '../Utils/request';
 import { ref, getCurrentInstance, reactive,watch,onMounted ,computed} from 'vue';
 import { useRoute } from 'vue-router';
-const loading = ref(false);
+const loading = ref(true);
 const chartReady = ref(false);
 const route = useRoute();
 const rankResult = ref(null)
@@ -404,6 +404,7 @@ watch(()=>chartReady.value,(newVal)=>{
       startRender()
       renderShape()
       renderRankItem()
+      loading.value = false
   }
      
 })
