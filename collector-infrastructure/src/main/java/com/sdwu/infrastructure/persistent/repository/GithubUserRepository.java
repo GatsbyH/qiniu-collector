@@ -3,6 +3,7 @@ package com.sdwu.infrastructure.persistent.repository;
 import com.sdwu.domain.github.model.entity.Developer;
 import com.sdwu.domain.github.model.valobj.DevelopeVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
+import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
 import com.sdwu.domain.github.model.valobj.RankResult;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.infrastructure.persistent.po.DeveloperPO;
@@ -262,6 +263,26 @@ public class GithubUserRepository implements IGithubUserRepository {
             log.debug("已保存用户 {} 的SVG缓存", username);
         } catch (Exception e) {
             log.warn("保存用户 {} 的SVG缓存失败: {}", username, e.getMessage());
+        }
+    }
+
+  @Override
+    public List<LanguageCountRespVo> getLanguageStatsCache(String username) {
+        try {
+            return redisService.getValue(LANGUAGE_STATS_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("获取用户{}的语言统计缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveLanguageStatsCache(String username, List<LanguageCountRespVo> stats) {
+        try {
+            redisService.setValue(LANGUAGE_STATS_CACHE_KEY + username, stats, LANGUAGE_STATS_CACHE_TIME);
+            log.debug("已保存用户{}的语言统计缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户{}的语言统计缓存失败: {}", username, e.getMessage());
         }
     }
 

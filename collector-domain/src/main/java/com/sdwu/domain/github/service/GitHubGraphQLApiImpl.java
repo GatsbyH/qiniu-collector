@@ -714,6 +714,15 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
     @Override
     public List<LanguageCountRespVo> fetchTopLanguages(String username) {
+        // 首先尝试从缓存获取
+        List<LanguageCountRespVo> cachedStats = githubUserRepository.getLanguageStatsCache(username);
+        if (cachedStats != null) {
+            log.debug("用户{}的语言统计缓存命中", username);
+            return cachedStats;
+        }
+
+
+
         String fetchGitHubApi= null;
         Boolean includeMergedPullRequests = true;
         Boolean includeDiscussions = true;
@@ -827,7 +836,10 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
 
         // 现在 languageCount 包含了每个语言和其对应的代码量
         log.info("languageCount: {}", languageCountRespVos);
-
+        // 在返回结果前缓存数据
+        if (!languageCountRespVos.isEmpty()) {
+            githubUserRepository.saveLanguageStatsCache(username, languageCountRespVos);
+        }
         return languageCountRespVos;
     }
 
