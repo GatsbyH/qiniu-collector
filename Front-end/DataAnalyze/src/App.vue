@@ -5,13 +5,13 @@
       <div class="web-info">Developer Assessment<span class="assess">开发者评估应用</span></div>
       <div class="info">
       <div class="user flex-a-center">
-        <a href="http://106.54.234.202:8080/oauth/github/render" >
-          <el-icon size="30" v-if="avatarUrl == ''">
+        <a href="http://106.54.234.202:8080/oauth/github/render"  v-if="avatarUrl == undefined">
+          <el-icon size="30" >
               <user-filled />
             </el-icon>
         </a>
         <img
-              v-if="avatarUrl != ''"
+              v-if="avatarUrl != undefined"
               :src="avatarUrl"
               alt="User"
               class="avatar"

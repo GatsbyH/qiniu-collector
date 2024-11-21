@@ -204,21 +204,41 @@ const fields = ref('')
 let number = ref(0)
 const searchName = ref('') // 开发者名字
 const countryValue = ref("")
+const route = useRoute(); // 当前路由信息
 const router = useRouter()
 const selectedField = ref('') // 用于存储选中的值
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
 let userData = reactive({
   data:[{}]
 })
- searchName.value = useRoute().query.username
+
 
  onMounted(()=>{
+    searchName.value = useRoute().query.username
+    getfuzzySearch(searchName.value)
     api.getDeveloperFields().then(res=>{
       console.log("返回的领域",res.data.data)
       fields.value = res.data.data
     })
   })
+   // 更新 URL 中的 username 参数
+   const updateUsername = () => {
+      router.replace({
+        path: route.path,
+        query: {
+          ...route.query,
+          username: searchName.value || undefined, // 移除空值
+        },
+      });
+    };
 
+    // 监听路由中的 username 查询参数变化，更新输入框
+    watch(
+      () => route.query.username,
+      (newUsername) => {
+        searchName.value = newUsername || '';
+      }
+    );
 
 // 修改清除过滤器的函数
 const clearFilters = () => {
@@ -240,9 +260,7 @@ watch(countryValue,(newCountry,oldCountry)=>{
   queryParams.nation = newCountry
   handleSearch()
 })
-let selectedNation = reactive({
-  value:{}
-})
+
 
 
 let queryParams = {
@@ -257,6 +275,8 @@ const handleFieldChange = async (item) => {
   try {
     loading.value = true
     queryParams.nation = ''
+    searchName.value = ''
+    updateUsername()
     //不能重复选择
     selectedField.value = selectedField.value == item ? '' : item;
     // 更新领域
@@ -284,11 +304,11 @@ const handleFieldChange = async (item) => {
 const selectedNations = reactive({}) // 用于存储选中状态
 
 const handleSearch = () => {
-  // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
   console.log('选中的开发者类型:', selectedField.value)
   queryParams.field = selectedField.value
   console.log("queryParams",queryParams)
   loading.value = true
+  updateUsername()
   api.getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
@@ -310,17 +330,18 @@ const handleSearch = () => {
   )
 }
 
-
+  
   const { appContext : { config: { globalProperties} } } = getCurrentInstance()
-  const getDevelopers = globalProperties.$api.getDevelopers
   const  getfuzzySearch = async ()=>{
+    updateUsername()
     const result = await api.fuzzySearch(searchName.value)
     const data = result.data.data.list
     console.log("319",result.data.data.list)
     number.value = data.length
     userData.data = data
-    console.log("result",userData)
+    console.log("getfuzzySearch",userData)
   }
+
   const handlePrevClick = async (page)=>{
     console.log('page',await api.getDevelopers(page))
     console.log("prevClick",page)
@@ -349,7 +370,7 @@ const handleSearch = () => {
     handleSearch()
     // userData.data =[...result.data.data.list]
   }
- 
+
   const changeAssessView = (user)=>{
      router.push({path:'/assess',query:{username:user}})
   }
