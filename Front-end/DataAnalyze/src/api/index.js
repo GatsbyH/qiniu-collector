@@ -4,13 +4,11 @@
 import { request } from '../Utils/request'
 export default {
 
-
-
-getRank(params) {
+   getRank(params) {
         return request({
+            method: 'get',
             url: '/GraphQL/getTalentRankByUserName',
             data: {username:params},
-            method: 'get'
         })
     },
 
@@ -39,8 +37,15 @@ getRank(params) {
             username:username
            }
         })
-    }
-
-
+    },
+    getDeveloperRepos(userName){
+        return request({
+          method: 'get',
+          url: `/getGithubUserRepos`,
+          data:{
+            username: userName
+          }
+        })
+      }
 
 }

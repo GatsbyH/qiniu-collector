@@ -21,6 +21,10 @@ const router = createRouter({
        path:'/assess',
        name: 'assess',
        component: () => import('../views/assessView.vue')
+    },
+    {
+      path: '/oauth/callback/github',
+      component: () => import('../views/oauth.vue')
     }
   ]
 })
