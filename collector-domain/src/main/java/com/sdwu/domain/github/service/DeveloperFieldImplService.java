@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -144,7 +146,17 @@ public class DeveloperFieldImplService implements IDeveloperFieldService {
     }
 
     @Override
-    public List<String> getDeveloperNationOptionsByField(String field) {
-        return githubUserRepository.getDeveloperNationOptionsByField(field);
+    public List<Map<String, String>> getDeveloperNationOptionsByField(String field) {
+        List<String> nations = githubUserRepository.getDeveloperNationOptionsByField(field);
+        List<Map<String, String>> countriesOption = new ArrayList<>();
+
+        for (String nation : nations) {
+            Map<String, String> option = new HashMap<>();
+            option.put("value", nation);
+            option.put("label", nation);
+            countriesOption.add(option);
+        }
+
+        return countriesOption;
     }
 }
