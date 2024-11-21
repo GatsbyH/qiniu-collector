@@ -25,7 +25,7 @@
                 class="sd-input"
                 @keyup.enter="handleSearch"
               />
-              <span class="sd-input-addon" @click="handleSearch">
+              <span class="sd-input-addon" @click="getfuzzySearch()">
               <el-icon>
                 <Search />
               </el-icon>
@@ -78,8 +78,8 @@
            <ul>
              <template v-if="userData.data.length > 0">
             <li v-for="item in userData.data" :key="item.login" class="list-item flex-a-center" @click="changeAssessView(item.login)">
-              <img  :src="item.avatar_url" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
-              <a  :href="item.htmlUrl" class="list-item-a">{{ item.login }}</a>
+              <img  :src="item.avatarUrl" width="40" height="40" style="border-radius: 50%; margin-left:5px;">
+              <a  :href="item.htmlUrl" class="list-item-a list-item-name">{{ item.login }}</a>
               <span v-if="item.talentRank" class="list-item-a item-rank" >{{ item.talentRank }}</span>
             </li>
           </template>
@@ -112,9 +112,9 @@
 <script setup>
 import { shallowReactive, reactive, ref, getCurrentInstance, onMounted,watch } from 'vue'
 import { useRoute,useRouter} from 'vue-router'
-import { fuzzySearch, getDeveloperFields, getDeveloperNationOptionsByField, getDevelopersPage } from '../Utils/request'
+import api from '../api/index'
 const loading = ref(false)
- const countriesOption = [
+ let countriesOption = [
   { value: '阿富汗', label: '阿富汗' },
   { value: '阿尔巴尼亚', label: '阿尔巴尼亚' },
   { value: '阿尔及利亚', label: '阿尔及利亚' },
@@ -213,7 +213,7 @@ let userData = reactive({
  searchName.value = useRoute().query.username
 
  onMounted(()=>{
-    getDeveloperFields().then(res=>{
+    api.getDeveloperFields().then(res=>{
       console.log("返回的领域",res.data.data)
       fields.value = res.data.data
     })
@@ -223,12 +223,11 @@ let userData = reactive({
 // 修改清除过滤器的函数
 const clearFilters = () => {
   // 清除所有选中状态
-  Object.keys(selectedNations).forEach(key => {
-    selectedNations[key] = false
-  })
+  // Object.keys(selectedNations).forEach(key => {
+  //   selectedNations[key] = false
+  // })
   countryValue.value = ''
-  currentNation.value = '' // 清除当前选中的国家
-  selectedFields.value = ''
+  selectedField.value = ''
   searchName.value = ''
   queryParams.nation = ''
   queryParams.field = ''
@@ -265,16 +264,14 @@ const handleFieldChange = async (item) => {
     
     // 先获取新的国家选项
     if (queryParams.field) {
-      const nationRes = await getDeveloperNationOptionsByField(queryParams).finally(
+      const nationRes = await api.getDeveloperNationOptionsByField(queryParams).finally(
         () => {
           // 清除过滤器
           loading.value = false
         }
       )
       countriesOption = nationRes.data.data
-    } else {
-      selectedNation.value = {} // 如果没有选择领域，清空国家选项
-    }
+    } 
 
     // 然后搜索开发者
     await handleSearch()
@@ -292,7 +289,7 @@ const handleSearch = () => {
   queryParams.field = selectedField.value
   console.log("queryParams",queryParams)
   loading.value = true
-  getDevelopersPage(queryParams).then(res => {
+  api.getDevelopersPage(queryParams).then(res => {
     userData.data = res.data.data.list
     number.value = res.data.data.total
     // getDeveloperNationOptionsByField(queryParams).then(
@@ -316,16 +313,16 @@ const handleSearch = () => {
 
   const { appContext : { config: { globalProperties} } } = getCurrentInstance()
   const getDevelopers = globalProperties.$api.getDevelopers
-  const  find = async ()=>{
-    const result = await fuzzySearch(searchName.value)
-    const data = result.data.items
+  const  getfuzzySearch = async ()=>{
+    const result = await api.fuzzySearch(searchName.value)
+    const data = result.data.data.list
+    console.log("319",result.data.data.list)
     number.value = data.length
-    userData.data = data.slice(0,8)
+    userData.data = data
     console.log("result",userData)
   }
-  find()
   const handlePrevClick = async (page)=>{
-    console.log('page',await getDevelopers(page))
+    console.log('page',await api.getDevelopers(page))
     console.log("prevClick",page)
   }
   const handleCurrentClick = async (page)=>{
@@ -334,7 +331,7 @@ const handleSearch = () => {
     queryParams.pageNum = page
     console.log("changePage queryParams.pageNum",queryParams.pageNum)
     loading.value = true
-    getDevelopersPage(queryParams).then(res => {
+    api.getDevelopersPage(queryParams).then(res => {
       console.log("queryParams changePage",queryParams)
       userData.data = res.data.data.list
       number.value = res.data.data.total
@@ -426,6 +423,7 @@ const handleSearch = () => {
   margin-bottom: 10px;
 }
 .item-rank{
+ padding-right: 10px;
  position: absolute;
  right: 0;
 }
@@ -445,6 +443,9 @@ const handleSearch = () => {
   color:#141933;
   font-weight: 500;
   height: 40px;
+}
+.list-item-name{
+  padding: 0 20px;
 }
 .search-head{
   display:flex;
@@ -469,7 +470,6 @@ const handleSearch = () => {
 .sd-input{
     width: 100%;
     height: 40px;
-
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;

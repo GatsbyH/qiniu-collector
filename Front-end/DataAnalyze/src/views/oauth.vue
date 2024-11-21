@@ -21,22 +21,23 @@ async function handleCallback() {
         const response = await fetch(`http://106.54.234.202:8080/oauth/callback/github?code=${code}&state=${state}`);
         console.log("response",response)
         const data = await response.json();
-        console.log("data",data)
+        console.log("data",data.data.userInfo)
         if (data.code === 200) {
             loading.value = false;
-            alert("data",data)
             // 保存token
-            localStorage.setItem('token', data.data);
-            // alert('登录成功：');
+            alert("登录成功data",response)
+            localStorage.setItem('userName',data.data.userInfo.username)
+            localStorage.setItem('avatar',data.data.userInfo.avatar)
+            localStorage.setItem('token', data.data.token)
             ElMessage.success({
             message: '登录成功',
             type: 'success'
           })
             // 跳转到首页
             window.location.href = '/';
+            console.log("登录成功data",response)
            
         } else {
-            alert('登录失败：' + data.info);
             window.location.href = '/';
             ElMessage.error('登录失败',data.info)
         }

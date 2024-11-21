@@ -130,7 +130,7 @@
 <script setup>
 import { Chart } from '@antv/g2';
 import { DataView } from '@antv/data-set';
-import { getDeveloperAurl, getDeveloperNation, getDeveloperTechnicalAbility } from '../Utils/request';
+import api from '../api/index';
 import { ref, getCurrentInstance, reactive,watch,onMounted ,computed} from 'vue';
 import { useRoute } from 'vue-router';
 const loading = ref(true);
@@ -156,9 +156,9 @@ const getDeveloperInfo = async ()=>{
   const [rank, language, assess, field, nation] = await Promise.all([
     getRank(userName.value),
     getDeveloperLanguages(userName.value),
-    getDeveloperTechnicalAbility(userName.value),
+    api.getDeveloperTechnicalAbility(userName.value),
     getDeveloperField(userName.value),
-    getDeveloperNation(userName.value)
+    api.getDeveloperNation(userName.value)
   ]);
   console.log("123")
   rankResult.value = rank.data;
@@ -299,7 +299,7 @@ const data = [
   { item: 'Marketing', type: 'b', score: 60 },
   { item: 'Users', type: 'a', score: 40 },
   { item: 'Users', type: 'b', score: 50 },
-  { item: 'Test', type: 'a', score: 60 },
+  { item: 'Java', type: 'a', score: 60 },
   { item: 'Test', type: 'b', score: 70 },
   { item: 'Language', type: 'a', score: 70 },
   { item: 'Language', type: 'b', score: 50 },
