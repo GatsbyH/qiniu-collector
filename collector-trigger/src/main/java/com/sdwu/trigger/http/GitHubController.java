@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @Slf4j
 public class GitHubController {
-    private final GitHubClientService gitHubClientService;
+//    private final GitHubClientService gitHubClientService;
 
     @Resource
     private ITalentRankService talentRankService;
@@ -43,10 +43,12 @@ public class GitHubController {
     @Resource
     private IGitHubApi gitHubApi;
 
-    @Autowired
-    public GitHubController(GitHubClientService gitHubClientService) {
-        this.gitHubClientService = gitHubClientService;
-    }
+//    @Autowired
+//    public GitHubController(GitHubClientService gitHubClientService) {
+//        this.gitHubClientService = gitHubClientService;
+//    }
+
+
 
     //开启定时任务，根据领域搜索匹配开发者
     @GetMapping("startGetDeveloperByField")
@@ -149,10 +151,10 @@ public class GitHubController {
 
 
 
-    @GetMapping("/user")
-    public String getUser() throws IOException {
-        return gitHubClientService.fetchGitHubApi("/users/gatsbyh", null);
-    }
+//    @GetMapping("/user")
+//    public String getUser() throws IOException {
+//        return gitHubClientService.fetchGitHubApi("/users/gatsbyh", null);
+//    }
 
     @GetMapping("getTalentRankByUserName")
     @Loggable
