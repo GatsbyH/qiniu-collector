@@ -261,6 +261,7 @@ public class GitHubGraphQLApiImpl implements IGitHubGraphQLApi{
                 .totalFollowers(totalFollowers)
                 .rankResult(talentRank)
                 .contributeTo(contributedTo)
+                .login(username)
                  // 添加各部分得分
                 .totalScore(v)
                 .commitScore(commitScore)

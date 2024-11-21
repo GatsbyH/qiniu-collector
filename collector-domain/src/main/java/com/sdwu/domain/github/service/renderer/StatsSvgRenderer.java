@@ -60,16 +60,15 @@ public class StatsSvgRenderer {
         StringBuilder statsHtml = new StringBuilder();
 
         // 头部区域（头像和标题）
-        if (stats.getAvatarUrl() != null) {
-            statsHtml.append(String.format(
-                "<image x=\"25\" y=\"20\" width=\"40\" height=\"40\" href=\"%s\" class=\"avatar\"/>",
-                stats.getAvatarUrl()
-            ));
-            statsHtml.append("<text x=\"75\" y=\"45\" class=\"header\">开发者统计</text>");
+       if (stats.getAvatarUrl() != null) {
+        statsHtml.append(String.format(
+            "<image x=\"25\" y=\"20\" width=\"40\" height=\"40\" href=\"%s\" class=\"avatar\"/>",
+            stats.getAvatarUrl()
+        ));
+        statsHtml.append(String.format("<text x=\"75\" y=\"45\" class=\"header\">%s</text>", stats.getLogin()));
         } else {
-            statsHtml.append("<text x=\"25\" y=\"45\" class=\"header\">开发者统计</text>");
-        }
-
+        statsHtml.append(String.format("<text x=\"25\" y=\"45\" class=\"header\">%s</text>", stats.getLogin()));
+       }
         // 定义布局参数
         int leftColX = 25;
         int rightColX = CARD_WIDTH / 2 + 25;
@@ -159,7 +158,7 @@ public class StatsSvgRenderer {
         }
 
         StringBuilder langStats = new StringBuilder();
-        int startY = 350;  // 调整语言统计的起始位置
+        int startY = 330;  // 调整语言统计的起始位置
 
         langStats.append(String.format(
             "<text x=\"25\" y=\"%d\" class=\"section-title\">常用编程语言</text>",
@@ -175,7 +174,7 @@ public class StatsSvgRenderer {
                 .limit(5)
                 .collect(Collectors.toList());
 
-        int yOffset = startY + 30;
+        int yOffset = startY + 20;
         int barWidth = CARD_WIDTH - 60;
 
         for (LanguageCountRespVo lang : topLanguages) {
