@@ -6,6 +6,7 @@ import com.sdwu.types.model.PageResult;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface IDeveloperFieldService {
     List<Developer> getDeveloperByFieldAndNation(String field, String nation) throws IOException;
@@ -19,5 +20,5 @@ public interface IDeveloperFieldService {
 
     List<String> getDeveloperFields();
 
-    List<String> getDeveloperNationOptionsByField(String field);
+    List<Map<String, String>> getDeveloperNationOptionsByField(String field);
 }
