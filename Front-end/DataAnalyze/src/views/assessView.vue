@@ -173,7 +173,7 @@ const getDeveloperInfo = async ()=>{
   console.log("fieldResult", fieldResult.value)
   console.log("nationResult",nationResult.value)
   formattedHtml.value = formatToHtml(assessResult.value.data)
-  talentRank.value =  parseFloat(rankResult.value?.data?.rankResult?.percentile).toFixed(2)
+  talentRank.value =  rankResult.value?.data?.totalScore
   console.log("formattedHtml",formattedHtml);
    // 准备渲染雷达图
   chartReady.value = true;
@@ -270,8 +270,9 @@ getDeveloperInfo()
 //     chart.render();
 // }
 const formatToHtml = (infor)=>{
-  console.log("infor",infor,typeof infor)
-     const lines = infor.split('\n')
+     console.log("infor",infor,typeof infor)
+     const lines = infor.replace("开发者展现了以下优点：", "").split('\n')
+     console.log("lines",lines)
      let htmlLines = []
       // 遍历分割后的每行内容
       lines.forEach(line => {
@@ -281,10 +282,10 @@ const formatToHtml = (infor)=>{
         } else if (line.trim().startsWith("1.") || line.trim().startsWith("2.") || line.trim().startsWith("3.") || line.trim().startsWith("4.")) {
             htmlLines.push('<p>' + line.trim() + '</p>');
         }
-        // else 
-        // {
-        //   htmlLines.push(line.trim())
-        // }
+        else 
+        {
+          htmlLines.push(line.trim())
+        }
     });
      // 将数组中的HTML内容合并成一个字符串
      return htmlLines.join('\n');
