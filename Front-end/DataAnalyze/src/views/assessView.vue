@@ -122,6 +122,34 @@
     </div>
 
   </div>
+
+  <!-- 添加导出卡片 -->
+  <div class="export-card">
+    <el-card class="card-box" shadow="hover">
+      <template #header>
+        <div class="card-header">
+          <span>数据导出</span>
+        </div>
+      </template>
+      <div class="card-content">
+        <el-button
+          type="primary"
+          :icon="Download"
+          @click="openSvg"
+          class="export-button"
+        >
+          查看GitHub Stats卡片
+        </el-button>
+        <el-button
+          :icon="DocumentCopy"
+          @click="copyUrl"
+          class="export-button"
+        >
+          复制链接
+        </el-button>
+      </div>
+    </el-card>
+  </div>
 </template>
 
 <script setup>
@@ -130,6 +158,8 @@ import { DataView } from '@antv/data-set';
 import api from '../api/index';
 import { ref, getCurrentInstance, reactive,watch,onMounted ,computed,onUnmounted} from 'vue';
 import { useRoute } from 'vue-router';
+import { Download, DocumentCopy } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 const loading = ref(true);
 const chartReady = ref(false);
 const route = useRoute();
@@ -412,6 +442,34 @@ onUnmounted(() => {
     cleanupChart();
   }
 });
+
+// 计算导出URL
+const exportUrl = computed(() => {
+  return `http://106.54.234.202:8080/GraphQL/stats/${userName.value}`;
+});
+
+// 打开SVG
+const openSvg = () => {
+  window.open(exportUrl.value, '_blank');
+}
+
+// 复制链接功能
+const copyUrl = async () => {
+  try {
+    await navigator.clipboard.writeText(exportUrl.value);
+    ElMessage({
+      message: '链接已复制到剪贴板',
+      type: 'success',
+      duration: 2000
+    });
+  } catch (err) {
+    ElMessage({
+      message: '复制失败，请手动复制',
+      type: 'error',
+      duration: 2000
+    });
+  }
+};
 </script>
 
 <style scoped>
@@ -567,6 +625,54 @@ onUnmounted(() => {
 }
 #shape-container{
   position: relative;
+}
+
+.export-card {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}
+
+.card-box {
+  width: 250px;
+  border-radius: 8px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.export-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 图标样式调整 */
+:deep(.el-button .el-icon) {
+  margin-right: 6px;
+}
+
+/* 卡片样式调整 */
+:deep(.el-card__header) {
+  padding: 12px 20px;
+  border-bottom: 1px solid #e4e7ed;
+}
+
+:deep(.el-card__body) {
+  padding: 16px;
 }
 </style>
 
