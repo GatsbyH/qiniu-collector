@@ -33,25 +33,43 @@ public class GitHubGraphQLController {
     @GetMapping("getTalentRankByUserName")
     @Loggable
     public Response getTalentRankByUserName(String username){
-        DevelopeVo talentRank = talentRankGraphQLService.getDeveloperStatsByUserName(username);
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(talentRank)
-                .build();
+        try {
+            // 先尝试从缓存获取
+            DevelopeVo cachedTalentRank = githubUserRepository.getTalentRankCache(username);
+            if (cachedTalentRank != null) {
+                return Response.success(cachedTalentRank);
+            }
+
+            // 缓存未命中，重新获取并保存
+            DevelopeVo talentRank = talentRankGraphQLService.getDeveloperStatsByUserName(username);
+            githubUserRepository.saveTalentRankCacheCache(username, talentRank.getTotalScore());
+            return Response.success(talentRank);
+        } catch (Exception e) {
+            log.error("获取开发者{}的TalentRank分数失败: {}", username, e.getMessage());
+            return Response.fail(null);
+        }
     }
 
 
     //根据账号搜索用户使用的语言
     @GetMapping("getDeveloperLanguage")
     @Loggable
-    public Response getDeveloperLanguage(String username)  {
-        List<LanguageCountRespVo> developerLanguage = talentRankGraphQLService.getDeveloperLanguage(username);
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerLanguage)
-                .build();
+    public Response getDeveloperLanguage(String username) {
+        try {
+            // 先尝试从缓存获取
+            List<LanguageCountRespVo> cachedLanguages = githubUserRepository.getDeveloperLanguageCache(username);
+            if (cachedLanguages != null) {
+                return Response.success(cachedLanguages);
+            }
+
+            // 缓存未命中，重新获取并保存
+            List<LanguageCountRespVo> languages = talentRankGraphQLService.getDeveloperLanguage(username);
+            githubUserRepository.saveDeveloperLanguageCache(username, languages);
+            return Response.success(languages);
+        } catch (Exception e) {
+            log.error("获取开发者{}的语言统计信息失败: {}", username, e.getMessage());
+            return Response.fail(null);
+        }
     }
 
 

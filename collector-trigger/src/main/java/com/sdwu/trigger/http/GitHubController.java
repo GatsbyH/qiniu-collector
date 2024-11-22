@@ -5,6 +5,7 @@ import com.sdwu.domain.github.model.valobj.DeveloperContributionVo;
 import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
 import com.sdwu.domain.github.model.valobj.GithubRepoReqVo;
 import com.sdwu.domain.github.model.valobj.GithubUserReqVo;
+import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.domain.github.service.*;
 import com.sdwu.types.annotation.Loggable;
 import com.sdwu.types.enums.ResponseCode;
@@ -39,6 +40,9 @@ public class GitHubController {
     @Resource
     private IChatGlmApi chatGlmApi;
 
+
+    @Resource
+    private IGithubUserRepository githubUserRepository;
 
     @Resource
     private IGitHubApi gitHubApi;
@@ -115,13 +119,22 @@ public class GitHubController {
 
     //大模型技术能力评估
     @GetMapping("getDeveloperTechnicalAbility")
-    public Response getDeveloperTechnicalAbility(String username){
-        String developerTechnicalAbility = talentRankService.getDeveloperTechnicalAbility(username);
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerTechnicalAbility)
-                .build();
+    public Response getDeveloperTechnicalAbility(String username) {
+        try {
+            // 先尝试从缓存获取
+            String cachedAbility = githubUserRepository.getTechnicalAbilityCache(username);
+            if (cachedAbility != null) {
+                return Response.success(cachedAbility);
+            }
+
+            // 缓存未命中，重新获取并保存
+            String ability = talentRankService.getDeveloperTechnicalAbility(username);
+            githubUserRepository.saveTechnicalAbilityCache(username, ability);
+            return Response.success(ability);
+        } catch (Exception e) {
+            log.error("获取开发者{}的技术能力评估失败: {}", username, e.getMessage());
+            return Response.fail(null);
+        }
     }
 
 
@@ -169,12 +182,22 @@ public class GitHubController {
     //开发者的 Nation
     @GetMapping("getDeveloperNation")
     @Loggable
-    public Response getDeveloperNation(String username) throws IOException, ExecutionException, InterruptedException {
-        return Response.builder()
-                .code(ResponseCode.SUCCESS.getCode())
-                .info(ResponseCode.SUCCESS.getInfo())
-                .data(developerNationService.getDeveloperNation(username))
-                .build();
+    public Response getDeveloperNation(String username) {
+        try {
+            // 先尝试从缓存获取
+            String cachedNation = githubUserRepository.getDeveloperNationCache(username);
+            if (cachedNation != null) {
+                return Response.success(cachedNation);
+            }
+
+            // 缓存未命中，重新获取并保存
+            String nation = developerNationService.getDeveloperNation(username);
+            githubUserRepository.saveDeveloperNationCache(username, nation);
+            return Response.success(nation);
+        } catch (Exception e) {
+            log.error("获取开发者{}的国家信息失败: {}", username, e.getMessage());
+            return Response.fail(null);
+        }
     }
 
 

@@ -1,10 +1,7 @@
 package com.sdwu.domain.github.repository;
 
 import com.sdwu.domain.github.model.entity.Developer;
-import com.sdwu.domain.github.model.valobj.DevelopeVo;
-import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
-import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
-import com.sdwu.domain.github.model.valobj.RankResult;
+import com.sdwu.domain.github.model.valobj.*;
 import com.sdwu.types.model.PageResult;
 
 import java.util.List;
@@ -88,4 +85,56 @@ public interface IGithubUserRepository {
      * @param stats 要缓存的语言统计数据
      */
     void saveLanguageStatsCache(String username, List<LanguageCountRespVo> stats);
+
+    /**
+     * 获取TalentRank缓存
+     */
+    Double getTalentRankScoreCache(String username);
+
+    /**
+     * 保存TalentRank缓存
+     */
+    void saveTalentRankScoreCache(String username, Double score);
+
+    /**
+     * 获取开发者语言统计缓存
+     */
+    List<LanguageCountRespVo> getDeveloperLanguageCache(String username);
+
+    /**
+     * 保存开发者语言统计缓存
+     */
+    void saveDeveloperLanguageCache(String username, List<LanguageCountRespVo> languages);
+
+    /**
+     * 获取开发者国家信息缓存
+     * @param username GitHub用户名
+     * @return 缓存的国家信息，如果没有缓存则返回null
+     */
+    String getDeveloperNationCache(String username);
+
+    /**
+     * 保存开发者国家信息缓存
+     * @param username GitHub用户名
+     * @param nation 国家信息
+     */
+    void saveDeveloperNationCache(String username, String nation);
+
+    /**
+     * 获取开发者技术能力评估缓存
+     * @param username GitHub用户名
+     * @return 缓存的技术能力评估，如果没有缓存则返回null
+     */
+    String getTechnicalAbilityCache(String username);
+
+    /**
+     * 保存开发者技术能力评估缓存
+     * @param username GitHub用户名
+     * @param ability 技术能力评估
+     */
+    void saveTechnicalAbilityCache(String username, String ability);
+
+    DevelopeVo getTalentRankCache(String username);
+
+    void saveTalentRankCacheCache(String username, Double totalScore);
 }

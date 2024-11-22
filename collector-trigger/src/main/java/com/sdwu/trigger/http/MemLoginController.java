@@ -45,24 +45,37 @@ public class MemLoginController {
     @Resource
     private IGithubLoginService githubLoginService;
 
+//    @GetMapping("/github/render")
+//    public void renderAuth(HttpServletResponse response) {
+//        try {
+//            AuthRequest authRequest = getAuthRequest();
+//            // 生成授权URL并直接重定向
+//            String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
+//            response.sendRedirect(authorizeUrl);
+//        } catch (Exception e) {
+//            log.error("GitHub授权重定向失败: {}", e.getMessage(), e);
+//            try {
+//                // 发生错误时重定向到错误页面
+//                response.sendRedirect("/error?message=" + URLEncoder.encode("GitHub授权失败: " + e.getMessage(), "UTF-8"));
+//            } catch (IOException ex) {
+//                log.error("重定向到错误页面失败: {}", ex.getMessage(), ex);
+//            }
+//        }
+//    }
+
     @GetMapping("/github/render")
-    public void renderAuth(HttpServletResponse response) {
+    public Response renderAuth() {
         try {
             AuthRequest authRequest = getAuthRequest();
-            // 生成授权URL并直接重定向
-            String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
-            response.sendRedirect(authorizeUrl);
+            // 直接返回授权URL
+            return Response.success(authRequest.authorize(AuthStateUtils.createState()));
         } catch (Exception e) {
-            log.error("GitHub授权重定向失败: {}", e.getMessage(), e);
-            try {
-                // 发生错误时重定向到错误页面
-                response.sendRedirect("/error?message=" + URLEncoder.encode("GitHub授权失败: " + e.getMessage(), "UTF-8"));
-            } catch (IOException ex) {
-                log.error("重定向到错误页面失败: {}", ex.getMessage(), ex);
-            }
+            return Response.builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info("获取GitHub授权URL失败：" + e.getMessage())
+                    .build();
         }
     }
-
     @GetMapping("/callback/github")
     public Response login(@RequestParam("code") String code,
                          @RequestParam(value = "state", required = false) String state) {

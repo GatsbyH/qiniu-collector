@@ -68,4 +68,13 @@ public class CacheConstants
 
      public static final String LANGUAGE_STATS_CACHE_KEY = "github:language_stats:";
     public static final long LANGUAGE_STATS_CACHE_TIME = TimeUnit.HOURS.toSeconds(24); // 缓存24小时
+
+    public static final String TALENT_RANK_SCORE_CACHE_KEY = "github:talent_rank_score:";
+    public static final String DEVELOPER_LANGUAGE_CACHE_KEY = "github:developer_language:";
+
+    public static final String DEVELOPER_NATION_CACHE_KEY = "github:developer:nation:";
+    public static final String TECHNICAL_ABILITY_CACHE_KEY = "github:developer:technical_ability:";
+
+    public static final String TALENT_RANK_PAGE_CACHE_KEY = "talent_rank_page_cache_key:";
+
 }

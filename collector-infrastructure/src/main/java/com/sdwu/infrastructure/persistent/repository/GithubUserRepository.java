@@ -1,10 +1,7 @@
 package com.sdwu.infrastructure.persistent.repository;
 
 import com.sdwu.domain.github.model.entity.Developer;
-import com.sdwu.domain.github.model.valobj.DevelopeVo;
-import com.sdwu.domain.github.model.valobj.DevelopersByFieldReqVo;
-import com.sdwu.domain.github.model.valobj.LanguageCountRespVo;
-import com.sdwu.domain.github.model.valobj.RankResult;
+import com.sdwu.domain.github.model.valobj.*;
 import com.sdwu.domain.github.repository.IGithubUserRepository;
 import com.sdwu.infrastructure.persistent.po.DeveloperPO;
 import com.sdwu.infrastructure.persistent.redis.IRedisService;
@@ -28,7 +25,10 @@ public class GithubUserRepository implements IGithubUserRepository {
     @Resource
     private IRedisService redisService;
 
-
+    private static final long TALENT_RANK_CACHE_TIME = TimeUnit.HOURS.toSeconds(24); // 24小时
+    private static final long LANGUAGE_CACHE_TIME = TimeUnit.HOURS.toSeconds(24); // 24小时
+    private static final long NATION_CACHE_TIME = TimeUnit.HOURS.toSeconds(24); // 24小时
+    private static final long TECHNICAL_ABILITY_CACHE_TIME = TimeUnit.HOURS.toSeconds(24); // 24小时
 
     @Override
     public void save(String field,List<Developer> developers) {
@@ -292,4 +292,105 @@ public class GithubUserRepository implements IGithubUserRepository {
     private String buildSvgCacheKey(String username, String theme) {
         return String.format("%s%s:%s", SVG_CACHE_KEY, username, theme);
     }
+
+    @Override
+    public Double getTalentRankScoreCache(String username) {
+        try {
+            return redisService.getValue(TALENT_RANK_SCORE_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("获取用户{}的TalentRank分数缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveTalentRankScoreCache(String username, Double score) {
+        try {
+            redisService.setValue(TALENT_RANK_SCORE_CACHE_KEY + username, score, TALENT_RANK_CACHE_TIME);
+            log.debug("已保存用户{}的TalentRank分数缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户{}的TalentRank分数缓存失败: {}", username, e.getMessage());
+        }
+    }
+
+    @Override
+    public List<LanguageCountRespVo> getDeveloperLanguageCache(String username) {
+        try {
+            return redisService.getValue(DEVELOPER_LANGUAGE_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("获取用户{}的语言统计缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveDeveloperLanguageCache(String username, List<LanguageCountRespVo> languages) {
+        try {
+            redisService.setValue(DEVELOPER_LANGUAGE_CACHE_KEY + username, languages, LANGUAGE_CACHE_TIME);
+            log.debug("已保存用户{}的语言统计缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户{}的语言统计缓存失败: {}", username, e.getMessage());
+        }
+    }
+
+    @Override
+    public String getDeveloperNationCache(String username) {
+        try {
+            return redisService.getValue(DEVELOPER_NATION_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("获取用户{}的国家信息缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveDeveloperNationCache(String username, String nation) {
+        try {
+            redisService.setValue(DEVELOPER_NATION_CACHE_KEY + username, nation, NATION_CACHE_TIME);
+            log.debug("已保存用户{}的国家信息缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户{}的国家信息缓存失败: {}", username, e.getMessage());
+        }
+    }
+
+    @Override
+    public String getTechnicalAbilityCache(String username) {
+        try {
+            return redisService.getValue(TECHNICAL_ABILITY_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("获取用户{}的技术能力评估缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveTechnicalAbilityCache(String username, String ability) {
+        try {
+            redisService.setValue(TECHNICAL_ABILITY_CACHE_KEY + username, ability, TECHNICAL_ABILITY_CACHE_TIME);
+            log.debug("已保存用户{}的技术能力评估缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户{}的技术能力评估缓存失败: {}", username, e.getMessage());
+        }
+    }
+
+    @Override
+    public DevelopeVo getTalentRankCache(String username) {
+        try {
+            return redisService.getValue(TALENT_RANK_PAGE_CACHE_KEY + username);
+        } catch (Exception e) {
+            log.warn("获取用户{}的TalentRank缓存失败: {}", username, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public void saveTalentRankCacheCache(String username, Double totalScore) {
+        try {
+            redisService.setValue(TALENT_RANK_PAGE_CACHE_KEY + username, totalScore, TALENT_RANK_CACHE_TIME);
+            log.debug("已保存用户{}的TalentRank缓存", username);
+        } catch (Exception e) {
+            log.warn("保存用户{}的TalentRank缓存失败: {}", username, e.getMessage());
+        }
+    }
+
 }
