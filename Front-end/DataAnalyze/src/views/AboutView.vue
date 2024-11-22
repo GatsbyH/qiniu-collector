@@ -34,14 +34,21 @@
           </div>
           <div class="search-type">
             <div class="item-label">开发者领域</div>
-            <el-checkbox
-              v-for="item in fields"
-              :key="item"
-              :v-model="selectedField == item"
-              :label="item"
-              @change="handleFieldChange(item)"
-              class="checkbox"
-            ></el-checkbox>
+            <el-radio-group v-model="selectedField" @change="handleFieldChange" class="radio-group">
+              <div class="radio-row">
+                <el-radio
+                  v-for="(item, index) in fields"
+                  :key="item"
+                  :label="item"
+                  class="radio-item"
+                >
+                  <div class="radio-content">
+                    <span class="radio-text">{{ item }}</span>
+                    <el-icon v-if="selectedField === item" class="check-icon"><Check /></el-icon>
+                  </div>
+                </el-radio>
+              </div>
+            </el-radio-group>
           </div>
 <!--           <div class="search-type">-->
 <!--               <div class="item-label">语言</div>-->
@@ -114,9 +121,7 @@ import { shallowReactive, reactive, ref, getCurrentInstance, onMounted,watch } f
 import { useRoute,useRouter} from 'vue-router'
 import api from '../api/index'
 const loading = ref(false)
- let countriesOption = [
-
-];
+const countriesOption = ref([])
 const fields = ref('')
 let number = ref(0)
 const searchName = ref('') // 开发者名字
@@ -168,14 +173,23 @@ const clearFilters = () => {
   searchName.value = ''
   queryParams.nation = ''
   queryParams.field = ''
+  countriesOption.value = []
   handleSearch()
 }
 
-watch(countryValue,(newCountry,oldCountry)=>{
-  console.log("国家变化",newCountry)
-  queryParams.pageNum= 1
-  queryParams.nation = newCountry
-  handleSearch()
+watch(countryValue, async (newCountry, oldCountry) => {
+  if (newCountry === oldCountry) return
+  
+  try {
+    loading.value = true
+    queryParams.pageNum = 1
+    queryParams.nation = newCountry
+    await handleSearch()
+  } catch (error) {
+    console.error('切换国家失败:', error)
+  } finally {
+    loading.value = false
+  }
 })
 
 
@@ -188,37 +202,37 @@ let queryParams = {
 }
 
 
-const handleFieldChange = async (item) => {
+const handleFieldChange = async (newField) => {
   try {
     loading.value = true
+    // 重置相关状态
     queryParams.nation = ''
+    countryValue.value = ''
     searchName.value = ''
     updateUsername()
-    //不能重复选择
-    selectedField.value = selectedField.value == item ? '' : item;
-    // 更新领域
-    queryParams.field = selectedField.value
+    
+    // 更新领域查询参数
+    queryParams.field = newField
+    queryParams.pageNum = 1
 
-    // 先获取新的国家选项
-    if (queryParams.field) {
-      const nationRes = await api.getDeveloperNationOptionsByField(queryParams).finally(
-        () => {
-          // 清除过滤器
-          loading.value = false
-        }
-      )
-      countriesOption = nationRes.data.data
+    // 获取该领域下的国家选项
+    if (newField) {
+      const nationRes = await api.getDeveloperNationOptionsByField({ field: newField })
+      countriesOption.value = nationRes.data.data
+    } else {
+      countriesOption.value = []
     }
 
-    // 然后搜索开发者
+    // 搜索开发者
     await handleSearch()
   } catch (error) {
     console.error('处理领域变化出错:', error)
+    countriesOption.value = []
   } finally {
     loading.value = false
   }
-};
-const selectedNations = reactive({}) // 用于存储选中状态
+}
+const selectedNations = reactive({}) // 于存储选中状态
 
 const handleSearch = () => {
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
@@ -297,20 +311,72 @@ const handleSearch = () => {
 </script>
 <style scoped>
 .radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.radio-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
 }
 
 .radio-item {
-  height: 32px;
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
 }
 
-
-.radio-item:hover {
-  color: #0068FF;
+.radio-item :deep(.el-radio__label) {
+  padding: 0;
+  width: 100%;
 }
+
+.radio-content {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: var(--el-fill-color-light);
+  transition: all 0.2s ease;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+}
+
+.radio-text {
+  color: var(--el-text-color-regular);
+}
+
+.check-icon {
+  font-size: 16px;
+  color: var(--el-color-primary);
+}
+
+.radio-item:hover .radio-content {
+  background-color: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary-light-5);
+}
+
+.radio-item:hover .radio-text {
+  color: var(--el-color-primary);
+}
+
+.radio-item :deep(.el-radio__input.is-checked + .el-radio__label .radio-content) {
+  background-color: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary);
+}
+
+.radio-item :deep(.el-radio__input.is-checked + .el-radio__label .radio-text) {
+  color: var(--el-color-primary);
+  font-weight: 500;
+}
+
+.radio-item :deep(.el-radio__input) {
+  display: none;
+}
+
 .main{
   height: 100%;
 }
