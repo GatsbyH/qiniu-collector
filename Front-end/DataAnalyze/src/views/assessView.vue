@@ -10,13 +10,11 @@
           </div>
           <div class="userInfo">
             <span class="name">{{ userName }}</span>
-            <!-- <span class="score">talentRank:{{  }}</span> -->
             <span class="rank">{{rankResult?.data?.rankResult?.level }}</span>
             <div class="level">
-
+              <el-icon><map-location /></el-icon>
+              <span>{{ nationResult?.data}}</span>
             </div>
-            <span class="nation"><el-icon><map-location /></el-icon> {{ nationResult?.data}}</span>
-            <span class="field">{{ fieldResult?.data}}</span>
           </div>
         </el-card>
         <el-card>
@@ -116,9 +114,8 @@
           </div>
           <div id="ai-assess" >
                 <p style="font-size: 20px;margin-top: -20px;">大模型评估开发者信息:</p>
-                <div v-html="formattedHtml" style="margin-top:10px;font-size: 18px;"> </div>
-
-         </div>
+                <div v-text="assessResult?.data" style="margin-top:10px;font-size: 18px;"> </div>
+          </div>
         </div>
 
       </div>
@@ -131,7 +128,7 @@
 import { Chart } from '@antv/g2';
 import { DataView } from '@antv/data-set';
 import api from '../api/index';
-import { ref, getCurrentInstance, reactive,watch,onMounted ,computed} from 'vue';
+import { ref, getCurrentInstance, reactive,watch,onMounted ,computed,onUnmounted} from 'vue';
 import { useRoute } from 'vue-router';
 const loading = ref(true);
 const chartReady = ref(false);
@@ -139,43 +136,38 @@ const route = useRoute();
 const rankResult = ref(null)
 const languageResult = ref(null)
 const assessResult = ref(null)
-const fieldResult = ref(null)
 const nationResult = ref(null)
 const formattedHtml = ref('')
 const talentRank = ref('')
 const { appContext: { config: { globalProperties } } } = getCurrentInstance();
 const getRank = globalProperties.$api.getRank;
 const getDeveloperLanguages = globalProperties.$api.getDeveloperLanguages;
-const getDeveloperField = globalProperties.$api.getDeveloperField;
 let userName = ref(route.query.username);
 let imgUrl = ref('');
-
+let cleanupChart = null;
 
 const getDeveloperInfo = async ()=>{
   try {
-  const [rank, language, assess, field, nation] = await Promise.all([
+  const [rank, language, assess, nation] = await Promise.all([
     getRank(userName.value),
     getDeveloperLanguages(userName.value),
     api.getDeveloperTechnicalAbility(userName.value),
-    getDeveloperField(userName.value),
     api.getDeveloperNation(userName.value)
   ]);
   console.log("123")
   rankResult.value = rank.data;
   languageResult.value = language.data.data.sort().slice(0,10);
   assessResult.value = assess.data;
-  fieldResult.value = field.data;
   nationResult.value = nation.data;
   imgUrl.value = rank.data.data.avatarUrl;
   console.log("rankResult",rankResult.value)
   console.log("languageResult",languageResult.value)
   console.log("assessResult",assessResult.value)
-  console.log("fieldResult", fieldResult.value)
   console.log("nationResult",nationResult.value)
-  formattedHtml.value = formatToHtml(assessResult.value.data)
+  formattedHtml.value = assessResult.value.data
   talentRank.value =  rankResult.value?.data?.totalScore
   console.log("formattedHtml",formattedHtml);
-   // 准备渲染雷达图
+  // 准备渲染雷达图
   chartReady.value = true;
   console.log("chartReady",chartReady.value)
 } catch (error) {
@@ -200,174 +192,163 @@ getDeveloperInfo()
 //   }
 // };
 
-// const startRender = ()=> {
-//     console.log("languageResult11111111111111111111111",languageResult.value)
-//     const dv = new DataView().source(languageResult.value);
-//     dv.transform({
-//       type: 'fold',
-//       fields: ['a'], // 展开字段集
-//       key: 'user', // key字段
-//       value: 'score' // value字段
-//     });
+const startRender = () => {
+  if (!languageResult.value?.length) return;
 
-//     const chart = new G2.Chart({
-//       container: 'radar-container',
-//       forceFit: true,
-//       width: 500,
-//       height: 400,
-//       padding: [20, 20, 95, 20]
-//     });
+  // 1. 创建图表实例
+  const chart = new Chart({
+    container: 'radar-container',
+    autoFit: true,
+    height: 400,
+    padding: [20, 30, 50, 30]
+  });
 
-//     chart.source(dv, {
-//       score: {
-//         min: 0,
-//         max: 30
-//       }
-//     });
+  // 2. 数据处理：只取前5个最常用的语言
+  const data = languageResult.value
+    .sort((a, b) => b.a - a.a)  // 按使用频率降序排序
+    .slice(0, 5)    // 只取前5个
+    .map(item => ({
+      language: item.item,
+      value: item.a
+    }));
 
-//     chart.coord('polar', {
-//       radius: 0.8
-//     });
+  // 3. 配置坐标系
+  chart.coordinate('polar', {
+    radius: 0.8
+  });
 
-//     chart.axis('item', {
-//       line: null,
-//       tickLine: null,
-//       grid: {
-//         lineStyle: {
-//           lineDash: null
-//         },
-//         hideFirstLine: false
-//       }
-//     });
+  chart.data(data);
 
-//     chart.axis('score', {
-//       line: null,
-//       tickLine: null,
-//       grid: {
-//         type: 'polygon',
-//         lineStyle: {
-//           lineDash: null
-//         }
-//       }
-//     });
+  // 4. 配置度量
+  chart.scale('value', {
+    min: 0,
+    nice: true,
+  });
 
-//     chart.legend('user', {
-//       marker: 'circle',
-//       offset: 30
-//     });
+  chart.scale('language', {
+    range: [0, 1]
+  });
 
-//     chart.line().position('item*score').color('user').size(2);
-//     chart.point().position('item*score').color('user')
-//       .shape('circle')
-//       .size(4)
-//       .style({
-//         stroke: '#fff',
-//         lineWidth: 1,
-//         fillOpacity: 1
-//       });
-//     chart.area().position('item*score').color('user');
-
-//     chart.render();
-// }
-const formatToHtml = (infor)=>{
-     console.log("infor",infor,typeof infor)
-     const lines = infor.replace("开发者展现了以下优点：", "").split('\n')
-     console.log("lines",lines)
-     let htmlLines = []
-      // 遍历分割后的每行内容
-      lines.forEach(line => {
-        // 检查是否是标题或特殊格式
-         if (line.startsWith("总体来说")) {
-            htmlLines.push('<p style="font-size: 18px;">' + line + '</p>');
-        } else if (line.trim().startsWith("1.") || line.trim().startsWith("2.") || line.trim().startsWith("3.") || line.trim().startsWith("4.")) {
-            htmlLines.push('<p>' + line.trim() + '</p>');
+  // 5. 配置坐标轴
+  chart.axis('language', {
+    line: null,
+    grid: {
+      line: {
+        style: {
+          lineDash: [4, 4]
         }
-        // else
-        // {
-        //   htmlLines.push(line.trim())
-        // }
+      }
+    },
+    label: {
+      style: {
+        fontSize: 14,  // 可以使用更大的字体，因为只有5个标签
+        fill: '#666',
+        fontWeight: 'bold'
+      },
+      offset: 15
+    }
+  });
+
+  chart.axis('value', {
+    line: null,
+    grid: {
+      line: {
+        style: {
+          lineDash: [4, 4]
+        }
+      }
+    }
+  });
+
+  // 6. 绘制图形
+  // 面积
+  chart
+    .area()
+    .encode('x', 'language')
+    .encode('y', 'value')
+    .style({
+      fill: '#1890ff',
+      fillOpacity: 0.3
     });
-     // 将数组中的HTML内容合并成一个字符串
-     return htmlLines.join('\n');
-}
-const startRender = ()=>{
-const data = [
-  { item: 'Design', type: 'a', score: 70 },
-  { item: 'Design', type: 'b', score: 30 },
-  { item: 'Development', type: 'a', score: 60 },
-  { item: 'Development', type: 'b', score: 70 },
-  { item: 'Marketing', type: 'a', score: 50 },
-  { item: 'Marketing', type: 'b', score: 60 },
-  { item: 'Users', type: 'a', score: 40 },
-  { item: 'Users', type: 'b', score: 50 },
-  { item: 'Java', type: 'a', score: 60 },
-  { item: 'Test', type: 'b', score: 70 },
-  { item: 'Language', type: 'a', score: 70 },
-  { item: 'Language', type: 'b', score: 50 },
-  { item: 'Technology', type: 'a', score: 50 },
-  { item: 'Technology', type: 'b', score: 40 },
-  { item: 'Support', type: 'a', score: 30 },
-  { item: 'Support', type: 'b', score: 40 },
-  { item: 'Sales', type: 'a', score: 60 },
-  { item: 'Sales', type: 'b', score: 40 },
-  { item: 'UX', type: 'a', score: 50 },
-  { item: 'UX', type: 'b', score: 60 },
-];
 
-const chart = new Chart({
-  container: 'radar-container',
-  autoFit: true,
-});
+  // 线条
+  chart
+    .line()
+    .encode('x', 'language')
+    .encode('y', 'value')
+    .style({
+      stroke: '#1890ff',
+      lineWidth: 2
+    });
 
-chart.coordinate({ type: 'polar' });
+  // 数据点
+  chart
+    .point()
+    .encode('x', 'language')
+    .encode('y', 'value')
+    .encode('shape', 'circle')
+    .style({
+      fill: '#1890ff',
+      r: 6,  // 增大点的大小
+      stroke: '#fff',
+      lineWidth: 1,
+      fillOpacity: 1
+    });
 
-chart
-  .data(data)
-  .scale('x', { padding: 0.5, align: 0 })
-  .scale('y', { tickCount: 5 })
-  .axis('x', { grid: true })
-  .axis('y', { zIndex: 1, title: false });
+  // 7. 配置 tooltip
+  chart.interaction('tooltip', {
+    shared: true,
+    crosshairs: {
+      type: 'xy',
+      line: {
+        style: {
+          dash: [4, 4]
+        }
+      }
+    },
+    domStyles: {
+      'g2-tooltip': {
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        padding: '8px',
+        fontSize: '12px',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+      }
+    }
+  });
 
-chart
-  .area()
-  .encode('x', 'item')
-  .encode('y', 'score')
-  .encode('color', 'type')
-  .encode('shape', 'smooth')
-  .style('fillOpacity', 0.5)
-  .scale('y', { domainMax: 80 });
+  // 8. 渲染图表
+  chart.render();
 
-chart
-  .line()
-  .encode('x', 'item')
-  .encode('y', 'score')
-  .encode('color', 'type')
-  .encode('shape', 'smooth')
-  .style('lineWidth', 2);
+  // 9. 添加自适应处理
+  const handleResize = () => {
+    chart.forceFit();
+  };
+  window.addEventListener('resize', handleResize);
 
-chart.interaction('tooltip', { crosshairsLineDash: [4, 4] });
-
-chart.render();
-}
+  return () => {
+    window.removeEventListener('resize', handleResize);
+    chart.destroy();
+  };
+};
 
 const renderRankItem = ()=>{
   const chart = new Chart({
     container: 'rank-item' ,
-    height: 442, // 设置高度
+    height: 442,
   });
 
 chart
   .interval()
   .data([
-    { genre: 'Total Stars', sold: rankResult.value?.data?.starScore},
-    { genre: 'Total Commits', sold: rankResult.value?.data?.commitScore },
-    { genre: 'Total Followers', sold:  rankResult.value?.data?.followerScore  },
-    { genre: 'Total PRs', sold:  rankResult.value?.data?.prScore},
-    { genre: 'Total Reviews', sold:  rankResult.value?.data?.reviewScore},
-    { genre: 'Contribute to', sold:  rankResult.value?.data?.contributeTo },
+    { genre: 'Total Stars', score: rankResult.value?.data?.starScore},
+    { genre: 'Total Commits', score: rankResult.value?.data?.commitScore },
+    { genre: 'Total Followers', score: rankResult.value?.data?.followerScore  },
+    { genre: 'Total PRs', score: rankResult.value?.data?.prScore},
+    { genre: 'Total Reviews', score: rankResult.value?.data?.reviewScore},
+    { genre: 'Contribute to', score: rankResult.value?.data?.contributeTo },
   ])
   .encode('x', 'genre')
-  .encode('y', 'sold')
+  .encode('y', 'score')
   .encode('color', 'genre')
   .axis('x', { label: null })
   .style('minHeight', 50);
@@ -409,6 +390,28 @@ watch(()=>chartReady.value,(newVal)=>{
   }
 
 })
+
+// 监听数据变化
+watch(() => chartReady.value, (newVal) => {
+  if (newVal && languageResult.value) {
+    console.log("开始渲染雷达图");
+    console.log("语言数据:", languageResult.value);
+    const cleanup = startRender();
+    if (cleanup) {
+      cleanupChart = cleanup;
+    }
+    renderShape();
+    renderRankItem();
+    loading.value = false;
+  }
+});
+
+// 组件卸载时清理
+onUnmounted(() => {
+  if (typeof cleanupChart === 'function') {
+    cleanupChart();
+  }
+});
 </script>
 
 <style scoped>
@@ -432,17 +435,40 @@ watch(()=>chartReady.value,(newVal)=>{
   height: 200px;
 }
 
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #666;
+  font-size: 14px;
+}
+
+.level .el-icon {
+  font-size: 16px;
+}
+
+/* 移除之前的一些可能冲突的样式 */
+.name, .score, .rank, .level {
+  line-height: normal;
+}
+
 .userInfo span {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
+  margin: 5px 0;
 }
 
 .userInfo .name {
   font-weight: 500;
   font-size: 18px;
-  height: 50px;
 }
+
 .name,.score,.rank,.nation{
   line-height: 50px;
 }
@@ -457,24 +483,15 @@ watch(()=>chartReady.value,(newVal)=>{
   background-color: #49c123;
 }
 
+
 .rank, .nation {
   width: 40px;
   border-radius: 20%;
   line-height: 50px;
-}
-
-.field {
-  width: 100%;
-  height: 20px;
-  font-size: 15px;
-  border-radius: 20%;
-  line-height: 20px;
-  font-weight: 900;
-}
-
-.nation,.field {
-  width: 100%;
-  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;  /* Reduce this value to bring elements closer together */
 }
 
 #container {
