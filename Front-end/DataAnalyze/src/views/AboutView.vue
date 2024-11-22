@@ -35,19 +35,17 @@
           <div class="search-type">
             <div class="item-label">开发者领域</div>
             <el-radio-group v-model="selectedField" @change="handleFieldChange" class="radio-group">
-              <div class="radio-row">
-                <el-radio
-                  v-for="(item, index) in fields"
-                  :key="item"
-                  :label="item"
-                  class="radio-item"
-                >
-                  <div class="radio-content">
-                    <span class="radio-text">{{ item }}</span>
-                    <el-icon v-if="selectedField === item" class="check-icon"><Check /></el-icon>
-                  </div>
-                </el-radio>
-              </div>
+              <el-radio
+                v-for="item in fields"
+                :key="item"
+                :label="item"
+                class="radio-item"
+              >
+                <div class="radio-content">
+                  <span class="radio-text">{{ item }}</span>
+                  <el-icon v-if="selectedField === item" class="check-icon"><Check /></el-icon>
+                </div>
+              </el-radio>
             </el-radio-group>
           </div>
 <!--           <div class="search-type">-->
@@ -311,20 +309,19 @@ const handleSearch = () => {
 </script>
 <style scoped>
 .radio-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-top: 12px;
   width: 100%;
-}
-
-.radio-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
 }
 
 .radio-item {
   margin: 0 !important;
   padding: 0 !important;
   height: auto !important;
+  width: calc(50% - 6px) !important;
 }
 
 .radio-item :deep(.el-radio__label) {
@@ -333,7 +330,7 @@ const handleSearch = () => {
 }
 
 .radio-content {
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-radius: 8px;
   background-color: var(--el-fill-color-light);
   transition: all 0.2s ease;
@@ -343,10 +340,16 @@ const handleSearch = () => {
   justify-content: space-between;
   align-items: center;
   border: 1px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .radio-text {
-  color: var(--el-text-color-regular);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 8px;
 }
 
 .check-icon {
@@ -388,7 +391,7 @@ const handleSearch = () => {
   height: 64px;
 }
 .left{
-  width: 200px;
+  width: 300px;
   height: calc(100% - 120px);
   margin: 20px;
 }
