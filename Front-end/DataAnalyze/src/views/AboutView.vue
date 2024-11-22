@@ -133,14 +133,29 @@ let userData = reactive({
 })
 
 
- onMounted(()=>{
-    searchName.value = useRoute().query.username
-    getfuzzySearch(searchName.value)
-    api.getDeveloperFields().then(res=>{
-      console.log("返回的领域",res.data.data)
-      fields.value = res.data.data
-    })
+ onMounted(() => {
+  // 从路由中获取 username
+  const routeUsername = route.query.username
+  
+  // 只有当 username 存在时才进行搜索
+  if (routeUsername) {
+    searchName.value = routeUsername
+    getfuzzySearch(routeUsername)
+  } else {
+    // 如果没有 username，则执行默认的开发者列表查询
+    handleSearch()
+  }
+
+  // 获取开发者领域
+  api.getDeveloperFields().then(res => {
+    fields.value = res.data.data
+  }).catch(error => {
+    console.error('获取开发者领域失败:', error)
   })
+})
+
+
+
    // 更新 URL 中的 username 参数
    const updateUsername = () => {
       router.replace({
@@ -233,6 +248,7 @@ const handleFieldChange = async (newField) => {
 const selectedNations = reactive({}) // 于存储选中状态
 
 const handleSearch = () => {
+
   // 这里调用您的搜索 API，传入搜索关键词和选中的开发者类型
   console.log('选中的开发者类型:', selectedField.value)
   queryParams.field = selectedField.value
