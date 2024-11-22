@@ -1,2 +1,78 @@
 24-11-22.00:00:00.783 [http-nio-8080-exec-3] INFO  LoggingAspect          - 方法GitHubController.getGithubDevelopers(..)执行时间为0.536秒
 24-11-22.00:00:03.650 [http-nio-8080-exec-4] INFO  LoggingAspect          - 方法GitHubController.getGithubDevelopers(..)执行时间为0.557秒
+24-11-22.00:09:18.380 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-22.00:09:18.378 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 38844 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-22.00:09:18.381 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-22.00:09:19.672 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-22.00:09:19.674 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-22.00:09:19.733 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 0 Redis repository interfaces.
+24-11-22.00:09:19.839 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-22.00:09:20.584 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-22.00:09:20.594 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-22.00:09:20.594 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-22.00:09:20.595 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-22.00:09:20.789 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-22.00:09:20.789 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2356 ms
+24-11-22.00:09:21.172 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-22.00:09:21.189 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-22.00:09:21.323 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-22.00:09:21.328 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-22.00:09:21.542 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-22.00:09:21.542 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-22.00:09:21.576 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-22.00:09:21.576 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-22.00:09:22.290 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-22.00:09:22.834 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-22.00:09:22.940 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-22.00:09:23.776 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-22.00:09:24.726 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-22.00:09:25.300 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-22.00:09:26.757 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-22.00:09:26.911 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-22.00:09:26.925 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-22.00:09:26.944 [main            ] INFO  Application            - Started Application in 9.098 seconds (JVM running for 10.362)
+24-11-22.00:09:28.270 [RMI TCP Connection(3)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-22.00:09:28.280 [RMI TCP Connection(2)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-22.00:09:28.280 [RMI TCP Connection(2)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-22.00:09:28.285 [RMI TCP Connection(2)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 4 ms
+24-11-22.00:09:28.323 [RMI TCP Connection(3)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#64440065:0/SimpleConnection@27dae1ae [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 6746]
+24-11-22.00:56:24.278 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m58s862ms399µs100ns).
+24-11-22.01:06:55.238 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m965ms894µs400ns).
+24-11-22.01:09:03.288 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+24-11-22.01:09:04.043 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+24-11-22.07:29:44.519 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on LAPTOP-JSOKR72D with PID 20048 (D:\qiniu-collector\collector\collector-app\target\classes started by 13928 in D:\qiniu-collector\collector)
+24-11-22.07:29:44.522 [main            ] INFO  Application            - The following 1 profile is active: "prod"
+24-11-22.07:29:44.524 [background-preinit] INFO  Version                - HV000001: Hibernate Validator 6.2.5.Final
+24-11-22.07:29:45.654 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+24-11-22.07:29:45.656 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+24-11-22.07:29:45.705 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 0 Redis repository interfaces.
+24-11-22.07:29:45.790 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[com.sdwu.config]' package. Please check your configuration.
+24-11-22.07:29:46.413 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+24-11-22.07:29:46.421 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+24-11-22.07:29:46.422 [main            ] INFO  StandardService        - Starting service [Tomcat]
+24-11-22.07:29:46.422 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+24-11-22.07:29:46.577 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+24-11-22.07:29:46.577 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2015 ms
+24-11-22.07:29:46.899 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join properties config complete
+24-11-22.07:29:46.919 [main            ] INFO  MybatisPlusJoinAutoConfiguration - mybatis plus join SqlInjector init
+24-11-22.07:29:47.029 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.FieldMappingPO".
+24-11-22.07:29:47.033 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.FieldMappingPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-22.07:29:47.189 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysRoleMenuPO".
+24-11-22.07:29:47.189 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysRoleMenuPO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-22.07:29:47.215 [main            ] WARN  TableInfoHelper        - Can not find table primary key in Class: "com.sdwu.infrastructure.persistent.po.SysUserRolePO".
+24-11-22.07:29:47.215 [main            ] WARN  MPJSqlInjector         - class com.sdwu.infrastructure.persistent.po.SysUserRolePO ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+24-11-22.07:29:47.800 [main            ] INFO  Version                - Redisson 3.17.4
+24-11-22.07:29:48.254 [redisson-netty-2-9] INFO  MasterPubSubConnectionPool - 1 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-22.07:29:48.343 [redisson-netty-2-13] INFO  MasterConnectionPool   - 5 connections initialized for 106.54.234.202/106.54.234.202:6379
+24-11-22.07:29:49.052 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+24-11-22.07:29:49.541 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+24-11-22.07:29:49.951 [main            ] INFO  AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static final org.slf4j.Logger com.sdwu.types.aop.LoggingAspect.logger
+24-11-22.07:29:50.914 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+24-11-22.07:29:51.007 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+24-11-22.07:29:51.016 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+24-11-22.07:29:51.029 [main            ] INFO  Application            - Started Application in 6.931 seconds (JVM running for 8.295)
+24-11-22.07:29:51.433 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Attempting to connect to: [10.34.34.73:5672]
+24-11-22.07:29:51.436 [RMI TCP Connection(1)-10.40.75.142] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+24-11-22.07:29:51.436 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+24-11-22.07:29:51.439 [RMI TCP Connection(1)-10.40.75.142] INFO  DispatcherServlet      - Completed initialization in 2 ms
+24-11-22.07:29:51.480 [RMI TCP Connection(2)-10.40.75.142] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#1f7e52d1:0/SimpleConnection@55423b36 [delegate=amqp://rabbitmq@10.34.34.73:5672/, localPort= 4733]

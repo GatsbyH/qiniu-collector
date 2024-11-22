@@ -126,7 +126,7 @@ const router = useRouter()
 const selectedField = ref('') // 用于存储选中的值
 const languages = ['HTML','Python','JavaScript','Java','C++','PHP','C#','C']
 let userData = reactive({
-  data:[{}]
+  data:[]
 })
 
 
